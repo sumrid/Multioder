@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "532989637878",
+    "firebase_url": "https://multioder-g05.firebaseio.com",
+    "project_id": "multioder-g05",
+    "storage_bucket": "multioder-g05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532989637878:android:0ae01ffb89323bdf",
+        "android_client_info": {
+          "package_name": "com.g05.itkmitl.multioder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532989637878-k7s0iam4p71onmol9oofh7t81mvgq5uf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD6hXKaDHmv7zEs30bMX8aiBWP6wgdcuA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
