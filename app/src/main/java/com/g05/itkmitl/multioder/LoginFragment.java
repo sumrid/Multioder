@@ -12,12 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.g05.itkmitl.multioder.food.FoodListFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
-import org.w3c.dom.Text;
 
 public class LoginFragment extends Fragment {
     @Nullable
@@ -102,7 +101,7 @@ public class LoginFragment extends Fragment {
     void goToMenu() {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_view, new RegisterFragment()) // FIX FIX FIX FIX FIX !!!
+                .replace(R.id.main_view, new FoodListFragment())
                 .addToBackStack(null).commit();
     }
 }
