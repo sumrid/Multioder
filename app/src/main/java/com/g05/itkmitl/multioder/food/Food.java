@@ -4,11 +4,13 @@ public class Food {
     String name;
     String description;
     double price;
+    String url;
 
-    public Food(String name, String description, double price) {
+    public Food(String name, String description, double price, String url) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.url = url;
     }
 
     public Food(){
@@ -37,5 +39,13 @@ public class Food {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

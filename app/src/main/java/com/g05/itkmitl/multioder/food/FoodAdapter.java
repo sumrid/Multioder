@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.g05.itkmitl.multioder.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class FoodAdapter extends ArrayAdapter<Food> {
@@ -19,6 +21,7 @@ public class FoodAdapter extends ArrayAdapter<Food> {
 
     TextView foodName;
     TextView foodPrice;
+    TextView foodDescrip;
     ImageView foodImage;
 
     public FoodAdapter(@NonNull Context context, int resource, @NonNull List<Food> objects) {
@@ -35,12 +38,16 @@ public class FoodAdapter extends ArrayAdapter<Food> {
                 .inflate(R.layout.fragment_food_item, parent, false);
 
         foodName = foodListView.findViewById(R.id.food_item_name);
+        foodDescrip = foodListView.findViewById(R.id.food_item_description);
         foodPrice = foodListView.findViewById(R.id.food_item_price);
         foodImage = foodListView.findViewById(R.id.food_item_image);
 
         Food food = foods.get(position);
         foodName.setText(food.getName());
+        foodDescrip.setText(food.getDescription());
         foodPrice.setText(food.getPrice()+"");
+
+        Picasso.get().load(food.getUrl()).resize(300,300).centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(foodImage);
 
         return foodListView;
     }
