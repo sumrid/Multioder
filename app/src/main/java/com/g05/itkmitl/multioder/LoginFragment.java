@@ -41,7 +41,7 @@ public class LoginFragment extends Fragment {
     }
 
     void initregisterLink() {
-        TextView registerLink = getView().findViewById(R.id.registerLink);
+        TextView registerLink = getView().findViewById(R.id.register);
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,12 +54,12 @@ public class LoginFragment extends Fragment {
     }
 
     void initloginBtn() {
-        Button loginBtn = getView().findViewById(R.id.loginBtn);
+        Button loginBtn = getView().findViewById(R.id.button_login);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText emailLogin = getView().findViewById(R.id.email_login);
-                EditText passwordLogin = getView().findViewById(R.id.password_login);
+                EditText emailLogin = getView().findViewById(R.id.username);
+                EditText passwordLogin = getView().findViewById(R.id.password);
 
                 String emailStr = emailLogin.getText().toString();
                 String passwordStr = passwordLogin.getText().toString();

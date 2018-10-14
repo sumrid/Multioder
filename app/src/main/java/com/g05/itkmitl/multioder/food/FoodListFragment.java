@@ -15,13 +15,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.g05.itkmitl.multioder.LoginFragment;
 import com.g05.itkmitl.multioder.MainActivity;
 import com.g05.itkmitl.multioder.R;
+import com.g05.itkmitl.multioder.RegisterFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -64,12 +67,25 @@ public class FoodListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         testUpload(); // for test !!!
+        initLogout(); // for test !!!
         setFoods();
         loadFoodData();
         foodList = getView().findViewById(R.id.food_list);
         foodAdapter = new FoodAdapter(getActivity(), R.layout.fragment_food_item, foods);
         foodList.setAdapter(foodAdapter);
         foods.clear();
+    }
+
+    private void initLogout(){
+        Button logoutBtn = getActivity().findViewById(R.id.logout_test);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
     }
 
     // TEST DATA !!! //
