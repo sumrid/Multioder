@@ -47,7 +47,7 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         foodDescrip.setText(food.getDescription());
         foodPrice.setText(food.getPrice()+"");
 
-        Picasso.get().load(food.getUrl()).resize(300,300).centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(foodImage);
+        Picasso.get().load(food.getUrl()).fit().centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(foodImage);
 
         return foodListView;
     }

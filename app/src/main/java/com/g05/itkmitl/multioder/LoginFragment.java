@@ -3,6 +3,7 @@ package com.g05.itkmitl.multioder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,6 +92,8 @@ public class LoginFragment extends Fragment {
     void checkVerified() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+            BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.navigation_button);
+            bottomNavigationView.setVisibility(View.VISIBLE);
             goToMenu();
         } else {
             firebaseAuth.signOut();

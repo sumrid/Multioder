@@ -6,11 +6,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.internal.BottomNavigationMenu;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,6 +38,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import retrofit2.http.Url;
@@ -73,7 +78,19 @@ public class FoodListFragment extends Fragment {
         foodList = getView().findViewById(R.id.food_list);
         foodAdapter = new FoodAdapter(getActivity(), R.layout.fragment_food_item, foods);
         foodList.setAdapter(foodAdapter);
+        initOnClickItem();
         foods.clear();
+    }
+
+    private void initOnClickItem(){
+        foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), FoodDetailActivity.class);
+                intent.putExtra("food", foods.get(position));
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
     private void initLogout(){
@@ -83,7 +100,10 @@ public class FoodListFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
-                getActivity().getSupportFragmentManager().popBackStack();
+                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.navigation_button);
+                bottomNavigationView.setVisibility(View.GONE);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_view, new LoginFragment()).commit();
             }
         });
     }

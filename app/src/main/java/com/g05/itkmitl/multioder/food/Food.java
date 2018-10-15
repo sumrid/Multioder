@@ -1,10 +1,12 @@
 package com.g05.itkmitl.multioder.food;
 
-public class Food {
-    String name;
-    String description;
-    double price;
-    String url;
+import java.io.Serializable;
+
+public class Food implements Serializable {
+    private String name;
+    private String description;
+    private double price;
+    private String url;
 
     public Food(String name, String description, double price, String url) {
         this.name = name;

@@ -1,5 +1,6 @@
 package com.g05.itkmitl.multioder;
 
+import android.arch.lifecycle.HolderFragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView = findViewById(R.id.navigation_button);
 
+        // check current user
         if(haveCurrentUser()){
             if(savedInstanceState == null) {
                 changeFragment(new FoodListFragment());
@@ -33,10 +35,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        // onItemSelected
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Toast.makeText(getBaseContext(), item+"", Toast.LENGTH_SHORT).show();
+                switch (item.getItemId()){
+                    case R.id.navigation_home:
+                        changeFragment(new FoodListFragment());
+                        break;
+                    case R.id.navigation_cart:
+                        changeFragment(new CartFragment()); break;
+                    case R.id.navigation_account:
+//                        changeFragment();
+                        break;
+                }
                 return true;
             }
         });
