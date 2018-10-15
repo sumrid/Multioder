@@ -15,45 +15,46 @@
         android:paddingRight="16dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:gravity="center"
+            android:layout_width="346dp"
+            android:layout_height="392dp"
             android:layout_centerInParent="true"
-            android:background="#ffffffff">
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="#ffffffff"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login_title"
-                android:textSize="24sp"
-                android:textColor="#ff3eaff9"
-                android:layout_marginBottom="16dp"/>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="327dp"
+                android:layout_height="75dp"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
                 android:id="@+id/username"
-                android:hint="@string/username_title"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username_title"
+                android:padding="16dp" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
                 android:id="@+id/password"
-                android:inputType="textPassword"
-                android:hint="@string/password_title"/>
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/password_title"
+                android:inputType="textPassword"
+                android:padding="16dp" />
+
+            <Button
                 android:id="@+id/button_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:background="#ff3eaff9"
-                android:textColor="#ffffff"
                 android:text="@string/button_login"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp"/>
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
