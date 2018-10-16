@@ -32,11 +32,11 @@
                 android:layout_marginBottom="16dp"/>
 
             <EditText
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:id="@+id/username"
-                android:hint="@string/username_title"/>
+                android:hint="Email"
+                android:padding="16dp" />
 
             <EditText
                 android:layout_width="match_parent"
