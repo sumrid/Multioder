@@ -17,10 +17,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterFragment extends Fragment {
     @Nullable
@@ -81,25 +83,27 @@ public class RegisterFragment extends Fragment {
 
     private void createAccount(String email, String password, final String phone, final String address, final String name) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(getActivity(),"Please wait...", Toast.LENGTH_LONG).show();
                     User user = new User(name, phone, address);
-                    FirebaseDatabase.getInstance().getReference("Users")
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(getActivity(),"Register Complete", Toast.LENGTH_LONG).show();
-                                goToLoginFragment();
-                            }else{
-                                Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                    firestore.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser()
+                    .getUid()).set(user)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(getActivity(),"Register Complete", Toast.LENGTH_LONG).show();
+                                        goToLoginFragment();
+                                    }else{
+                                        Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
                 }
             }
         });
