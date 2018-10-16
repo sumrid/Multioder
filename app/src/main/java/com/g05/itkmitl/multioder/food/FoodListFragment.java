@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.LoginFragment;
 import com.g05.itkmitl.multioder.MainActivity;
+import com.g05.itkmitl.multioder.ProfileFragment;
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.RegisterFragment;
 import com.google.android.gms.tasks.Continuation;
@@ -73,6 +74,7 @@ public class FoodListFragment extends Fragment {
 
         testUpload(); // for test !!!
         initLogout(); // for test !!!
+        initGotoProfile(); // TEST DELETE THIS !!
         setFoods();
         loadFoodData();
         foodList = getView().findViewById(R.id.food_list);
@@ -80,6 +82,19 @@ public class FoodListFragment extends Fragment {
         foodList.setAdapter(foodAdapter);
         initOnClickItem();
         foods.clear();
+    }
+
+    private void initGotoProfile() { // \\\\\\\\\TEST//////////
+        Button gotoProfile = getView().findViewById(R.id.gotoProfile);
+        gotoProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new ProfileFragment())
+                        .addToBackStack(null).commit();
+            }
+        });
     }
 
     private void initOnClickItem(){
