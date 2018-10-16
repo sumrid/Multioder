@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "532989637878-p0vo63lbe59s71sgahhkti0ek3bibhl1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.g05.itkmitl.multioder",
+            "certificate_hash": "87ee968e66188a8700bac0c2abd0c6af94419ffd"
+          }
+        },
+        {
           "client_id": "532989637878-k7s0iam4p71onmol9oofh7t81mvgq5uf.apps.googleusercontent.com",
           "client_type": 3
         }

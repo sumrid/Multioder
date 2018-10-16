@@ -84,22 +84,11 @@ public class LoginFragment extends Fragment {
         }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                checkVerified();
+                goToMenu();
             }
         });
     }
 
-    void checkVerified() {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser().isEmailVerified()) {
-            BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.navigation_button);
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            goToMenu();
-        } else {
-            firebaseAuth.signOut();
-            Toast.makeText(getActivity(), "Please verify your email", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     void goToMenu() {
         getActivity().getSupportFragmentManager()
