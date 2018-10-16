@@ -1,72 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#3ea8f9"
+        android:background="@drawable/testbg1"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:orientation="vertical"
-            android:padding="16dp"
+            android:layout_width="304dp"
+            android:layout_height="353dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="56dp"
+            android:background="#b9f6ca"
             android:gravity="center"
-            android:layout_centerInParent="true"
-            android:background="#ffffffff">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login_title"
-                android:textSize="24sp"
-                android:textColor="#ff3eaff9"
-                android:layout_marginBottom="16dp"/>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="327dp"
+                android:layout_height="75dp"
+                android:layout_alignStart="@+id/imageView"
+                app:srcCompat="@drawable/ic_outline_fastfood_24px"
+                android:padding="5dp"/>
 
             <EditText
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:hint="@string/username_title"
                 android:hint="Email"
                 android:padding="16dp" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
                 android:id="@+id/password"
-                android:inputType="textPassword"
-                android:hint="@string/password_title"/>
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/password_title"
+                android:inputType="textPassword"
+                android:padding="16dp" />
+
+            <Button
                 android:id="@+id/button_login"
-                android:background="#ff3eaff9"
-                android:textColor="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bottom_shape"
                 android:text="@string/button_login"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp"/>
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
         <TextView
+            android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/register"
-            android:text="@string/register"
-            android:textColor="#ffffff"
-            android:layout_centerInParent="true"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="16dp"/>
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="16dp"
+            android:text="@string/register"
+            android:textColor="#ffffff" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
