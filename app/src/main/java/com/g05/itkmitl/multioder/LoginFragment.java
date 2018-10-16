@@ -37,8 +37,20 @@ public class LoginFragment extends Fragment {
     void checkCurrentUser() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() != null) {
-            goToMenu();
+            initLogout();
         }
+    }
+    private void initLogout(){
+        Button logoutBtn = getActivity().findViewById(R.id.logout_test);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_view, new LoginFragment()).addToBackStack(null).commit();
+            }
+        });
     }
 
     void initregisterLink() {
@@ -69,6 +81,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(), "Please enter your informations", Toast.LENGTH_SHORT).show();
                 }else{
                     signIn(emailStr, passwordStr);
+                    Toast.makeText(getActivity(), "Please wait...", Toast.LENGTH_SHORT).show();
                 }
             }
         });

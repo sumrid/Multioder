@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.g05.itkmitl.multioder.food.FoodListFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -75,6 +76,7 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getActivity(), "Password is not match", Toast.LENGTH_SHORT).show();
                 }else{
                     createAccount(emailStr, passwordStr, phoneStr, addressStr, nameStr);
+                    Toast.makeText(getActivity(),"Please wait...", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -89,7 +91,6 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(getActivity(),"Please wait...", Toast.LENGTH_LONG).show();
                     User user = new User(name, phone, address);
                     firestore.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser()
                     .getUid()).set(user)
@@ -98,7 +99,7 @@ public class RegisterFragment extends Fragment {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
                                         Toast.makeText(getActivity(),"Register Complete", Toast.LENGTH_LONG).show();
-                                        goToLoginFragment();
+                                        goToList();
                                     }else{
                                         Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
@@ -107,6 +108,12 @@ public class RegisterFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void goToList() {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction().replace(R.id.main_view, new FoodListFragment())
+                .addToBackStack(null).commit();
     }
 
     private void goToLoginFragment() {
