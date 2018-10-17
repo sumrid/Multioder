@@ -115,10 +115,10 @@ public class FoodListFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
-                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.navigation_button);
-                bottomNavigationView.setVisibility(View.GONE);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_view, new LoginFragment()).commit();
+//                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.navigation_button);
+//                bottomNavigationView.setVisibility(View.GONE);
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.main_view, new LoginFragment()).commit();
             }
         });
     }
