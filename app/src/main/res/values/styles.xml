@@ -6,7 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textViewStyle">@style/MitrTextStyle</item>
+        <!--<item name="android:textViewStyle">@style/MitrTextStyle</item>-->
+        <item name="android:fontFamily">@font/mitr</item>
     </style>
 
 

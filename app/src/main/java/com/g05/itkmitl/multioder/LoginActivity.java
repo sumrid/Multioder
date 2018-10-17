@@ -22,7 +22,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        } else {
+            loginState();
+        }
 
         final EditText emailLogin = (EditText) findViewById(R.id.username);
         final EditText passwordLogin = (EditText) findViewById(R.id.password);
@@ -57,14 +61,19 @@ public class LoginActivity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                loginState();
             }
         });
     }
 
 
-
+    private void loginState() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if(auth.getCurrentUser() != null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
 
 
 }
