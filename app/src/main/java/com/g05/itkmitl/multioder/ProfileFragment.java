@@ -23,9 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileFragment extends Fragment {
 
-    private static final String FIRE_LOG = "Fire_log";
-    private FirebaseFirestore mFirestore;
-    private FirebaseAuth mAuth;
+    private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();;
 
     @Nullable
     @Override
@@ -36,12 +35,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFirestore = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+
         final EditText name = getView().findViewById(R.id.name_profile);
         final EditText address = getView().findViewById(R.id.address_profile);
         final EditText phone = getView().findViewById(R.id.phone_profile);
-
 
         mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -49,14 +46,10 @@ public class ProfileFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    String nameGet = documentSnapshot.getString("name");
-                    String addressGet = documentSnapshot.getString("address");
-                    String phoneGet = documentSnapshot.getString("phone");
-                    name.setText(nameGet);
-                    address.setText(addressGet);
-                    phone.setText(phoneGet);
+                    name.setText(documentSnapshot.getString("name"));
+                    address.setText(documentSnapshot.getString("address"));
+                    phone.setText(documentSnapshot.getString("phone"));
                 }else{
-                    Log.d(FIRE_LOG, "Error "+ task.getException().getMessage());
                 }
             }
         });
@@ -70,8 +63,42 @@ public class ProfileFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final EditText name = getView().findViewById(R.id.name_profile);
+                final EditText address = getView().findViewById(R.id.address_profile);
+                final EditText phone = getView().findViewById(R.id.phone_profile);
+
+                String nameStr = name.getText().toString();
+                String addressStr = address.getText().toString();
+                String phoneStr = phone.getText().toString();
+
+                if (nameStr.isEmpty() || addressStr.isEmpty() || phoneStr.isEmpty()){
+                    Toast.makeText(getActivity(),"Please enter your information", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getActivity(),"Working...", Toast.LENGTH_LONG).show();
+                    User user = new User(nameStr, phoneStr, addressStr);
+                    mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
+                            .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(getActivity(),"Saved Changes", Toast.LENGTH_LONG).show();
+                                refreshPage();
+                            }else{
+                                Toast.makeText(getActivity(),task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+
 
             }
         });
+    }
+
+    private void refreshPage() {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_view, new ProfileFragment())
+                .addToBackStack(null).commit();
     }
 }
