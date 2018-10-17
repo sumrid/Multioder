@@ -6,6 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/MitrTextStyle</item>
     </style>
+
+
+
+    <style name="MitrTextStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/mitr</item>
+    </style>
+
 
 </resources>
