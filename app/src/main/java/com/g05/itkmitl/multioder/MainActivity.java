@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.food.FoodListFragment;
+import com.g05.itkmitl.multioder.restaurant.RestaurantFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         // check current user
         if(haveCurrentUser()){
             if(savedInstanceState == null) {
-                changeFragment(new FoodListFragment());
+                changeFragment(new RestaurantFragment());
             }
         } else {
             if(savedInstanceState == null) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), item+"", Toast.LENGTH_SHORT).show();
                 switch (item.getItemId()){
                     case R.id.navigation_home:
-                        changeFragment(new FoodListFragment());
+                        changeFragment(new RestaurantFragment());
                         break;
                     case R.id.navigation_cart:
                         changeFragment(new CartFragment()); break;
