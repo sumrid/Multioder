@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.food.FoodListFragment;
+import com.g05.itkmitl.multioder.restaurant.RestaurantFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -48,7 +49,7 @@ public class LoginFragment extends Fragment {
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_view, new LoginFragment()).addToBackStack(null).commit();
+                        .replace(R.id.main_view, new LoginFragment()).commit();
             }
         });
     }
@@ -97,6 +98,8 @@ public class LoginFragment extends Fragment {
         }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
+                BottomNavigationView navigationView = getActivity().findViewById(R.id.navigation_button);
+                navigationView.setVisibility(View.VISIBLE);
                 goToMenu();
             }
         });
@@ -106,7 +109,7 @@ public class LoginFragment extends Fragment {
     void goToMenu() {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_view, new FoodListFragment())
+                .replace(R.id.main_view, new RestaurantFragment())
                 .addToBackStack(null).commit();
     }
 }

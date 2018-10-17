@@ -76,7 +76,7 @@ public class FoodListFragment extends Fragment {
         initLogout(); // for test !!!
         initGotoProfile(); // TEST DELETE THIS !!
         setFoods();
-        loadFoodData();
+        loadFoodData(getRestaurantName());
         foodList = getView().findViewById(R.id.food_list);
         foodAdapter = new FoodAdapter(getActivity(), R.layout.fragment_food_item, foods);
         foodList.setAdapter(foodAdapter);
@@ -139,8 +139,10 @@ public class FoodListFragment extends Fragment {
 //        }
     }
 
-    private void loadFoodData() {
-        firebaseFirestore.collection("food")
+    private void loadFoodData(String restaurantName) {
+        firebaseFirestore.collection("restaurant")
+                .document(restaurantName)
+                .collection("food")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
@@ -222,5 +224,13 @@ public class FoodListFragment extends Fragment {
             imageUri = data.getData();
             Toast.makeText(this.getContext(), imageUri + "", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private String getRestaurantName(){
+        Bundle bundle =  getArguments();
+        if(bundle != null){
+            return bundle.getString("restaurant");
+        }
+        return "null";
     }
 }

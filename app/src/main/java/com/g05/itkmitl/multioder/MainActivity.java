@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.food.FoodListFragment;
+import com.g05.itkmitl.multioder.restaurant.RestaurantFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(getBaseContext(), item+"", Toast.LENGTH_SHORT).show();
                 switch (item.getItemId()){
                     case R.id.navigation_home:
-                        changeFragment(new FoodListFragment());
+                        changeFragment(new RestaurantFragment());
                         break;
                     case R.id.navigation_cart:
                         changeFragment(new CartFragment()); break;
