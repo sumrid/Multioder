@@ -7,6 +7,7 @@ public class Food implements Serializable {
     private String description;
     private double price;
     private String url;
+    private String key;
 
     public Food(String name, String description, double price, String url) {
         this.name = name;
@@ -49,5 +50,13 @@ public class Food implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

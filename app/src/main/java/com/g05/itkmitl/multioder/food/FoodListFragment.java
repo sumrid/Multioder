@@ -128,8 +128,8 @@ public class FoodListFragment extends Fragment {
         Log.d("Test Data", foods.size() + " in set data");
 
 //        for(Food food : foods){
-//            firebaseFirestore.collection("food")
-//                    .document(food.getName())
+//            firebaseFirestore.collection("restaurant")
+//                    .document("name")
 //                    .set(food).addOnSuccessListener(new OnSuccessListener<Void>() {
 //                @Override
 //                public void onSuccess(Void aVoid) {
@@ -148,9 +148,11 @@ public class FoodListFragment extends Fragment {
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
                         foods.clear();
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            foods.add(document.toObject(Food.class));
+                            Food food = document.toObject(Food.class);
+                            food.setKey(document.getId());
+                            foods.add(food);
+                            Log.d("Load Food Data", food.getKey());
                         }
-                        Log.d("Test Data", foods.size() + " in load data");
                         foodAdapter.notifyDataSetChanged();
                     }
                 });

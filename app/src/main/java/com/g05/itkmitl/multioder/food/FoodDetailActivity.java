@@ -1,6 +1,7 @@
 package com.g05.itkmitl.multioder.food;
 
 import android.support.design.internal.BottomNavigationMenuView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,9 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 public class FoodDetailActivity extends AppCompatActivity {
+    Food food;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +32,7 @@ public class FoodDetailActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Food Detail");
         }
 
-        Food food = (Food) getIntent().getSerializableExtra("food");
+        food = (Food) getIntent().getSerializableExtra("food");
         ImageView foodImage = findViewById(R.id.food_detail_image);
         TextView foodName = findViewById(R.id.food_detail_name);
         TextView foodDes = findViewById(R.id.food_detail_descrip);
@@ -44,6 +50,8 @@ public class FoodDetailActivity extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getBaseContext(), "Added", Toast.LENGTH_SHORT).show();
+                addFoodToCart();
                 finish();
             }
         });
@@ -55,5 +63,15 @@ public class FoodDetailActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addFoodToCart(){
+        food.setKey(System.currentTimeMillis()+"");
+        auth.getCurrentUser().getUid();
+        firebaseFirestore.collection("Users")
+                .document(auth.getCurrentUser().getUid())
+                .collection("cart")
+                .document(food.getKey())
+                .set(food);
     }
 }
