@@ -3,15 +3,15 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="หน้าหลัก" />
 
     <item
         android:id="@+id/navigation_cart"
         android:icon="@drawable/ic_cart"
-        android:title="Cart" />
+        android:title="ประวัติการสั่งซื้อ" />
 
     <item
         android:id="@+id/navigation_account"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="Account" />
+        android:title="บัญชีผู้ใช้" />
 </menu>
