@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String userAddress;
     String userPhone;
 
-
     void getUserData(){
         mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -157,9 +156,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_view);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if(f instanceof RestaurantFragment) {
             if (doubleBackToExitPressedOnce) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -167,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 return;
             }
-
             this.doubleBackToExitPressedOnce = true;
             Toast.makeText(this, "กด Back อีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show();
 
@@ -178,6 +177,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     doubleBackToExitPressedOnce=false;
                 }
             }, 2000);
+
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -223,6 +225,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_manage) {
             mAuth.signOut();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
 
@@ -243,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_view, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 }

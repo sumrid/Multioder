@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,7 +34,22 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText emailLogin = (EditText) findViewById(R.id.username);
         final EditText passwordLogin = (EditText) findViewById(R.id.password);
-        Button btnLogin = (Button) findViewById(R.id.button_login);
+        final Button btnLogin = (Button) findViewById(R.id.button_login);
+        final TextView register_link = (TextView) findViewById(R.id.register_link);
+        final ImageView appLogo = (ImageView) findViewById(R.id.app_logo);
+
+
+        Animation fromTop = AnimationUtils.loadAnimation(this, R.anim.fromtopdown);
+        Animation fromDown = AnimationUtils.loadAnimation(this, R.anim.fromdownup);
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
+
+
+        emailLogin.setAnimation(fadeIn);
+        passwordLogin.setAnimation(fadeIn);
+        appLogo.setAnimation(fromTop);
+        btnLogin.setAnimation(fromDown);
+        register_link.setAnimation(fadeIn);
+
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +85,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     private void loginState() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
