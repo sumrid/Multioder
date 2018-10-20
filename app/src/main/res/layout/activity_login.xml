@@ -1,76 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="25dp">
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="24dp"
+    android:paddingLeft="24dp"
+    android:background="#ffb74d">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/testbg1"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="50dp">
+    <!--#ffb74d-->
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="304dp"
-            android:layout_height="353dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="56dp"
-            android:background="#b9f6ca"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="327dp"
-                android:layout_height="75dp"
-                android:layout_alignStart="@+id/imageView"
-                android:padding="5dp"
-                app:srcCompat="@drawable/ic_outline_fastfood_24px" />
+                android:id="@+id/app_logo"
+                android:layout_width="214dp"
+                android:layout_height="190dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:padding="4dp"
+                android:src="@drawable/app_logo2" />
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="MultiOder App"-->
+                <!--android:textSize="24sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="#fff"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:paddingLeft="16dp"-->
+                <!--android:paddingRight="16dp"-->
+                <!--android:paddingTop="2dp"-->
+                <!--android:paddingBottom="16dp"/>-->
 
             <EditText
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username_title"
-                android:padding="16dp" />
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_login"
+                android:drawableRight="@drawable/ic_person_login"
+                android:drawablePadding="16dp"
+                android:ems="10"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColorHint="#fff3dd" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password_title"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_login"
+                android:drawableRight="@drawable/ic_password_login"
+                android:drawablePadding="16dp"
+                android:ems="10"
+                android:hint="password"
                 android:inputType="textPassword"
-                android:padding="16dp" />
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColorHint="#fff3dd" />
 
             <Button
                 android:id="@+id/button_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bottom_shape"
-                android:text="@string/button_login"
-                android:textColor="#ffffff"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_btn_login"
+                android:clickable="true"
+                android:padding="16dp"
+                android:text=" เข้าสู่ระบบ"
+                android:textAllCaps="false"
+                android:textColor="#f1b863"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/register_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="2dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="10dp"
+                android:text="@string/register"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="16dp"
-            android:text="@string/register"
-            android:textColor="#ffffff" />
 
-    </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+
+
+
+
+</LinearLayout>
