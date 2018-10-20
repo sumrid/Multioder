@@ -10,7 +10,9 @@
         <item name="android:fontFamily">@font/mitr</item>
     </style>
 
-
+    <style name="RegisterEditext" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">#f9d7db</item>
+    </style>
 
     <style name="MitrTextStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/mitr</item>

@@ -50,6 +50,14 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setAnimation(fromDown);
         register_link.setAnimation(fadeIn);
 
+        register_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
