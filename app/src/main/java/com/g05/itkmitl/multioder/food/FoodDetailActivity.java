@@ -1,7 +1,5 @@
 package com.g05.itkmitl.multioder.food;
 
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -66,12 +64,12 @@ public class FoodDetailActivity extends AppCompatActivity {
     }
 
     private void addFoodToCart(){
-        food.setKey(System.currentTimeMillis()+"");
+        food.setDeleteKey(System.currentTimeMillis()+"");
         auth.getCurrentUser().getUid();
         firebaseFirestore.collection("Users")
                 .document(auth.getCurrentUser().getUid())
                 .collection("cart")
-                .document(food.getKey())
+                .document(food.getDeleteKey())
                 .set(food);
     }
 }

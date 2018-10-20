@@ -6,9 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.internal.BottomNavigationMenu;
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,16 +16,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.g05.itkmitl.multioder.LoginFragment;
-import com.g05.itkmitl.multioder.MainActivity;
 import com.g05.itkmitl.multioder.ProfileFragment;
 import com.g05.itkmitl.multioder.R;
-import com.g05.itkmitl.multioder.RegisterFragment;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,10 +30,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-
-import retrofit2.http.Url;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -149,9 +137,9 @@ public class FoodListFragment extends Fragment {
                         foods.clear();
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                             Food food = document.toObject(Food.class);
-                            food.setKey(document.getId());
+                            food.setUid(document.getId());
                             foods.add(food);
-                            Log.d("Load Food Data", food.getKey());
+                            Log.d("Load Food Data", food.getUid());
                         }
                         foodAdapter.notifyDataSetChanged();
                     }
