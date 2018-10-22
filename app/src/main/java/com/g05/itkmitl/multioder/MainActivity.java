@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String userFullName;
     String userAddress;
     String userPhone;
+    User curUser;
 
     void getUserData(){
         mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
@@ -41,11 +43,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
+
                     DocumentSnapshot documentSnapshot = task.getResult();
                     userEmail = mAuth.getCurrentUser().getEmail();
                     userFullName = documentSnapshot.getString("name");
                     userAddress = documentSnapshot.getString("address");
                     userPhone = documentSnapshot.getString("phone");
+
+                    curUser = new User(userFullName,userPhone,userAddress);
 
                     TextView navName = (TextView) findViewById(R.id.nvName);
                     TextView navEmail = (TextView) findViewById(R.id.nvEmail);
@@ -210,19 +215,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getUserData();
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            changeFragment(new RestaurantFragment());
+        } else if (id == R.id.nav_list) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_cart) {
+            changeFragment(new CartFragment());
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            intent.putExtra("curUser", curUser);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_signout) {
             mAuth.signOut();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

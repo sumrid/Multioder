@@ -5,34 +5,30 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="ทดสอบเมนู1" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_navbar_home"
+            android:title="หน้าหลัก" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="ทดสอบเมนู2" />
+            android:id="@+id/nav_list"
+            android:icon="@drawable/ic_home"
+            android:title="รายการอาหาร" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="ทดสอบเมนู3" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="ออกจากระบบ" />
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_navbar_cart"
+            android:title="สินค้าในตะกร้า" />
     </group>
 
-    <!--<item android:title="Communicate">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="เมนู5" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="เมนู6" />-->
-        <!--</menu>-->
-    <!--</item>-->
+    <item android:title="บัญชีผู้ใช้งาน">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_setting_profile"
+                android:title="แก้ไขข้อมูลส่วนตัว" />
+            <item
+                android:id="@+id/nav_signout"
+                android:icon="@drawable/ic_signout"
+                android:title="ออกจากระบบ" />
+        </menu>
+    </item>
 
 </menu>

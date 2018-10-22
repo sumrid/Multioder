@@ -1,6 +1,8 @@
 package com.g05.itkmitl.multioder;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     public String name, phone, address;
     public User(){
 

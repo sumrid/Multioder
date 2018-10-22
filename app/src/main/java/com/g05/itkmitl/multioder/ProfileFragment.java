@@ -23,8 +23,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileFragment extends Fragment {
 
-    private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();;
+    private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
 
     @Nullable
     @Override
