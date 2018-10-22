@@ -22,6 +22,9 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".food.FoodDetailActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>
 
