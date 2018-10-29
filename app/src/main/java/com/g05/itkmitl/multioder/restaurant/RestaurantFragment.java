@@ -1,6 +1,7 @@
 package com.g05.itkmitl.multioder.restaurant;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.food.Food;
+import com.g05.itkmitl.multioder.food.FoodDetailActivity;
+import com.g05.itkmitl.multioder.food.FoodListActivity;
 import com.g05.itkmitl.multioder.food.FoodListFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -68,11 +71,15 @@ public class RestaurantFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("Test","onclick = " + restaurants.get(position).getName());
 
-                FoodListFragment fragment = new FoodListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("restaurant", restaurants.get(position).getName());
-                fragment.setArguments(bundle);
-                changeFragment(fragment);
+//                FoodListFragment fragment = new FoodListFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("restaurant", restaurants.get(position).getName());
+//                fragment.setArguments(bundle);
+//                changeFragment(fragment);
+
+                Intent intent = new Intent(getContext(), FoodListActivity.class);
+                intent.putExtra("restaurant", restaurants.get(position));
+                startActivity(intent);
             }
         });
     }

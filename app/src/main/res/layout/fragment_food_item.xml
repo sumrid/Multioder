@@ -1,49 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/food_item_image"
-        android:layout_width="160dp"
-        android:scaleType="center"
+
+    <RelativeLayout
+        android:id="@+id/view_foreground"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/one_pot_chorizo" />
+        android:background="@android:color/white"
+        android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingLeft="5dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/food_item_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/one_pot_chorizo" />
 
         <TextView
             android:id="@+id/food_item_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="Food Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textStyle="bold" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/food_item_image"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#535353"
+            tools:text="ผัดกระเพราไก่"
+            android:textSize="17dp" />
 
         <TextView
-            android:layout_weight="1"
             android:id="@+id/food_item_description"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:text="Food Desciption" />
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_item_name"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/food_item_image"
+            android:textColor="#a9a9a9"
+            android:maxLines="2"
+            tools:text="กระเพราไก่ไข่เยี้ยวหมา อร่อยๆ"
+            android:textSize="12dp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/food_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/food_item_image"
+            tools:text="500 บาท"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#f7af63"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/food_item_price"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Price"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_addcart"
+            android:drawableLeft="@drawable/dw_addcart"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@color/light_green_primary"
+            android:clickable="true"
+            android:paddingHorizontal="15dp"
+            android:text="cart"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+
+    </RelativeLayout>
+
+</FrameLayout>

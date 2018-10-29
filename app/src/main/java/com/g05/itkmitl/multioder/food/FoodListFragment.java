@@ -7,20 +7,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.g05.itkmitl.multioder.ProfileFragment;
 import com.g05.itkmitl.multioder.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -28,7 +28,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
@@ -45,6 +44,10 @@ public class FoodListFragment extends Fragment {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     Uri imageUri;
 
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
     public FoodListFragment() {
         // Required empty public constructor
     }
@@ -59,31 +62,30 @@ public class FoodListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        testUpload(); // for test !!!
-        initLogout(); // for test !!!
-        initGotoProfile(); // TEST DELETE THIS !!
         setFoods();
+
+        mRecyclerView = getView().findViewById(R.id.food_list);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new FoodAdapter(getActivity(),foods);
+        mRecyclerView.setAdapter(mAdapter);
+
         loadFoodData(getRestaurantName());
-        foodList = getView().findViewById(R.id.food_list);
-        foodAdapter = new FoodAdapter(getActivity(), R.layout.fragment_food_item, foods);
-        foodList.setAdapter(foodAdapter);
-        initOnClickItem();
-        foods.clear();
+//        initOnClickItem();
+
+
+//        testUpload(); // for test !!!
+//        setFoods();
+//        loadFoodData(getRestaurantName());
+//        foodList = getView().findViewById(R.id.food_list);
+//        foodAdapter = new FoodAdapter(getActivity(), R.layout.fragment_food_item, foods);
+//        foodList.setAdapter(foodAdapter);
+//        initOnClickItem();
+//        foods.clear();
     }
 
-    private void initGotoProfile() { // \\\\\\\\\TEST//////////
-        Button gotoProfile = getView().findViewById(R.id.gotoProfile);
-        gotoProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new ProfileFragment())
-                        .addToBackStack(null).commit();
-            }
-        });
-    }
+
 
     private void initOnClickItem(){
         foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,20 +98,6 @@ public class FoodListFragment extends Fragment {
         });
     }
 
-    private void initLogout(){
-        Button logoutBtn = getActivity().findViewById(R.id.logout_test);
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth auth = FirebaseAuth.getInstance();
-                auth.signOut();
-//                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.navigation_button);
-//                bottomNavigationView.setVisibility(View.GONE);
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.main_view, new LoginFragment()).commit();
-            }
-        });
-    }
 
     // TEST DATA !!! //
     private void setFoods() {
@@ -141,50 +129,52 @@ public class FoodListFragment extends Fragment {
                             foods.add(food);
                             Log.d("Load Food Data", food.getUid());
                         }
-                        foodAdapter.notifyDataSetChanged();
+
+                        if (mAdapter != null) mAdapter.notifyDataSetChanged();
+
                     }
                 });
     }
 
     // THIS FOR TEST UPLOAD !!! //
-    private void testUpload() {
-        // ปุ่มเลือกรูป
-        Button pickFile = getActivity().findViewById(R.id.pick_file);
-        pickFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // สร้างหน้าต่างเลือกรูป
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 1);
-            }
-        });
-
-        // ปุ่มอัพโหลด
-        final Button upload = getActivity().findViewById(R.id.upload_button);
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final String fileName = System.currentTimeMillis() + ".jpg";
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference("upload"); // << folder
-                StorageReference fileRef = storageRef.child(fileName); // << file name
-
-                // Upload image file //
-                fileRef.putFile(imageUri)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                testUri(fileName);
-                            }
-                        });
-            }
-        });
-
-        pickFile.setVisibility(View.GONE);
-        upload.setVisibility(View.GONE);
-    }
+//    private void testUpload() {
+//        // ปุ่มเลือกรูป
+//        Button pickFile = getActivity().findViewById(R.id.pick_file);
+//        pickFile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // สร้างหน้าต่างเลือกรูป
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(intent, 1);
+//            }
+//        });
+//
+//        // ปุ่มอัพโหลด
+//        final Button upload = getActivity().findViewById(R.id.upload_button);
+//        upload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                final String fileName = System.currentTimeMillis() + ".jpg";
+//                StorageReference storageRef = FirebaseStorage.getInstance().getReference("upload"); // << folder
+//                StorageReference fileRef = storageRef.child(fileName); // << file name
+//
+//                // Upload image file //
+//                fileRef.putFile(imageUri)
+//                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                            @Override
+//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                testUri(fileName);
+//                            }
+//                        });
+//            }
+//        });
+//
+//        pickFile.setVisibility(View.GONE);
+//        upload.setVisibility(View.GONE);
+//    }
 
     // THIS FOR TEST UPLOAD !!! //
     private void testUri(final String fileName){

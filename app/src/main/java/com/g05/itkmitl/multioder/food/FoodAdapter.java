@@ -1,54 +1,149 @@
 package com.g05.itkmitl.multioder.food;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
+import java.text.NumberFormat;
 import java.util.List;
 
-public class FoodAdapter extends ArrayAdapter<Food> {
-    List<Food> foods;
-    Context context;
+public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
+//    List<Food> foods;
+//    Context context;
+//
+//    TextView foodName;
+//    TextView foodPrice;
+//    TextView foodDescrip;
+//    ImageView foodImage;
+//
+//    public FoodAdapter(@NonNull Context context, int resource, @NonNull List<Food> objects) {
+//        super(context, resource, objects);
+//        this.foods = objects;
+//        this.context = context;
+//    }
+//
+//    @NonNull
+//    @Override
+//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//        View foodListView = LayoutInflater
+//                .from(context)
+//                .inflate(R.layout.fragment_food_item, parent, false);
+//
+//        foodName = foodListView.findViewById(R.id.food_item_name);
+//        foodDescrip = foodListView.findViewById(R.id.food_item_description);
+//        foodPrice = foodListView.findViewById(R.id.food_item_price);
+//        foodImage = foodListView.findViewById(R.id.food_item_image);
+//
+//
+//
+//        Food food = foods.get(position);
+//        foodName.setText(food.getName());
+//        foodDescrip.setText(food.getDescription());
+//        foodPrice.setText(String.format("%.0f บาท", food.getPrice()));
+//
+//        Picasso.get().load(food.getUrl()).fit().centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(foodImage);
+//
+//        return foodListView;
+//    }
 
-    TextView foodName;
-    TextView foodPrice;
-    TextView foodDescrip;
-    ImageView foodImage;
+    private List<Food> foods;
+    private Context mContext;
 
-    public FoodAdapter(@NonNull Context context, int resource, @NonNull List<Food> objects) {
-        super(context, resource, objects);
-        this.foods = objects;
-        this.context = context;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView foodName;
+        public TextView foodDescrip;
+        public TextView foodPrice;
+        public ImageView foodImage;
+        private Button btnAddCart ;
+
+
+        public ViewHolder(View view) {
+            super(view);
+
+        foodName = (TextView) view.findViewById(R.id.food_item_name);
+        foodDescrip = (TextView) view.findViewById(R.id.food_item_description);
+        foodPrice = (TextView) view.findViewById(R.id.food_item_price);
+        foodImage = (ImageView) view.findViewById(R.id.food_item_image);
+        btnAddCart = (Button) view.findViewById(R.id.btn_addcart);
+
+        }
     }
 
-    @NonNull
+    public FoodAdapter(Context context, List<Food> dataset) {
+        foods = dataset;
+        mContext = context;
+    }
+
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View foodListView = LayoutInflater
-                .from(context)
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.fragment_food_item, parent, false);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
+    }
 
-        foodName = foodListView.findViewById(R.id.food_item_name);
-        foodDescrip = foodListView.findViewById(R.id.food_item_description);
-        foodPrice = foodListView.findViewById(R.id.food_item_price);
-        foodImage = foodListView.findViewById(R.id.food_item_image);
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder,int position) {
+        final Food selectFood = foods.get(position);
 
-        Food food = foods.get(position);
-        foodName.setText(food.getName());
-        foodDescrip.setText(food.getDescription());
-        foodPrice.setText(food.getPrice()+"");
+        viewHolder.foodName.setText(selectFood.getName());
+        viewHolder.foodDescrip.setText(selectFood.getDescription());
+        viewHolder.foodPrice.setText(String.format("%.0f บาท", selectFood.getPrice()));
+        Picasso.get().load(selectFood.getUrl()).fit().centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(viewHolder.foodImage);
 
-        Picasso.get().load(food.getUrl()).fit().centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(foodImage);
 
-        return foodListView;
+        viewHolder.btnAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFoodToCart(selectFood);
+                Toast.makeText(mContext, "Added", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(mContext, FoodDetailActivity.class);
+//                intent.putExtra("food", food);
+//                mContext.startActivity(intent);
+            }
+        });
+
+
+    }
+
+    private void addFoodToCart(Food foodToCart){
+        foodToCart.setDeleteKey(System.currentTimeMillis()+"");
+        auth.getCurrentUser().getUid();
+        firebaseFirestore.collection("Users")
+                .document(auth.getCurrentUser().getUid())
+                .collection("cart")
+                .document(foodToCart.getDeleteKey())
+                .set(foodToCart);
+    }
+
+    @Override
+    public int getItemCount() {
+        return foods.size();
     }
 }
