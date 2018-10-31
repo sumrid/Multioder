@@ -111,24 +111,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation_button);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Toast.makeText(getBaseContext(), item+"", Toast.LENGTH_SHORT).show();
-                switch (item.getItemId()){
-                    case R.id.navigation_home:
-                        changeFragment(new RestaurantFragment());
-                        break;
-                    case R.id.navigation_cart:
-                        changeFragment(new CartFragment()); break;
-                    case R.id.navigation_account:
-
-                        break;
-                }
-                return true;
-            }
-        });
+//        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation_button);
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                Toast.makeText(getBaseContext(), item+"", Toast.LENGTH_SHORT).show();
+//                switch (item.getItemId()){
+//                    case R.id.navigation_home:
+//                        changeFragment(new RestaurantFragment());
+//                        break;
+//                    case R.id.navigation_cart:
+//                        changeFragment(new CartFragment()); break;
+//                    case R.id.navigation_account:
+//
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
 
 
 //        -------------------------- ของเก่า ------------------------------------
@@ -242,7 +242,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-
         getUserData();
     }
 

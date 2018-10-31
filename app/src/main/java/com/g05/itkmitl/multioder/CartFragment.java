@@ -69,6 +69,8 @@ public class CartFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
+        getActivity().setTitle("ตะกร้า");
+
         swipeListView = getView().findViewById(R.id.cart_listView);
 
         total = 0;

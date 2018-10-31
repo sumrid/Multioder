@@ -44,6 +44,11 @@ public class RestaurantFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("รายชื่อร้านค้า");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

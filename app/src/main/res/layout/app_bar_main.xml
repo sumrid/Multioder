@@ -22,16 +22,16 @@
 
     <include layout="@layout/content_main" />
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navigation_button" />
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/navigation_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:background="?android:attr/windowBackground"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:menu="@menu/navigation_button" />-->
 
 
     <!--<android.support.design.widget.FloatingActionButton-->

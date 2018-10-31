@@ -19,20 +19,21 @@
 
     <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/cart_listView"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="345dp"
-        android:layout_below="@+id/cartsize_text">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/sumtotal_layout"
+        android:layout_below="@+id/cartsize_text"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white">
 
     </com.baoyz.swipemenulistview.SwipeMenuListView>
 
     <LinearLayout
         android:id="@+id/sumtotal_layout"
-        android:layout_width="1050px"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cart_listView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_above="@+id/button_confirm"
+        android:layout_alignParentEnd="true"
         android:background="@drawable/shadow_mat"
         android:paddingVertical="12dp"
         android:weightSum="5">
@@ -75,17 +76,14 @@
         android:id="@+id/button_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sumtotal_layout"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="25dp"
         android:background="#56d693"
         android:clickable="true"
         android:padding="15dp"
         android:text="ยืนยันการสั่งซื้อ"
         android:textAllCaps="false"
         android:textColor="#ffffff"
-        android:textSize="18sp" />
+        android:textSize="18dp" />
 
 </RelativeLayout>
