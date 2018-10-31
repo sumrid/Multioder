@@ -18,12 +18,22 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.g05.itkmitl.multioder.cart.CartItem;
+import com.g05.itkmitl.multioder.food.Food;
+import com.g05.itkmitl.multioder.notification.NotificationCountSetClass;
 import com.g05.itkmitl.multioder.restaurant.RestaurantFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
@@ -36,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String userAddress;
     String userPhone;
     User curUser;
+
+    public static int CountCart = 0;
 
     void getUserData(){
         mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
@@ -73,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         getUserData();
+        getCountCart();
         changeFragment(new RestaurantFragment());
-
 
 
 
@@ -195,6 +207,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Get the notifications MenuItem and
+        // its LayerDrawable (layer-list)
+        MenuItem item = menu.findItem(R.id.action_cart);
+        NotificationCountSetClass.setAddToCart(MainActivity.this, item,CountCart);
+        // force the ActionBar to relayout its MenuItems.
+        // onCreateOptionsMenu(Menu) will be called again.
+        invalidateOptionsMenu();
+        return super.onPrepareOptionsMenu(menu);
+    }
 
 
     @Override
@@ -267,5 +290,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.main_view, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void getCountCart() {
+        mFirestore.collection("Users")
+                .document(mAuth.getCurrentUser().getUid())
+                .collection("cart")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            CountCart++;
+                        }
+                    }
+                });
     }
 }

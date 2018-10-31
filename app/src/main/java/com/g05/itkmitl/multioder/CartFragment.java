@@ -46,7 +46,7 @@ import java.util.List;
 public class CartFragment extends Fragment {
     private ListView listView;
     private CartAdapter cartAdapter;
-    private TextView totalTextView, cartSizeText;
+    private TextView totalTextView,cartSizeText;
     private double total;
     private List<CartItem> cartItems;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -221,11 +221,12 @@ public class CartFragment extends Fragment {
 
     private void updateTotalPrice(double price) {
         totalTextView.setText("" + price);
-        cartSizeText.setText("คุณมีรายการอาหารในตะกร้าทั้งหมด " + getCartSize());
+        cartSizeText.setText("คุณมีรายการอาหารในตะกร้าทั้งหมด "+getCartSize());
+        MainActivity.CountCart = getCartSize();
         total = 0;
     }
 
-    private int getCartSize() {
+    public int getCartSize(){
         return cartItems.size();
     }
 }
