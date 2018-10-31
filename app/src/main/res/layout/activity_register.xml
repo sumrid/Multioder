@@ -26,7 +26,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:padding="4dp"
-                android:src="@drawable/app_logo2" />
+                android:src="@drawable/app_logo" />
 
             <!--<TextView-->
             <!--android:layout_width="wrap_content"-->

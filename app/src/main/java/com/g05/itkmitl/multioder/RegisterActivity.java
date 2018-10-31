@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,17 +65,10 @@ public class RegisterActivity extends AppCompatActivity {
         sigupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateName()) {
+                if (!validateName() || !validateEmail() || !validatePassword() || !validateRePassword()) {
                     return;
                 }
 
-                if (!validateEmail()) {
-                    return;
-                }
-
-                if (!validatePassword()) {
-                    return;
-                }
 
                 phoneStr = phoneReg.getText().toString();
                 addressStr = addressReg.getText().toString();
@@ -85,31 +81,30 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private void createAccount(String email, String password, final String phone, final String address, final String name) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    User user = new User(name, phone, address);
-                    firestore.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser()
-                            .getUid()).set(user)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
+            public void onSuccess(AuthResult authResult) {
+                                        mAuth.getCurrentUser();
+                                        mAuth.signOut();
                                         Toast.makeText(getApplicationContext(),"Register Complete", Toast.LENGTH_LONG).show();
                                         finish();
-                                    }else{
-                                        Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("RegisterResult", e.getMessage());
+                Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_LONG).show();
+
             }
         });
+
     }
+
+
 
 
 

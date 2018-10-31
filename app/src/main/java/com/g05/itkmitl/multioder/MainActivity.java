@@ -277,8 +277,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private boolean haveCurrentUser() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if(auth.getCurrentUser() != null){
+        if(mAuth.getCurrentUser() != null){
             return true;
         }
         return false;

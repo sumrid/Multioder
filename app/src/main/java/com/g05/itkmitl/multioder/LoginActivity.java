@@ -32,11 +32,15 @@ public class LoginActivity extends AppCompatActivity {
             loginState();
         }
 
+
+
+
         final EditText emailLogin = (EditText) findViewById(R.id.username);
         final EditText passwordLogin = (EditText) findViewById(R.id.password);
         final Button btnLogin = (Button) findViewById(R.id.button_login);
         final TextView register_link = (TextView) findViewById(R.id.register_link);
         final ImageView appLogo = (ImageView) findViewById(R.id.app_logo);
+
 
 
         Animation fromTop = AnimationUtils.loadAnimation(this, R.anim.fromtopdown);

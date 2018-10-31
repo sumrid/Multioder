@@ -22,12 +22,16 @@
 
             <ImageView
                 android:id="@+id/app_logo"
-                android:layout_width="214dp"
-                android:layout_height="190dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="214dp"
+                android:maxHeight="190dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="40dp"
                 android:padding="4dp"
-                android:src="@drawable/app_logo2" />
+                android:src="@drawable/app_logo" />
 
             <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
