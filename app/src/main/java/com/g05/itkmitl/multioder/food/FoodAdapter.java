@@ -24,13 +24,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.R;
+import com.g05.itkmitl.multioder.cart.CartItem;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
@@ -74,6 +80,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 
     private List<Food> foods;
     private Context mContext;
+    private ArrayList<CartItem> cartItems = new ArrayList<>();
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -83,17 +90,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         public TextView foodDescrip;
         public TextView foodPrice;
         public ImageView foodImage;
-        private Button btnAddCart ;
+        private Button btnAddCart;
 
 
         public ViewHolder(View view) {
             super(view);
 
-        foodName = (TextView) view.findViewById(R.id.food_item_name);
-        foodDescrip = (TextView) view.findViewById(R.id.food_item_description);
-        foodPrice = (TextView) view.findViewById(R.id.food_item_price);
-        foodImage = (ImageView) view.findViewById(R.id.food_item_image);
-        btnAddCart = (Button) view.findViewById(R.id.btn_addcart);
+            foodName = (TextView) view.findViewById(R.id.food_item_name);
+            foodDescrip = (TextView) view.findViewById(R.id.food_item_description);
+            foodPrice = (TextView) view.findViewById(R.id.food_item_price);
+            foodImage = (ImageView) view.findViewById(R.id.food_item_image);
+            btnAddCart = (Button) view.findViewById(R.id.btn_addcart);
 
         }
     }
@@ -113,7 +120,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder,int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
         final Food selectFood = foods.get(position);
 
         viewHolder.foodName.setText(selectFood.getName());
@@ -121,29 +128,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         viewHolder.foodPrice.setText(String.format("%.0f บาท", selectFood.getPrice()));
         Picasso.get().load(selectFood.getUrl()).fit().centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(viewHolder.foodImage);
 
-
+        loadCartItem();
         viewHolder.btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                addFoodToCart(selectFood);
                 showDialog(selectFood);
+//                addFoodToCart(selectFood);
 //                Intent intent = new Intent(mContext, FoodDetailActivity.class);
 //                intent.putExtra("food", food);
 //                mContext.startActivity(intent);
             }
         });
-
-
-    }
-
-    private void addFoodToCart(Food foodToCart){
-        foodToCart.setDeleteKey(System.currentTimeMillis()+"");
-        auth.getCurrentUser().getUid();
-        firebaseFirestore.collection("Users")
-                .document(auth.getCurrentUser().getUid())
-                .collection("cart")
-                .document(foodToCart.getDeleteKey())
-                .set(foodToCart);
     }
 
     @Override
@@ -151,7 +146,53 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         return foods.size();
     }
 
-    private void showDialog(final Food selectedFood){
+    private void addFoodToCart(Food foodToCart) {
+        boolean added = false;
+        int index = -1;
+        CartItem currentItem;
+
+        if (!cartItems.isEmpty()) {
+            for (CartItem item : cartItems) {
+                if (item.getUid().equals(foodToCart.getUid())) {
+                    added = true;
+                    index = cartItems.indexOf(item);
+                }
+            }
+            if (added) {
+                currentItem = cartItems.get(index);
+                currentItem.setAmount(currentItem.getAmount() + 1);
+            } else {
+                currentItem = new CartItem(foodToCart, 1);
+            }
+        } else {
+            currentItem = new CartItem(foodToCart, 1);
+        }
+
+        auth.getCurrentUser().getUid();
+        firebaseFirestore.collection("Users")
+                .document(auth.getCurrentUser().getUid())
+                .collection("cart")
+                .document(currentItem.getUid())
+                .set(currentItem);
+    }
+
+    private void loadCartItem() {
+        firebaseFirestore.collection("Users")
+                .document(auth.getCurrentUser().getUid())
+                .collection("cart")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        cartItems.clear();
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            cartItems.add(document.toObject(CartItem.class));
+                        }
+                    }
+                });
+        Log.d("FoodAdapter", "cart item size = " + cartItems.size());
+    }
+
+    private void showDialog(final Food selectedFood) {
         final EditText input = new EditText(mContext);
         input.setHint("เช่น เผ็ดน้อย, ไม่เอาผัก");
 
@@ -161,7 +202,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Add to Cart",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
                         String additional = input.getText().toString();
                         addFoodToCart(selectedFood);
                         Toast.makeText(mContext, "Added", Toast.LENGTH_SHORT).show();

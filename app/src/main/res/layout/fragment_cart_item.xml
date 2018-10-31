@@ -76,6 +76,7 @@
                 <!--android:textColor="#ffffff"-->
                 <!--android:textSize="15dp" />-->
             <ImageView
+                android:id="@+id/cart_item_reduce"
                 android:layout_width="30dp"
                 android:layout_height="25dp"
                 android:scaleType="centerCrop"
@@ -92,6 +93,7 @@
                 tools:text="15" />
 
             <ImageView
+                android:id="@+id/cart_item_add"
                 android:layout_width="30dp"
                 android:layout_height="25dp"
                 android:scaleType="centerCrop"

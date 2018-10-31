@@ -46,7 +46,7 @@ import java.util.List;
 public class CartFragment extends Fragment {
     private ListView listView;
     private CartAdapter cartAdapter;
-    private TextView totalTextView,cartSizeText;
+    private TextView totalTextView, cartSizeText;
     private double total;
     private List<CartItem> cartItems;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -84,8 +84,7 @@ public class CartFragment extends Fragment {
         getFoods();
 
         // set this for POP-UP menu when long click on item
-        registerForContextMenu(listView);
-
+//        registerForContextMenu(listView);
 
 
     }
@@ -126,7 +125,7 @@ public class CartFragment extends Fragment {
         });
     }
 
-        private void getFoods() {
+    private void getFoods() {
         firestore.collection("Users")
                 .document(auth.getCurrentUser().getUid())
                 .collection("cart")
@@ -135,7 +134,7 @@ public class CartFragment extends Fragment {
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
                         cartItems.clear();
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            addFoodToCartItem(document.toObject(Food.class));
+                            cartItems.add(document.toObject(CartItem.class));
                         }
                         cartAdapter.notifyDataSetChanged();
                         calculatePrice();
@@ -150,55 +149,68 @@ public class CartFragment extends Fragment {
         updateTotalPrice(total);
     }
 
-    private void addFoodToCartItem(Food food) {
-        boolean added = false;
-        int index = -1;
-        if (!cartItems.isEmpty()) {
-            for (CartItem item : cartItems) {
-                if (item.getUid().equals(food.getUid())) {
-                    added = true;
-                    index = cartItems.indexOf(item);
-                }
-            }
-            if (added) {
-                CartItem item = cartItems.get(index);
-                item.setAmount(item.getAmount() + 1);
-                item.addDeleteKey(food.getDeleteKey());
-            } else {
-                cartItems.add(new CartItem(food, 1));
-            }
-        } else {
-            cartItems.add(new CartItem(food, 1));
-        }
-    }
+//    private void addFoodToCartItem(Food food) {
+//        boolean added = false;
+//        int index = -1;
+//        if (!cartItems.isEmpty()) {
+//            for (CartItem item : cartItems) {
+//                if (item.getUid().equals(food.getUid())) {
+//                    added = true;
+//                    index = cartItems.indexOf(item);
+//                }
+//            }
+//            if (added) {
+//                CartItem item = cartItems.get(index);
+//                item.setAmount(item.getAmount() + 1);
+//            } else {
+//                cartItems.add(new CartItem(food, 1));
+//            }
+//        } else {
+//            cartItems.add(new CartItem(food, 1));
+//        }
+//    }
 
 
     /*************************************************************************************************************
      *   refer : https://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/
      */
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        menu.add(Menu.NONE, 1, 1, "ลดจำนวน");
-        menu.add(Menu.NONE, 2, 2, "Delete All");
-        Log.d("Context Menu", "cart item : " + info.id);
-    }
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+//        menu.add(Menu.NONE, 1, 1, "ลดจำนวน");
+//        menu.add(Menu.NONE, 2, 2, "Delete All");
+//        Log.d("Context Menu", "cart item : " + info.id);
+//    }
+//
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) {
+//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+//        Log.d("Context Menu", "Menu ID : " + item.getItemId() + " || Item : " + info.id);
+//        if (item.getItemId() == 1) deleteFood(info.id);
+//        else deleteAll(info.id);
+//        return true;
+//    }
+//
+//    private void deleteFood(long position) {
+//        CartItem item = cartItems.get((int) position);
+//        firestore.collection("Users")
+//                .document(auth.getCurrentUser().getUid())
+//                .collection("cart")
+//                .document(item.getDeleteKeys().get(0))
+//                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//                calculatePrice();
+//            }
+//        });
+//    }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Log.d("Context Menu", "Menu ID : " + item.getItemId() + " || Item : " + info.id);
-        if (item.getItemId() == 1) deleteFood(info.id);
-        else deleteAll(info.id);
-        return true;
-    }
-
-    private void deleteFood(long position) {
+    private void deleteAll(long position) {
         CartItem item = cartItems.get((int) position);
         firestore.collection("Users")
                 .document(auth.getCurrentUser().getUid())
                 .collection("cart")
-                .document(item.getDeleteKeys().get(0))
+                .document(item.getUid())
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -207,29 +219,13 @@ public class CartFragment extends Fragment {
         });
     }
 
-    private void deleteAll(long position) {
-        CartItem item = cartItems.get((int) position);
-        for (String key : item.getDeleteKeys()) {
-            firestore.collection("Users")
-                    .document(auth.getCurrentUser().getUid())
-                    .collection("cart")
-                    .document(key)
-                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    calculatePrice();
-                }
-            });
-        }
-    }
-
     private void updateTotalPrice(double price) {
         totalTextView.setText("" + price);
-        cartSizeText.setText("คุณมีรายการอาหารในตะกร้าทั้งหมด "+getCartSize());
+        cartSizeText.setText("คุณมีรายการอาหารในตะกร้าทั้งหมด " + getCartSize());
         total = 0;
     }
 
-    private int getCartSize(){
+    private int getCartSize() {
         return cartItems.size();
     }
 }

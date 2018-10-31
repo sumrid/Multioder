@@ -10,14 +10,16 @@ public class CartItem {
     private String uid;
     private int amount;
     private double total;
-    private List<String> deleteKeys = new ArrayList<>();
+    private String description;
 
     public CartItem(Food food, int amount) {
         this.food = food;
         this.uid = food.getUid();
         this.amount = amount;
-        this.total = food.getPrice()*amount;
-        this.deleteKeys.add(food.getDeleteKey());
+        this.total = food.getPrice() * amount;
+    }
+
+    public CartItem() {
     }
 
     public Food getFood() {
@@ -45,22 +47,18 @@ public class CartItem {
     }
 
     public double getTotal() {
-        return food.getPrice()*amount;
+        return food.getPrice() * amount;
     }
 
     public void setTotal(double total) {
         this.total = total;
     }
 
-    public List<String> getDeleteKeys() {
-        return deleteKeys;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDeleteKeys(List<String> deleteKeys) {
-        this.deleteKeys = deleteKeys;
-    }
-
-    public void addDeleteKey(String deleteKey){
-        this.deleteKeys.add(deleteKey);
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
