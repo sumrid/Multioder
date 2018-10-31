@@ -56,7 +56,6 @@ public class CartFragment extends Fragment {
     public CartFragment() {
         // Required empty public constructor
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -226,10 +225,11 @@ public class CartFragment extends Fragment {
     private void updateTotalPrice(double price) {
         totalTextView.setText("" + price);
         cartSizeText.setText("คุณมีรายการอาหารในตะกร้าทั้งหมด "+getCartSize());
+        MainActivity.CountCart = getCartSize();
         total = 0;
     }
 
-    private int getCartSize(){
+    public int getCartSize(){
         return cartItems.size();
     }
 }
