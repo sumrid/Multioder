@@ -125,7 +125,7 @@
 
                 <TextView
                     android:id="@+id/profile_email"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:textColor="#919191"
@@ -154,7 +154,7 @@
 
                 <EditText
                     android:id="@+id/profile_phone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:fontFamily="sans-serif-light"
@@ -184,7 +184,7 @@
 
                 <EditText
                     android:id="@+id/profile_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:fontFamily="sans-serif-light"
