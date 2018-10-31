@@ -1,31 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#f1f1f1"
+    android:paddingBottom="5dp"
     tools:context=".CartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/cartsize_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="My Cart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:background="#fac686"
+        android:padding="8dp"
+        tools:text="คุณมีรายการอาหารในตะกร้าทั้งหมด "
+        android:textColor="@color/white"
+        android:textSize="15dp" />
 
-    <ListView
+    <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/cart_listView"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="360dp">
+        android:layout_height="345dp"
+        android:layout_below="@+id/cartsize_text">
 
-    </ListView>
+    </com.baoyz.swipemenulistview.SwipeMenuListView>
 
-    <TextView
-        android:id="@+id/cart_total"
+    <LinearLayout
+        android:id="@+id/sumtotal_layout"
+        android:layout_width="1050px"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cart_listView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shadow_mat"
+        android:paddingVertical="12dp"
+        android:weightSum="5">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="ราคารวม"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/cart_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="right"
+            android:textSize="20dp"
+            tools:text="9000" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="บาท"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <!--<TextView-->
+        <!--android:id="@+id/cart_total"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="Total" />-->
+
+    <Button
+        android:id="@+id/button_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Total" />
+        android:layout_below="@+id/sumtotal_layout"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="25dp"
+        android:background="#56d693"
+        android:clickable="true"
+        android:padding="15dp"
+        android:text="ยืนยันการสั่งซื้อ"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
 
-</LinearLayout>
+</RelativeLayout>

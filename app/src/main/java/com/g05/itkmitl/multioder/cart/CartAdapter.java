@@ -39,8 +39,8 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
 
         CartItem item = cartItems.get(position);
         name.setText(item.getFood().getName());
-        amount.setText("จำนวน "+item.getAmount());
-        total.setText("รวม\n"+item.getTotal()+"\nBaht");
+        amount.setText(""+item.getAmount());
+        total.setText("฿ "+item.getTotal());
         Picasso.get().load(item.getFood().getUrl()).fit().centerCrop().into(imageView);
 
         return CartListView;

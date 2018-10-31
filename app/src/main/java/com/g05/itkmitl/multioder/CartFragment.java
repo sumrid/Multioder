@@ -1,6 +1,8 @@
 package com.g05.itkmitl.multioder;
 
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +13,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.g05.itkmitl.multioder.cart.CartAdapter;
 import com.g05.itkmitl.multioder.cart.CartItem;
 import com.g05.itkmitl.multioder.food.Food;
@@ -38,11 +46,12 @@ import java.util.List;
 public class CartFragment extends Fragment {
     private ListView listView;
     private CartAdapter cartAdapter;
-    private TextView totalTextView;
+    private TextView totalTextView,cartSizeText;
     private double total;
     private List<CartItem> cartItems;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private SwipeMenuListView swipeListView;
 
     public CartFragment() {
         // Required empty public constructor
@@ -59,20 +68,65 @@ public class CartFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
+        swipeListView = getView().findViewById(R.id.cart_listView);
+
         total = 0;
         cartItems = new ArrayList<>();
         totalTextView = getActivity().findViewById(R.id.cart_total);
+        cartSizeText = getActivity().findViewById(R.id.cartsize_text);
         listView = getActivity().findViewById(R.id.cart_listView);
         cartAdapter = new CartAdapter(getContext(), R.layout.fragment_cart_item, cartItems);
+
+        setSwipeListView();
+
         listView.setAdapter(cartAdapter);
         getFoods();
 
         // set this for POP-UP menu when long click on item
         registerForContextMenu(listView);
 
+
+
     }
 
-    private void getFoods() {
+
+    private void setSwipeListView() {
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());
+                // set item background
+                deleteItem.setBackground(new ColorDrawable(getResources().getColor(R.color.red_primary)));
+                // set item width
+                deleteItem.setWidth(170);
+                // set a icon
+                deleteItem.setIcon(R.drawable.ic_bin);
+                // set item title
+                deleteItem.setTitle("ลบ");
+                // set item title fontsize
+                deleteItem.setTitleSize(14);
+                // set item title font color
+                deleteItem.setTitleColor(getResources().getColor(R.color.white));
+                // add to menu
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
+        // set creator
+        swipeListView.setMenuCreator(creator);
+        swipeListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
+                deleteAll(position);
+                return false;
+            }
+        });
+    }
+
+        private void getFoods() {
         firestore.collection("Users")
                 .document(auth.getCurrentUser().getUid())
                 .collection("cart")
@@ -170,7 +224,12 @@ public class CartFragment extends Fragment {
     }
 
     private void updateTotalPrice(double price) {
-        totalTextView.setText("Total = " + price + " Baht");
+        totalTextView.setText("" + price);
+        cartSizeText.setText("คุณมีรายการอาหารในตะกร้าทั้งหมด "+getCartSize());
         total = 0;
+    }
+
+    private int getCartSize(){
+        return cartItems.size();
     }
 }

@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.navigation_cart:
                         changeFragment(new CartFragment()); break;
                     case R.id.navigation_account:
-//                        changeFragment();
+
                         break;
                 }
                 return true;

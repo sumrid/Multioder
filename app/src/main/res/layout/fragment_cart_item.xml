@@ -1,48 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/cart_item_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/cart_item_name"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/view_foreground"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:text="Name"
-        app:layout_constraintStart_toEndOf="@+id/cart_item_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@android:color/white"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/cart_item_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:text="amount"
-        app:layout_constraintStart_toEndOf="@+id/cart_item_name"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/cart_item_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/one_pot_chorizo" />
 
-    <TextView
-        android:id="@+id/cart_item_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:text="total"
-        app:layout_constraintStart_toEndOf="@+id/cart_item_amount"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/cart_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/cart_item_image"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#535353"
+            tools:text="ผัดกระเพราไก่"
+            android:textSize="17dp" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/food_item_description"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cart_item_name"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/cart_item_image"
+            android:textColor="#a9a9a9"
+            android:maxLines="2"
+            android:text="ไม่ใส่ถั่วฝักยาว พิเศษข้าว"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/food_item_description3"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_item_description"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/cart_item_image"
+            android:maxLines="2"
+            android:textColor="#a9a9a9"
+            android:textSize="12dp"
+            android:text="ร้าน 2 โรงอาหารคณะไอที" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cart_item_total"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+     >
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingHorizontal="5dp"-->
+                <!--android:text="-"-->
+                <!--android:background="@color/red_primary"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:textSize="15dp" />-->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_minus" />
+
+            <TextView
+                android:id="@+id/cart_item_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:textColor="#a9a9a9"
+                android:paddingHorizontal="10dp"
+                android:textSize="16dp"
+                tools:text="15" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_plus" />
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingHorizontal="5dp"-->
+                <!--android:background="@color/light_green_primary"-->
+                <!--android:text="+"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:textSize="15dp" />-->
+        </LinearLayout>
+
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/cart_item_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            tools:text="฿ 500"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#f7af63"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_addcart"-->
+            <!--android:drawableLeft="@drawable/dw_addcart"-->
+            <!--android:layout_width="75dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:background="@color/light_green_primary"-->
+            <!--android:clickable="true"-->
+            <!--android:paddingHorizontal="15dp"-->
+            <!--android:text="cart"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="11sp" />-->
+
+    </RelativeLayout>
+
+</FrameLayout>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingBottom="8dp">-->
+
+    <!--<LinearLayout android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:weightSum="3">-->
+        <!--<ImageView-->
+            <!--android:id="@+id/cart_item_image"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="80dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_marginTop="10dp"/>-->
+
+        <!--<LinearLayout  android:id="@+id/cart_item_name"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="2"-->
+            <!--android:layout_marginLeft="@dimen/activity_horizontal_margin">-->
+            <!--<TextView android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--tools:text="ข้าวผัดกระเพราไก่"-->
+                <!--android:textSize="15dp"-->
+                <!--android:textStyle="bold"/>-->
+            <!--<TextView android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--tools:text="ใส่ไข่ดาว ไม่ใส่ถั่วเพิ่มข้าวใส่กล่อง"-->
+                <!--android:textSize="10dp"/>-->
+
+
+            <!--<LinearLayout android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_marginTop="8dp">-->
+                <!--<TextView android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="ราคา "-->
+                    <!--android:textSize="12dp"/>-->
+                <!--<TextView android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--tools:text="35"-->
+                    <!--android:textSize="12dp"/>-->
+                <!--<TextView android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="4dp"-->
+                    <!--android:text="บาท"-->
+                    <!--android:textSize="12dp"/>-->
+
+                <!--<TextView android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="จำนวน"-->
+                    <!--android:textSize="12dp"-->
+                    <!--/>-->
+                <!--<TextView android:id="@+id/cart_item_amount"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--tools:text="20"-->
+                    <!--android:textSize="12dp"-->
+                    <!--android:layout_marginLeft="4dp"/>-->
+
+            <!--</LinearLayout>-->
+            <!--<TextView android:id="@+id/cart_item_total"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--tools:text="รวม 500 บาท"-->
+                <!--android:textSize="14dp"-->
+                <!--android:textColor="#4CAF50"-->
+                <!--android:layout_marginTop="4dp"/>-->
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+<!--</LinearLayout>-->
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<android.support.constraint.ConstraintLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/cart_item_image"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/cart_item_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="44dp"-->
+        <!--android:text="Name"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/cart_item_image"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/cart_item_amount"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="44dp"-->
+        <!--android:text="amount"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/cart_item_name"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/cart_item_total"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="44dp"-->
+        <!--android:text="total"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/cart_item_amount"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--</android.support.constraint.ConstraintLayout>-->
