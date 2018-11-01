@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -232,9 +233,10 @@ public class CartFragment extends Fragment {
     }
 
     private void reloadFragment(){
-        getFragmentManager().
-                beginTransaction()
-                .replace(R.id.main_view, new CartFragment())
-                .commit();
+        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.main_view);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.detach(currentFragment);
+        fragmentTransaction.attach(currentFragment);
+        fragmentTransaction.commit();
     }
 }
