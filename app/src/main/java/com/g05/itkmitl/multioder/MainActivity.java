@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String userPhone;
     User curUser;
 
-    public static int CountCart = 0;
+    public static int CountCart;
 
     void getUserData(){
         mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+
     }
 
     @Override
@@ -79,13 +80,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         if(!haveCurrentUser()){
+            finish();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
 
-        getUserData();
         getCountCart();
+        getUserData();
         changeFragment(new RestaurantFragment());
 
 
@@ -291,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void getCountCart() {
+        this.CountCart = 0;
         mFirestore.collection("Users")
                 .document(mAuth.getCurrentUser().getUid())
                 .collection("cart")

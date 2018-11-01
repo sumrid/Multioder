@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,10 +25,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText nameReg,emailReg,passwordReg,repasswordReg,phoneReg,addressReg;
-    private TextInputLayout inpLayoutName,inpLayoutEmail,inpLayoutPassword,
-            inpLayoutRepass,inpLayoutPhone,inpLayoutAddress;
-    private String nameStr,emailStr,passStr,repassStr,phoneStr,addressStr;
+    private EditText nameReg, emailReg, passwordReg, repasswordReg, phoneReg, addressReg;
+    private TextInputLayout inpLayoutName, inpLayoutEmail, inpLayoutPassword,
+            inpLayoutRepass, inpLayoutPhone, inpLayoutAddress;
+    private String nameStr, emailStr, passStr, repassStr, phoneStr, addressStr;
+
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 phoneStr = phoneReg.getText().toString();
                 addressStr = addressReg.getText().toString();
-                createAccount(emailStr,passStr,phoneStr,addressStr,nameStr);
+                createAccount(emailStr, passStr, phoneStr, addressStr, nameStr);
             }
         });
 
@@ -80,32 +83,47 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    private void createAccount(String email, String password, final String phone, final String address, final String name) {
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private void saveUserInfo(String name, String phone, String address){
+        User user = new User(name, phone, address);
+        firestore.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser()
+                .getUid()).set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("saveUserInfo", "Success!!");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
-        final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+    private void createAccount(String email, String password, final String phone, final String address, final String name) {
+
         mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+
             @Override
             public void onSuccess(AuthResult authResult) {
-                                        mAuth.getCurrentUser();
-                                        mAuth.signOut();
-                                        Toast.makeText(getApplicationContext(),"Register Complete", Toast.LENGTH_LONG).show();
-                                        finish();
+                saveUserInfo(name, phone, address);
+                Toast.makeText(getApplicationContext(), "Register Complete", Toast.LENGTH_LONG).show();
+                mAuth.getCurrentUser();
+                mAuth.signOut();
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
 
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("RegisterResult", e.getMessage());
-                Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
             }
         });
 
     }
-
-
-
 
 
     private boolean validateName() {
@@ -127,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
             inpLayoutPassword.setError("กรอกรหัสผ่าน");
             requestFocus(passwordReg);
             return false;
-        } else if(passStr.length()<6){
+        } else if (passStr.length() < 6) {
             inpLayoutPassword.setError("รหัสผ่านต้องมากกว่า 5 ตัวอักษร");
             requestFocus(passwordReg);
         } else {
@@ -135,13 +153,14 @@ public class RegisterActivity extends AppCompatActivity {
         }
         return true;
     }
-    private boolean validateRePassword(){
+
+    private boolean validateRePassword() {
         repassStr = repasswordReg.getText().toString();
         if (repassStr.trim().isEmpty()) {
             inpLayoutRepass.setError("กรอกรหัสผ่านยืนยัน");
             requestFocus(repasswordReg);
             return false;
-        } else if(passStr==null || !passStr.equals(repassStr)){
+        } else if (passStr == null || !passStr.equals(repassStr)) {
             inpLayoutRepass.setError("กรอกรหัสผ่านไม่ตรงกัน");
             requestFocus(repasswordReg);
             return false;
