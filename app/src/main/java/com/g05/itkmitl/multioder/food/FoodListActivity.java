@@ -11,11 +11,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.g05.itkmitl.multioder.MainActivity;
 import com.g05.itkmitl.multioder.R;
+import com.g05.itkmitl.multioder.notification.NotificationCountSetClass;
 import com.g05.itkmitl.multioder.restaurant.Restaurant;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -94,6 +97,26 @@ public class FoodListActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.foodview, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Get the notifications MenuItem and
+        // its LayerDrawable (layer-list)
+        MenuItem item = menu.findItem(R.id.action_cart);
+        NotificationCountSetClass.setAddToCart(this, item,MainActivity.CountCart);
+        // force the ActionBar to relayout its MenuItems.
+        // onCreateOptionsMenu(Menu) will be called again.
+        invalidateOptionsMenu();
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private String getRestaurantName(){

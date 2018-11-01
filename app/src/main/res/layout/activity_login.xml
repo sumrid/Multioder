@@ -8,7 +8,7 @@
     android:paddingTop="16dp"
     android:paddingRight="24dp"
     android:paddingLeft="24dp"
-    android:background="#ffb74d">
+    android:background="@drawable/bg_login_color">
 
     <!--#ffb74d-->
 
@@ -59,7 +59,8 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="16dp"
-                android:textColorHint="#fff3dd" />
+                android:textColor="@color/white"
+                android:textColorHint="#fff6e9" />
 
             <EditText
                 android:id="@+id/password"
@@ -70,11 +71,12 @@
                 android:drawableRight="@drawable/ic_password_login"
                 android:drawablePadding="16dp"
                 android:ems="10"
+                android:textColor="@color/white"
                 android:hint="password"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="16dp"
-                android:textColorHint="#fff3dd" />
+                android:textColorHint="#fff6e9" />
 
             <Button
                 android:id="@+id/button_login"
@@ -91,21 +93,36 @@
                 android:textColor="#f1b863"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/register_link"
+
+            <RelativeLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="14dp"
-                android:paddingLeft="16dp"
-                android:paddingTop="2dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="10dp"
-                android:text="@string/register"
-                android:textColor="#fff"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textregis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_toEndOf="@+id/textregis"
+                    android:id="@+id/register_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" sign up here"
+                    android:textAlignment="center"
+                    android:textColor="#e5ff70"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
 
         </LinearLayout>
     </ScrollView>

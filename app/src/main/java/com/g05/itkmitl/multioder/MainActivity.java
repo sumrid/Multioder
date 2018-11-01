@@ -294,13 +294,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void getCountCart() {
-        this.CountCart = 0;
+
         mFirestore.collection("Users")
                 .document(mAuth.getCurrentUser().getUid())
                 .collection("cart")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        CountCart = 0;
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                             CountCart++;
                         }
