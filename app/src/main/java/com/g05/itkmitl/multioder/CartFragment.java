@@ -179,8 +179,7 @@ public class CartFragment extends Fragment {
 //    @Override
 //    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 //        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-//        menu.add(Menu.NONE, 1, 1, "ลดจำนวน");
-//        menu.add(Menu.NONE, 2, 2, "Delete All");
+//        menu.add(Menu.NONE, 1, 1, "Delete All");
 //        Log.d("Context Menu", "cart item : " + info.id);
 //    }
 //
@@ -188,8 +187,7 @@ public class CartFragment extends Fragment {
 //    public boolean onContextItemSelected(MenuItem item) {
 //        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 //        Log.d("Context Menu", "Menu ID : " + item.getItemId() + " || Item : " + info.id);
-//        if (item.getItemId() == 1) deleteFood(info.id);
-//        else deleteAll(info.id);
+//        deleteAll(info.id);
 //        return true;
 //    }
 //
@@ -219,6 +217,7 @@ public class CartFragment extends Fragment {
                 calculatePrice();
             }
         });
+        reloadFragment();
     }
 
     private void updateTotalPrice(double price) {
@@ -230,5 +229,12 @@ public class CartFragment extends Fragment {
 
     public int getCartSize(){
         return cartItems.size();
+    }
+
+    private void reloadFragment(){
+        getFragmentManager().
+                beginTransaction()
+                .replace(R.id.main_view, new CartFragment())
+                .commit();
     }
 }
