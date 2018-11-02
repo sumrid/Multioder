@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,15 +30,14 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
 
-        curUser = (User) getIntent().getSerializableExtra("curUser");
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.profile_toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
-        ImageButton back_btn = (ImageButton) findViewById(R.id.btn_back_profile);
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        curUser = (User) getIntent().getSerializableExtra("curUser");
 
 
         final TextView pro_headername = (TextView) findViewById(R.id.profile_headername);
@@ -84,9 +85,14 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
