@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private boolean doubleBackToExitPressedOnce = false;
+    public static boolean GoToCartFragment = false;
 
     String userEmail;
     String userFullName;
@@ -246,6 +247,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         getUserData();
+        if(GoToCartFragment){
+            changeFragment(new CartFragment());
+            GoToCartFragment = false;
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

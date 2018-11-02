@@ -134,6 +134,10 @@ public class FoodListActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.action_cart:
+                MainActivity.GoToCartFragment = true;
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
