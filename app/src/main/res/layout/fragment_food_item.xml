@@ -64,7 +64,7 @@
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="@color/light_green_primary"
+            android:background="@drawable/bg_btn_addcart"
             android:clickable="true"
             android:paddingHorizontal="15dp"
             android:text="cart"
