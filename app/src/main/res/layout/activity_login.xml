@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:text=" sign up here"
                     android:textAlignment="center"
-                    android:textColor="#e5ff70"
+                    android:textColor="#ffff4e"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
