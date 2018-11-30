@@ -1,5 +1,7 @@
 package com.g05.itkmitl.multioder.restaurant;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 
 public class Restaurant implements Serializable {
@@ -7,6 +9,8 @@ public class Restaurant implements Serializable {
     private String url;
     private String address;
     private String telephone;
+    private String id;
+    private LatLng location;
 
     public Restaurant(String name, String url, String address, String telephone) {
         this.name = name;
@@ -49,5 +53,21 @@ public class Restaurant implements Serializable {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public LatLng getLocation() {
+        return location;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
     }
 }

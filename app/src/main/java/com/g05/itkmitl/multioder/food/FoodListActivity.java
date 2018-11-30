@@ -66,7 +66,7 @@ public class FoodListActivity extends AppCompatActivity {
         mAdapter = new FoodAdapter(this,foods);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
-        loadFoodData(getRestaurantName());
+        loadFoodData(getRestaurantId());
 
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -78,9 +78,9 @@ public class FoodListActivity extends AppCompatActivity {
     }
 
 
-    private void loadFoodData(String restaurantName) {
+    private void loadFoodData(String restaurantId) {
         firebaseFirestore.collection("restaurant")
-                .document(restaurantName)
+                .document(restaurantId)
                 .collection("food")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -119,11 +119,11 @@ public class FoodListActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    private String getRestaurantName(){
+    private String getRestaurantId(){
 
         restaurant = (Restaurant) getIntent().getSerializableExtra("restaurant");
         if(restaurant != null){
-            return restaurant.getName();
+            return restaurant.getId();
         }
         return "null";
     }
