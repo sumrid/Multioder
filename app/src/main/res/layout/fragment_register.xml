@@ -152,7 +152,7 @@
         android:layout_marginTop="11dp"
         android:layout_marginBottom="32dp"
         android:text="Already have an account"
-        android:textColor="@color/fui_bgFacebook"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

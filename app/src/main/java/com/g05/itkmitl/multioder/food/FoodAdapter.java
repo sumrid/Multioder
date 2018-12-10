@@ -139,6 +139,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
 //                mContext.startActivity(intent);
             }
         });
+
+        viewHolder.foodImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, FoodDetailActivity.class);
+                intent.putExtra("food", selectFood);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

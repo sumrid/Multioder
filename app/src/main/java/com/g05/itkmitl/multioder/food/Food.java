@@ -9,6 +9,7 @@ public class Food implements Serializable {
     private String url;
     private String uid;
     private String deleteKey;
+    private String restaurantID;
 
     public Food(String name, String description, double price, String url) {
         this.name = name;
@@ -18,7 +19,6 @@ public class Food implements Serializable {
     }
 
     public Food(){
-
     }
 
     public String getName() {
@@ -67,5 +67,13 @@ public class Food implements Serializable {
 
     public void setDeleteKey(String deleteKey) {
         this.deleteKey = deleteKey;
+    }
+
+    public String getRestaurantID() {
+        return restaurantID;
+    }
+
+    public void setRestaurantID(String restaurantID) {
+        this.restaurantID = restaurantID;
     }
 }
