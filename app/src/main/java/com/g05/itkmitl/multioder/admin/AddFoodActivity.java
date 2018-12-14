@@ -1,4 +1,4 @@
-package com.g05.itkmitl.multioder.food;
+package com.g05.itkmitl.multioder.admin;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.R;
+import com.g05.itkmitl.multioder.food.Food;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;

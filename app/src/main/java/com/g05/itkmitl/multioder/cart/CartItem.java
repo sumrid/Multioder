@@ -1,6 +1,8 @@
 package com.g05.itkmitl.multioder.cart;
 
+import com.g05.itkmitl.multioder.User;
 import com.g05.itkmitl.multioder.food.Food;
+import com.g05.itkmitl.multioder.map.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ public class CartItem {
     private int amount;
     private double total;
     private String description;
+    private User user;
+    private LatLng location;
 
     public CartItem(Food food, int amount) {
         this.food = food;
@@ -60,5 +64,21 @@ public class CartItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LatLng getLocation() {
+        return location;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
     }
 }

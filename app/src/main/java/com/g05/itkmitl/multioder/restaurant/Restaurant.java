@@ -1,6 +1,6 @@
 package com.g05.itkmitl.multioder.restaurant;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.g05.itkmitl.multioder.map.LatLng;
 
 import java.io.Serializable;
 

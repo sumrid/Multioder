@@ -5,43 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".admin.AddFoodActivity">
+    tools:context=".admin.AddRestaurantActivity">
 
     <ImageView
-        android:id="@+id/add_food_image"
+        android:id="@+id/add_res_image"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
     <EditText
-        android:id="@+id/add_food_name"
-        android:text="Food Name"
+        android:id="@+id/add_res_name"
+        android:hint="Name..."
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/add_food_description"
-        android:text="Food Description"
+        android:id="@+id/add_res_telephone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="telephone"
+        android:inputType="phone" />
 
     <EditText
-        android:id="@+id/add_food_price"
-        android:inputType="numberDecimal"
-        android:text="45"
+        android:id="@+id/add_res_address"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="ที่อยู่"
+        android:lines="2"
+        android:inputType="textMultiLine" />
 
     <Button
-        android:id="@+id/add_food_button"
-        android:layout_gravity="center"
-        android:text="Add"
-        android:layout_width="wrap_content"
+        android:id="@+id/add_res_button"
+        android:text="เพิ่ม"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <ProgressBar
-        android:id="@+id/add_food_progressbar"
-        android:visibility="gone"
+        android:id="@+id/add_res_progress"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

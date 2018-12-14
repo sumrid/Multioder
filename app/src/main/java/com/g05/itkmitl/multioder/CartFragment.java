@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -30,6 +31,7 @@ import com.g05.itkmitl.multioder.food.Food;
 import com.g05.itkmitl.multioder.food.FoodAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -48,6 +50,8 @@ public class CartFragment extends Fragment {
     private ListView listView;
     private CartAdapter cartAdapter;
     private TextView totalTextView,cartSizeText;
+    private Button comfirmButton;
+
     private double total;
     private List<CartItem> cartItems;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -79,12 +83,20 @@ public class CartFragment extends Fragment {
         totalTextView = getActivity().findViewById(R.id.cart_total);
         cartSizeText = getActivity().findViewById(R.id.cartsize_text);
         listView = getActivity().findViewById(R.id.cart_listView);
+        comfirmButton = getActivity().findViewById(R.id.button_confirm);
         cartAdapter = new CartAdapter(getContext(), R.layout.fragment_cart_item, cartItems);
 
         setSwipeListView();
 
         listView.setAdapter(cartAdapter);
         getFoods();
+
+        comfirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createOrder();
+            }
+        });
 
         // set this for POP-UP menu when long click on item
 //        registerForContextMenu(listView);
@@ -238,5 +250,34 @@ public class CartFragment extends Fragment {
         fragmentTransaction.detach(currentFragment);
         fragmentTransaction.attach(currentFragment);
         fragmentTransaction.commit();
+    }
+
+    private void createOrder() {
+        firestore.collection("Users")
+                .document(auth.getCurrentUser().getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                User user = documentSnapshot.toObject(User.class);
+
+                for(CartItem item : cartItems) {
+                    item.setUser(user);
+
+                    firestore.collection("restaurant")
+                            .document(item.getFood().getRestaurantID())
+                            .collection("orders")
+                            .document("order_" + System.currentTimeMillis())
+                            .set(item);
+
+                    firestore.collection("Users")
+                            .document(auth.getCurrentUser().getUid())
+                            .collection("cart")
+                            .document(item.getUid()).delete();
+                }
+
+                Toast.makeText(getContext(), "Create Order", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
