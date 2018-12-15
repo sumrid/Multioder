@@ -28,6 +28,8 @@ import com.squareup.picasso.Picasso;
 public class AddFoodActivity extends AppCompatActivity {
     private static final String TAG = "Add Food Activity";
 
+    private Food mFood;
+
     private ImageView foodImage;
     private EditText foodName;
     private EditText foodDescription;
@@ -65,6 +67,9 @@ public class AddFoodActivity extends AppCompatActivity {
                 uploadImage();
             }
         });
+
+        // TODO : for create and edit
+//        mFood = new Food();
     }
 
 

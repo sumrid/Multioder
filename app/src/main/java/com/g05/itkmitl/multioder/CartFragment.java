@@ -2,6 +2,7 @@ package com.g05.itkmitl.multioder;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +30,8 @@ import com.g05.itkmitl.multioder.cart.CartAdapter;
 import com.g05.itkmitl.multioder.cart.CartItem;
 import com.g05.itkmitl.multioder.food.Food;
 import com.g05.itkmitl.multioder.food.FoodAdapter;
+import com.g05.itkmitl.multioder.map.LatLng;
+import com.g05.itkmitl.multioder.map.MapsActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,6 +40,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.security.CryptoPrimitive;
 import java.util.ArrayList;
@@ -57,6 +61,8 @@ public class CartFragment extends Fragment {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private SwipeMenuListView swipeListView;
+
+    public static LatLng location;
 
     public CartFragment() {
         // Required empty public constructor
@@ -94,14 +100,18 @@ public class CartFragment extends Fragment {
         comfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createOrder();
+                if(!cartItems.isEmpty()) {
+                    if(location == null) {
+                        Toast.makeText(getContext(), "กรุณาเลือกตำแหน่ง", Toast.LENGTH_SHORT).show();
+                        getActivity().startActivity(new Intent(getActivity(), MapsActivity.class));
+                    }
+                    else createOrder();
+                }
             }
         });
 
         // set this for POP-UP menu when long click on item
 //        registerForContextMenu(listView);
-
-
     }
 
 
@@ -263,6 +273,7 @@ public class CartFragment extends Fragment {
 
                 for(CartItem item : cartItems) {
                     item.setUser(user);
+                    item.setLocation(location);
 
                     firestore.collection("restaurant")
                             .document(item.getFood().getRestaurantID())
@@ -270,6 +281,7 @@ public class CartFragment extends Fragment {
                             .document("order_" + System.currentTimeMillis())
                             .set(item);
 
+                    // delete from user cart
                     firestore.collection("Users")
                             .document(auth.getCurrentUser().getUid())
                             .collection("cart")

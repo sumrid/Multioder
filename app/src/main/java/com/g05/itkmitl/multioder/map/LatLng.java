@@ -29,4 +29,8 @@ public class LatLng implements Serializable {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public com.google.android.gms.maps.model.LatLng getGoogleLatLng() {
+        return new com.google.android.gms.maps.model.LatLng(latitude, longitude);
+    }
 }
