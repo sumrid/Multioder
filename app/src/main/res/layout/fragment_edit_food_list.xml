@@ -26,7 +26,8 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="40dp"
         android:clickable="true"
-        android:src="@drawable/ic_setting_profile"
+        app:backgroundTint="#FF9F43"
+        android:src="@drawable/add_ico"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

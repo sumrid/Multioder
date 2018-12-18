@@ -33,18 +33,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         public TextView foodDescrip;
         public TextView foodPrice;
         public ImageView foodImage;
-        public Button editButton;
-        public Button deleteButton;
+        public ImageView editButton;
+        public ImageView deleteButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            foodName = itemView.findViewById(R.id.cart_item_name);
+            foodName = itemView.findViewById(R.id.food_name_order);
             foodDescrip = itemView.findViewById(R.id.food_item_description);
             foodPrice = itemView.findViewById(R.id.food_item_price);
             foodImage = itemView.findViewById(R.id.cart_item_image);
-            editButton = itemView.findViewById(R.id.btn_addcart);
-            deleteButton = itemView.findViewById(R.id.btn_delete);
+            editButton = itemView.findViewById(R.id.edit_btn);
+            deleteButton = itemView.findViewById(R.id.remove_btn);
         }
     }
 
@@ -56,7 +56,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     @NonNull
     @Override
     public FoodAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.admin_food_item, viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.mangefood_item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -47,14 +48,14 @@ public class AddFoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_food);
+        setContentView(R.layout.activity_addfood);
 
-        foodImage = findViewById(R.id.add_food_image);
-        foodName = findViewById(R.id.add_food_name);
-        foodDescription = findViewById(R.id.add_food_description);
-        foodPrice = findViewById(R.id.add_food_price);
-        foodAddButton = findViewById(R.id.add_food_button);
-        progressBar = findViewById(R.id.add_food_progressbar);
+        foodImage = findViewById(R.id.food_image);
+        foodName = findViewById(R.id.food_name_order);
+        foodDescription = findViewById(R.id.food_item_description);
+        foodPrice = findViewById(R.id.food_item_price);
+        foodAddButton = findViewById(R.id.food_add_button);
+        progressBar = findViewById(R.id.progressBar);
 
         foodImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +71,12 @@ public class AddFoodActivity extends AppCompatActivity {
             }
         });
 
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.orderlist_toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
 
         if (getFoodBundle() != null) {

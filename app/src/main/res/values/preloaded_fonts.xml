@@ -2,5 +2,6 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/mitr</item>
+        <item>@font/mitr_light</item>
     </array>
 </resources>

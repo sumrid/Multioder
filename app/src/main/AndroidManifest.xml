@@ -28,6 +28,11 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".admin.EditFoodListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -44,8 +49,20 @@
             android:name=".food.FoodListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TestActivityLogged"
+            android:name=".managerestaurant.RestaurantMainActivity"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".CheckLoginActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".SelectLoginActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".managerestaurant.OrderListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"

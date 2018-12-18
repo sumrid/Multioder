@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:elevation="0dp"
+
         android:translationZ="0.1dp">
 
         <android.support.v7.widget.Toolbar

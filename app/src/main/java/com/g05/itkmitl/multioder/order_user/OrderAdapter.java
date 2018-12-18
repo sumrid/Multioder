@@ -18,18 +18,34 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     private Context mContext;
     private List<Order> mOrders;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
         public TextView orderId, orderDate;
         public Button orderDetail;
+        private ClickListener clickListener;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            orderId = itemView.findViewById(R.id.order_id);
-            orderDate = itemView.findViewById(R.id.order_date);
-            orderDetail = itemView.findViewById(R.id.order_detail_button);
+            orderId = itemView.findViewById(R.id.food_name_order);
+            orderDate = itemView.findViewById(R.id.food_item_description);
+//            orderDetail = itemView.findViewById(R.id.order_detail_button);
+            itemView.setOnClickListener(this);
+        }
+
+        public void setOnItemClickListener(ClickListener clickListener) {
+            this.clickListener = clickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.onItemClick(getAdapterPosition(), v);
         }
     }
+
+    public interface ClickListener {
+        void onItemClick(int position, View v);
+    }
+
 
     public OrderAdapter(Context context, List<Order> dataSet) {
         this.mContext = context;
@@ -39,7 +55,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_orders_history_item,viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_orderhistory_item,viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -50,14 +66,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
         viewHolder.orderId.setText(order.getId());
         viewHolder.orderDate.setText(order.getDate().toString());
-        viewHolder.orderDetail.setOnClickListener(new View.OnClickListener() {
+
+        viewHolder.setOnItemClickListener(new ClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(int position, View v) {
                 Intent intent = new Intent(mContext, OrdersDetailActivity.class);
                 intent.putExtra("order", order);
                 mContext.startActivity(intent);
             }
         });
+
     }
 
     @Override

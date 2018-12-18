@@ -1,77 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parent_layout"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="10dp">
 
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/cart_item_image"
+        android:layout_width="112dp"
+        android:layout_height="84dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/one_pot_chorizo"
+        app:riv_corner_radius="3dip"
+        app:riv_oval="false" />
 
-    <RelativeLayout
-        android:id="@+id/view_foreground"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/food_name_order"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:padding="10dp">
+        android:layout_alignTop="@+id/cart_item_image"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/cart_item_image"
+        android:textColor="#4E4E4E"
+        android:textSize="16sp"
+        tools:text="ต้มยำกุ้ง" />
+
+
+    <TextView
+        android:id="@+id/food_item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food_name_order"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/cart_item_image"
+        android:fontFamily="@font/mitr_light"
+        android:maxLines="2"
+        android:maxEms="12"
+        android:lineSpacingMultiplier="0.8"
+        android:ellipsize="end"
+        android:textColor="#979797"
+        android:textSize="12sp"
+        tools:text="รายละเอียดต่างๆ ต้มยำกุ้ง" />
+
+
+    <TextView
+        android:id="@+id/food_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cart_item_image"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/cart_item_image"
+        android:textColor="#FFB771"
+        android:textSize="14sp"
+        tools:text="35 บาท" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/cart_item_image"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:gravity="center">
 
         <ImageView
-            android:id="@+id/cart_item_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginRight="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/one_pot_chorizo" />
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/icon_location" />
 
         <TextView
-            android:id="@+id/cart_item_name"
+            android:id="@+id/restaurant_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/cart_item_image"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="#535353"
-            tools:text="ผัดกระเพราไก่"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/food_item_description"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/cart_item_name"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/cart_item_image"
-            android:textColor="#a9a9a9"
-            android:maxLines="2"
-            tools:text="กระเพราไก่ไข่เยี้ยวหมา อร่อยๆ"
-            android:textSize="12dp" />
-
-        <TextView
-            android:id="@+id/food_item_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/cart_item_image"
-            tools:text="500 บาท"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="#f7af63"
-            android:textStyle="bold" />
+            android:layout_toEndOf="@+id/cart_item_image"
+            android:fontFamily="@font/mitr_light"
+            android:textColor="#CACACA"
+            android:textSize="9sp"
+            android:text="ร้านลุงตู่" />
+    </LinearLayout>
 
 
-        <Button
-            android:id="@+id/btn_addcart"
-            android:drawableLeft="@drawable/dw_addcart"
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/bg_btn_addcart"
-            android:clickable="true"
-            android:paddingHorizontal="15dp"
-            android:text="cart"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="11sp" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+    <Button
+        android:id="@+id/btn_addcart"
+        android:layout_width="72dp"
+        android:layout_height="31dp"
+        android:layout_below="@+id/food_name_order"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/bg_btn_addcart"
+        android:clickable="true"
+        android:drawableLeft="@drawable/dw_addcart"
+        android:paddingHorizontal="15dp"
+        android:text="สั่งซื้อ"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        style="?android:attr/borderlessButtonStyle" />
+</RelativeLayout>

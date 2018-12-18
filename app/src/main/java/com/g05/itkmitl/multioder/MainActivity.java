@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -12,19 +11,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.g05.itkmitl.multioder.admin.EditFoodListFragment;
 import com.g05.itkmitl.multioder.admin.OrderFragment;
-import com.g05.itkmitl.multioder.cart.CartItem;
-import com.g05.itkmitl.multioder.food.Food;
 import com.g05.itkmitl.multioder.food.FoodListFragment;
 import com.g05.itkmitl.multioder.notification.NotificationCountSetClass;
-import com.g05.itkmitl.multioder.order_user.OrderHistoryActivity;
+import com.g05.itkmitl.multioder.order_user.OrderHistoryFragment;
 import com.g05.itkmitl.multioder.restaurant.RestaurantFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,10 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -51,15 +43,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String userAddress;
     String userPhone;
     User curUser;
+    TextView mTitle;
 
     public static int CountCart;
 
-    void getUserData(){
+    void getUserData() {
         mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     DocumentSnapshot documentSnapshot = task.getResult();
                     userEmail = mAuth.getCurrentUser().getEmail();
@@ -67,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     userAddress = documentSnapshot.getString("address");
                     userPhone = documentSnapshot.getString("phone");
 
-                    curUser = new User(userFullName,userPhone,userAddress);
+                    curUser = new User(userFullName, userPhone, userAddress);
 
                     TextView navName = (TextView) findViewById(R.id.nvName);
                     TextView navEmail = (TextView) findViewById(R.id.nvEmail);
@@ -86,18 +79,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
 
-        if(!haveCurrentUser()){
+        if (!haveCurrentUser()) {
             finish();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
 
+
         getCountCart();
         getUserData();
-        changeFragment(new RestaurantFragment());
+        changeFragment(new FoodListFragment());
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        setTitle("รายการอาหาร");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -108,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
+
     }
 
     @Override
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_view);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if(f instanceof RestaurantFragment) {
+        } else if (f instanceof RestaurantFragment) {
             if (doubleBackToExitPressedOnce) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -125,13 +130,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return;
             }
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "กด Back อีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "กดอีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
 
                 @Override
                 public void run() {
-                    doubleBackToExitPressedOnce=false;
+                    doubleBackToExitPressedOnce = false;
                 }
             }, 2000);
 
@@ -152,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Get the notifications MenuItem and
         // its LayerDrawable (layer-list)
         MenuItem item = menu.findItem(R.id.action_cart);
-        NotificationCountSetClass.setAddToCart(MainActivity.this, item,CountCart);
+        NotificationCountSetClass.setAddToCart(MainActivity.this, item, CountCart);
         // force the ActionBar to relayout its MenuItems.
         // onCreateOptionsMenu(Menu) will be called again.
         invalidateOptionsMenu();
@@ -183,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         getUserData();
-        if(GoToCartFragment){
+        if (GoToCartFragment) {
             changeFragment(new CartFragment());
             GoToCartFragment = false;
         }
@@ -196,9 +201,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            changeFragment(new RestaurantFragment());
-        } else if (id == R.id.nav_list) {
+            setTitle("รายการอาหาร");
             changeFragment(new FoodListFragment());
+        } else if (id == R.id.nav_list) {
+            setTitle("ร้านอาหาร");
+            changeFragment(new RestaurantFragment());
         } else if (id == R.id.nav_cart) {
             changeFragment(new CartFragment());
         } else if (id == R.id.nav_profile) {
@@ -207,15 +214,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         } else if (id == R.id.nav_signout) {
             mAuth.signOut();
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, SelectLoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == R.id.nav_admin) {
-            changeFragment(new EditFoodListFragment());
+
+
         } else if (id == R.id.nav_orders) {
             changeFragment(new OrderFragment());
         } else if (id == R.id.nav_orders_history) {
-            startActivity(new Intent(this, OrderHistoryActivity.class));
+            setTitle("ประวัติการสั่งซื้อ");
+            changeFragment(new OrderHistoryFragment());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -224,13 +233,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private boolean haveCurrentUser() {
-        if(mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             return true;
         }
         return false;
     }
 
-    private void changeFragment(Fragment fragment){
+    private void changeFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_view, fragment)
@@ -252,5 +261,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     }
                 });
+    }
+
+    public void setTitle(String name) {
+        mTitle.setText(name);
     }
 }

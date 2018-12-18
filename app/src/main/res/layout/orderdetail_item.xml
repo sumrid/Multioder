@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="10dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/cart_item_image"
+        android:layout_width="112dp"
+        android:layout_height="84dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/one_pot_chorizo"
+        app:riv_corner_radius="3dip"
+        app:riv_oval="false" />
+
+    <TextView
+        android:id="@+id/food_name_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/cart_item_image"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/cart_item_image"
+        android:textColor="#4E4E4E"
+        android:textSize="16sp"
+        tools:text="ต้มยำกุ้ง" />
+
+    <TextView
+        android:id="@+id/food_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food_name_order"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/cart_item_image"
+        android:fontFamily="@font/mitr_light"
+        android:textColor="#979797"
+        android:textSize="12sp"
+        tools:text="จำนวน x2" />
+
+    <TextView
+        android:id="@+id/food_item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food_item_price"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/cart_item_image"
+        android:fontFamily="@font/mitr_light"
+        android:textColor="#979797"
+        android:textSize="12sp"
+        tools:text="ราคา 35 บาท" />
+
+    <TextView
+        android:id="@+id/cart_item_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/food_item_description"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-9dp"
+        android:layout_marginEnd="9dp"
+        android:textColor="#454545"
+        android:textSize="14sp"
+        tools:text="70 บาท" />
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/cart_item_image"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/icon_location" />
+
+        <TextView
+            android:id="@+id/cart_item_res"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/cart_item_image"
+            android:fontFamily="@font/mitr_light"
+            android:text="ร้านลุงตู่"
+            android:textColor="#CACACA"
+            android:textSize="9sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

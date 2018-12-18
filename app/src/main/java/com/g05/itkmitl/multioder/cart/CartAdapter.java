@@ -10,10 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.R;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -41,8 +39,8 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
                 .inflate(R.layout.fragment_cart_item, parent, false);
 
         ImageView imageView = CartListView.findViewById(R.id.cart_item_image);
-        TextView name = CartListView.findViewById(R.id.cart_item_name);
-        final TextView amount = CartListView.findViewById(R.id.cart_item_amount);
+        TextView name = CartListView.findViewById(R.id.food_name_order);
+        final TextView amount = CartListView.findViewById(R.id.food_item_price);
         final TextView total = CartListView.findViewById(R.id.cart_item_total);
         ImageView reduceButton = CartListView.findViewById(R.id.cart_item_reduce);
         ImageView addButton = CartListView.findViewById(R.id.cart_item_add);

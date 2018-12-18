@@ -1,85 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="10dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/cart_item_image"
+            android:layout_width="112dp"
+            android:layout_height="84dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@+id/order_number"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/one_pot_chorizo"
+            app:riv_corner_radius="3dip"
+            app:riv_oval="false" />
 
 
-    <RelativeLayout
-        android:id="@+id/view_foreground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:padding="10dp">
+        <TextView
+            android:id="@+id/food_name_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/cart_item_image"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="37dp"
+            android:layout_toEndOf="@+id/cart_item_image"
+            android:textColor="#4E4E4E"
+            android:textSize="16sp"
+            tools:text="ต้มยำกุ้ง" />
+
+
+        <TextView
+            android:id="@+id/food_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_name_order"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/cart_item_image"
+            android:textColor="#FFB771"
+            android:textSize="14sp"
+            tools:text="จำนวน x2" />
+
+
 
         <ImageView
-            android:id="@+id/cart_item_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginRight="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/one_pot_chorizo" />
-
-        <TextView
-            android:id="@+id/cart_item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/cart_item_image"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="#535353"
-            android:textSize="17dp"
-            tools:text="ผัดกระเพราไก่" />
-
-        <TextView
-            android:id="@+id/food_item_description"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/cart_item_name"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/cart_item_image"
-            android:maxLines="2"
-            android:text="ไม่ใส่ถั่วฝักยาว พิเศษข้าว"
-            android:textColor="#a9a9a9"
-            android:textSize="12dp" />
-
-        <TextView
-            android:id="@+id/cart_item_amount"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/food_item_description"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/cart_item_image"
-            android:maxLines="2"
-            android:text="จำนวน 2"
-            android:textColor="#a9a9a9"
-            android:textSize="12dp" />
-
-
-        <TextView
-            android:id="@+id/cart_item_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="#f7af63"
-            android:textSize="17dp"
-            android:textStyle="bold"
-            tools:text="฿ 500" />
-
-        <ImageButton
             android:id="@+id/cart_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="17dp"
-            android:layout_marginBottom="10dp"
-            app:srcCompat="@drawable/ic_check_" />
-    </RelativeLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="28dp"
+            android:src="@drawable/checked_ico" />
 
-</FrameLayout>
+
+</RelativeLayout>

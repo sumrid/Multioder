@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@+id/cart_item_image"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/order_ico" />
+
+    <TextView
+        android:id="@+id/food_name_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/cart_item_image"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/cart_item_image"
+        android:textColor="#4E4E4E"
+        android:textSize="16sp"
+        tools:text="เลขออเดอร์ 345" />
+
+
+    <TextView
+        android:id="@+id/food_item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food_name_order"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/cart_item_image"
+        android:fontFamily="@font/mitr_light"
+        android:textColor="#979797"
+        android:textSize="12sp"
+        tools:text="12/12/2018 เวลา 12:30น" />
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cart_item_image"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/cart_item_image">
+
+        <TextView
+            android:id="@+id/order_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFB771"
+            android:textSize="14sp"
+            tools:text="จำนวน 7 รายการ" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:background="#EFEFEF"/>
+
+        <TextView
+            android:id="@+id/order_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FF8293"
+            android:textSize="14sp"
+            tools:text="ยอดรวม 90 บาท" />
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

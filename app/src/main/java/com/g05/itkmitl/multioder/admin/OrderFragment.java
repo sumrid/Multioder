@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.admin.adapter.OrderAdapter;
 import com.g05.itkmitl.multioder.cart.CartItem;
+import com.g05.itkmitl.multioder.utils.DividerItem;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,6 +48,7 @@ public class OrderFragment extends Fragment {
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new DividerItem(getActivity(), LinearLayoutManager.VERTICAL, 10));
         mRecyclerView.setAdapter(adapter);
 
         // TODO : get res id

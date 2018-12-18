@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.g05.itkmitl.multioder.R;
+import com.g05.itkmitl.multioder.utils.DividerItem;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -55,7 +56,7 @@ public class FoodListFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
 
         mRecyclerView = getView().findViewById(R.id.food_list);
-        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new DividerItem(getActivity(), LinearLayoutManager.VERTICAL, 10));
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 

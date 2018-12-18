@@ -6,13 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.cart.CartItem;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -27,14 +25,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name, amount;
         public ImageView image;
-        public ImageButton checkButton;
+        public ImageView checkButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             image = itemView.findViewById(R.id.cart_item_image);
-            name = itemView.findViewById(R.id.cart_item_name);
-            amount = itemView.findViewById(R.id.cart_item_amount);
+            name = itemView.findViewById(R.id.food_name_order);
+            amount = itemView.findViewById(R.id.food_item_price);
             checkButton = itemView.findViewById(R.id.cart_check);
         }
     }
@@ -47,7 +45,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.admin_cart_item, viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.restaurant_order_page_item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
