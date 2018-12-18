@@ -16,6 +16,22 @@
             android:id="@+id/nav_cart"
             android:icon="@drawable/ic_navbar_cart"
             android:title="สินค้าในตะกร้า" />
+
+        <item
+            android:id="@+id/nav_orders_history"
+            android:icon="@drawable/ic_navbar_cart"
+            android:title="ประวัติของฉัน" />
+
+        <item
+            android:id="@+id/nav_admin"
+            android:icon="@drawable/ic_setting_profile"
+            android:title="admin" />
+
+        <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/ic_navbar_cart"
+            android:title="admin_oders" />
+
     </group>
 
     <item android:title="บัญชีผู้ใช้งาน">

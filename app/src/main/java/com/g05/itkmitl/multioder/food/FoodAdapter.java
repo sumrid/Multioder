@@ -1,25 +1,17 @@
 package com.g05.itkmitl.multioder.food;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,50 +25,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
-//    List<Food> foods;
-//    Context context;
-//
-//    TextView foodName;
-//    TextView foodPrice;
-//    TextView foodDescrip;
-//    ImageView foodImage;
-//
-//    public FoodAdapter(@NonNull Context context, int resource, @NonNull List<Food> objects) {
-//        super(context, resource, objects);
-//        this.foods = objects;
-//        this.context = context;
-//    }
-//
-//    @NonNull
-//    @Override
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        View foodListView = LayoutInflater
-//                .from(context)
-//                .inflate(R.layout.fragment_food_item, parent, false);
-//
-//        foodName = foodListView.findViewById(R.id.food_item_name);
-//        foodDescrip = foodListView.findViewById(R.id.food_item_description);
-//        foodPrice = foodListView.findViewById(R.id.food_item_price);
-//        foodImage = foodListView.findViewById(R.id.food_item_image);
-//
-//
-//
-//        Food food = foods.get(position);
-//        foodName.setText(food.getName());
-//        foodDescrip.setText(food.getDescription());
-//        foodPrice.setText(String.format("%.0f บาท", food.getPrice()));
-//
-//        Picasso.get().load(food.getUrl()).fit().centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(foodImage);
-//
-//        return foodListView;
-//    }
 
     private List<Food> foods;
     private Context mContext;
@@ -96,10 +48,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         public ViewHolder(View view) {
             super(view);
 
-            foodName = (TextView) view.findViewById(R.id.food_item_name);
+            foodName = (TextView) view.findViewById(R.id.cart_item_name);
             foodDescrip = (TextView) view.findViewById(R.id.food_item_description);
             foodPrice = (TextView) view.findViewById(R.id.food_item_price);
-            foodImage = (ImageView) view.findViewById(R.id.food_item_image);
+            foodImage = (ImageView) view.findViewById(R.id.cart_item_image);
             btnAddCart = (Button) view.findViewById(R.id.btn_addcart);
 
         }

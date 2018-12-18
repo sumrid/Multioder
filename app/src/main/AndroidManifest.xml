@@ -67,7 +67,9 @@
         <activity
             android:name=".map.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".admin.AddRestaurantActivity"></activity>
+        <activity android:name=".admin.AddRestaurantActivity" />
+        <activity android:name=".order_user.OrderHistoryActivity" />
+        <activity android:name=".order_user.OrdersDetailActivity"></activity>
     </application>
 
 </manifest>

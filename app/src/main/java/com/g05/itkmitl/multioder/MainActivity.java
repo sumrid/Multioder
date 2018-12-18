@@ -18,9 +18,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.g05.itkmitl.multioder.admin.EditFoodListFragment;
+import com.g05.itkmitl.multioder.admin.OrderFragment;
 import com.g05.itkmitl.multioder.cart.CartItem;
 import com.g05.itkmitl.multioder.food.Food;
+import com.g05.itkmitl.multioder.food.FoodListFragment;
 import com.g05.itkmitl.multioder.notification.NotificationCountSetClass;
+import com.g05.itkmitl.multioder.order_user.OrderHistoryActivity;
 import com.g05.itkmitl.multioder.restaurant.RestaurantFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -92,19 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getUserData();
         changeFragment(new RestaurantFragment());
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -114,63 +107,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-//        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation_button);
-//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Toast.makeText(getBaseContext(), item+"", Toast.LENGTH_SHORT).show();
-//                switch (item.getItemId()){
-//                    case R.id.navigation_home:
-//                        changeFragment(new RestaurantFragment());
-//                        break;
-//                    case R.id.navigation_cart:
-//                        changeFragment(new CartFragment()); break;
-//                    case R.id.navigation_account:
-//
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-
-
-//        -------------------------- ของเก่า ------------------------------------
-
-//        navigationView = findViewById(R.id.navigation_button);
-//
-//        // check current user
-//        if(haveCurrentUser()){
-//            if(savedInstanceState == null) {
-//                changeFragment(new FoodListFragment());
-//            }
-//        } else {
-//            if(savedInstanceState == null) {
-//                navigationView.setVisibility(View.GONE);
-//                changeFragment(new LoginFragment());
-//            }
-//        }
-//
-//        // onItemSelected
-//        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Toast.makeText(getBaseContext(), item+"", Toast.LENGTH_SHORT).show();
-//                switch (item.getItemId()){
-//                    case R.id.navigation_home:
-//                        changeFragment(new FoodListFragment());
-//                        break;
-//                    case R.id.navigation_cart:
-//                        changeFragment(new CartFragment()); break;
-//                    case R.id.navigation_account:
-////                        changeFragment();
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-
-
 
     }
 
@@ -262,20 +198,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_home) {
             changeFragment(new RestaurantFragment());
         } else if (id == R.id.nav_list) {
-
+            changeFragment(new FoodListFragment());
         } else if (id == R.id.nav_cart) {
             changeFragment(new CartFragment());
-
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
             intent.putExtra("curUser", curUser);
             startActivity(intent);
-
         } else if (id == R.id.nav_signout) {
             mAuth.signOut();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+        } else if (id == R.id.nav_admin) {
+            changeFragment(new EditFoodListFragment());
+        } else if (id == R.id.nav_orders) {
+            changeFragment(new OrderFragment());
+        } else if (id == R.id.nav_orders_history) {
+            startActivity(new Intent(this, OrderHistoryActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

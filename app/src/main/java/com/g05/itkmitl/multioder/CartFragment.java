@@ -32,6 +32,7 @@ import com.g05.itkmitl.multioder.food.Food;
 import com.g05.itkmitl.multioder.food.FoodAdapter;
 import com.g05.itkmitl.multioder.map.LatLng;
 import com.g05.itkmitl.multioder.map.MapsActivity;
+import com.g05.itkmitl.multioder.order_user.Order;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -44,6 +45,7 @@ import com.squareup.picasso.Picasso;
 
 import java.security.CryptoPrimitive;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -174,27 +176,6 @@ public class CartFragment extends Fragment {
         updateTotalPrice(total);
     }
 
-//    private void addFoodToCartItem(Food food) {
-//        boolean added = false;
-//        int index = -1;
-//        if (!cartItems.isEmpty()) {
-//            for (CartItem item : cartItems) {
-//                if (item.getUid().equals(food.getUid())) {
-//                    added = true;
-//                    index = cartItems.indexOf(item);
-//                }
-//            }
-//            if (added) {
-//                CartItem item = cartItems.get(index);
-//                item.setAmount(item.getAmount() + 1);
-//            } else {
-//                cartItems.add(new CartItem(food, 1));
-//            }
-//        } else {
-//            cartItems.add(new CartItem(food, 1));
-//        }
-//    }
-
 
     /*************************************************************************************************************
      *   refer : https://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/
@@ -263,6 +244,22 @@ public class CartFragment extends Fragment {
     }
 
     private void createOrder() {
+        // TODO : create orders history
+        for(CartItem item : cartItems) {
+            item.setLocation(location);
+        }
+
+        Order order = new Order();
+        order.setId("my_order_" + System.currentTimeMillis());
+        order.setDate(new Date());
+        order.setCartItems(cartItems);
+        order.setTotal(total);
+        firestore.collection("Users")
+                .document(auth.getCurrentUser().getUid())
+                .collection("orders_history")
+                .document(order.getId())
+                .set(order);
+
         firestore.collection("Users")
                 .document(auth.getCurrentUser().getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -272,20 +269,24 @@ public class CartFragment extends Fragment {
                 User user = documentSnapshot.toObject(User.class);
 
                 for(CartItem item : cartItems) {
-                    item.setUser(user);
-                    item.setLocation(location);
+                    String uid = "order_" + System.currentTimeMillis();
+                    String deleteKey = item.getUid();
 
+                    item.setUser(user);
+                    item.setUid(uid);
+
+                    // create order to restaurant
                     firestore.collection("restaurant")
                             .document(item.getFood().getRestaurantID())
                             .collection("orders")
-                            .document("order_" + System.currentTimeMillis())
+                            .document(uid)
                             .set(item);
 
                     // delete from user cart
                     firestore.collection("Users")
                             .document(auth.getCurrentUser().getUid())
                             .collection("cart")
-                            .document(item.getUid()).delete();
+                            .document(deleteKey).delete();
                 }
 
                 Toast.makeText(getContext(), "Create Order", Toast.LENGTH_SHORT).show();

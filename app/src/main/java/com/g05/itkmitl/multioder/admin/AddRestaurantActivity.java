@@ -177,6 +177,12 @@ public class AddRestaurantActivity extends AppCompatActivity {
             return true;
         }
     }
+    // =====================================================
+
+    private Restaurant getBundle() {
+        Restaurant restaurant = (Restaurant) getIntent().getSerializableExtra("res");
+        return restaurant;
+    }
 
     private void setLoading(boolean isLoading){
         if(isLoading) {

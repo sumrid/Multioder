@@ -13,6 +13,14 @@
         android:layout_height="200dp" />
 
     <EditText
+        android:id="@+id/add_food_res_name"
+        android:text="ร้าน test"
+        android:editable="false"
+        android:inputType="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
         android:id="@+id/add_food_name"
         android:text="Food Name"
         android:layout_width="match_parent"
@@ -35,7 +43,7 @@
         android:id="@+id/add_food_button"
         android:layout_gravity="center"
         android:text="Add"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <ProgressBar

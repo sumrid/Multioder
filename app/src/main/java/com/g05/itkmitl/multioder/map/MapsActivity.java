@@ -131,7 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (getLocationBundle() != null) {
             mConfirmButton.setVisibility(View.GONE);
             mMap.addMarker(new MarkerOptions().position(getLocationBundle()).title("Marker in Sydney"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(getLocationBundle()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getLocationBundle(), DEFAULT_ZOOM));
 
         } else {
             getLocationPermission();

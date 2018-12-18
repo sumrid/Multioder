@@ -113,7 +113,7 @@ public class FoodDetailActivity extends AppCompatActivity {
     private void addFoodToCart() {
 //        food.setDeleteKey(System.currentTimeMillis()+"");
 //        auth.getCurrentUser().getUid();
-//        firebaseFirestore.collection("Users")
+//        firestore.collection("Users")
 //                .document(auth.getCurrentUser().getUid())
 //                .collection("cart")
 //                .document(food.getDeleteKey())

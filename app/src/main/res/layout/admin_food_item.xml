@@ -18,6 +18,7 @@
             android:id="@+id/cart_item_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_alignParentTop="true"
             android:layout_marginRight="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/one_pot_chorizo" />
@@ -30,8 +31,8 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="#535353"
-            tools:text="ผัดกระเพราไก่"
-            android:textSize="17dp" />
+            android:textSize="17dp"
+            tools:text="ผัดกระเพราไก่" />
 
         <TextView
             android:id="@+id/food_item_description"
@@ -40,34 +41,53 @@
             android:layout_below="@id/cart_item_name"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/cart_item_image"
-            android:textColor="#a9a9a9"
             android:maxLines="2"
-            tools:text="กระเพราไก่ไข่เยี้ยวหมา อร่อยๆ"
-            android:textSize="12dp" />
+            android:textColor="#a9a9a9"
+            android:textSize="12dp"
+            tools:text="กระเพราไก่ไข่เยี้ยวหมา อร่อยๆ" />
 
         <TextView
             android:id="@+id/food_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/food_item_description"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="12dp"
             android:layout_toRightOf="@id/cart_item_image"
-            tools:text="500 บาท"
             android:fontFamily="sans-serif-medium"
             android:textColor="#f7af63"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="500 บาท" />
 
 
         <Button
             android:id="@+id/btn_addcart"
-            android:drawableLeft="@drawable/dw_addcart"
             android:layout_width="75dp"
             android:layout_height="30dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/bg_btn_addcart"
+            android:clickable="true"
+            android:drawableLeft="@drawable/dw_addcart"
+            android:paddingHorizontal="15dp"
+            android:text="edit"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_alignBaseline="@+id/food_item_price"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="0dp"
             android:background="@drawable/bg_btn_addcart"
             android:clickable="true"
             android:paddingHorizontal="15dp"
-            android:text="cart"
+            android:text="delete"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="11sp" />

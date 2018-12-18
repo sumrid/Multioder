@@ -2,6 +2,7 @@ package com.g05.itkmitl.multioder.admin;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class AddFoodActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private Uri imageUri;
+    private boolean haveImage = false;
 
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -68,8 +70,26 @@ public class AddFoodActivity extends AppCompatActivity {
             }
         });
 
-        // TODO : for create and edit
-//        mFood = new Food();
+
+
+        if (getFoodBundle() != null) {
+            showLog("start activity for edit food");
+
+            mFood = getFoodBundle();
+            setDisplayFood(mFood);
+
+            haveImage = true;
+        } else {
+            showLog("start activity for add new food");
+
+            String id = "food_" + System.currentTimeMillis();
+            mFood = new Food();
+            mFood.setUid(id);
+            
+            SharedPreferences data = getSharedPreferences("staff", MODE_PRIVATE);
+            String resID = data.getString("res_id", "null");
+            mFood.setRestaurantID(resID);
+        }
     }
 
 
@@ -80,17 +100,14 @@ public class AddFoodActivity extends AppCompatActivity {
     private void uploadImage() {
 
         if (imageUri != null) {
-            final String fileName = System.currentTimeMillis() + "." + getFileExtension(imageUri);
-            showLog("file name : " + fileName);
-
-            StorageReference FolderRef = storage.getReference("FoodImages");  // << folder = "FoodImages"
-            StorageReference fileRef = FolderRef.child(fileName); // << file name
+            StorageReference FolderRef = storage.getReference("food_images/");  // << folder
+            StorageReference fileRef = FolderRef.child(mFood.getUid() +"." + getFileExtension(imageUri));     // << file name
 
             fileRef.putFile(imageUri) // upload image file
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            getImageUrl(fileName);
+                            getImageUrl(mFood.getUid());
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -100,14 +117,16 @@ public class AddFoodActivity extends AppCompatActivity {
                     setLoading(false);
                 }
             });
+        } else if (haveImage){
+            saveFood(mFood.getUrl());
         } else {
             showToast("Select Image !!");
             setLoading(false);
         }
     }
 
-    private void getImageUrl(String fileName) {
-        StorageReference fileUrl = storage.getReference("FoodImages/" + fileName);
+    private void getImageUrl(String uid) {
+        StorageReference fileUrl = storage.getReference("food_images/" + uid + "." + getFileExtension(imageUri));
         fileUrl.getDownloadUrl()
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -124,15 +143,16 @@ public class AddFoodActivity extends AppCompatActivity {
     }
 
     private void saveFood(String imageUrl) {
-        Food food = new Food();
-        food.setName(foodName.getText().toString());
-        food.setDescription(foodDescription.getText().toString());
-        food.setPrice(Double.parseDouble(foodPrice.getText().toString()));
-        food.setUrl(imageUrl);
+        mFood.setName(foodName.getText().toString());
+        mFood.setDescription(foodDescription.getText().toString());
+        mFood.setPrice(Double.parseDouble(foodPrice.getText().toString()));
+        mFood.setUrl(imageUrl);
 
-        firestore.collection("test")
-                .document()
-                .set(food)
+        firestore.collection("restaurant")
+                .document(mFood.getRestaurantID())
+                .collection("food")
+                .document(mFood.getUid())
+                .set(mFood)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -162,11 +182,24 @@ public class AddFoodActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             Picasso.get().load(data.getData()).into(foodImage);
+            haveImage = false;
         }
     }
 
-    private void setLoading(boolean isLoading){
-        if(isLoading) {
+    private Food getFoodBundle() {
+        Food food = (Food) getIntent().getSerializableExtra("food");
+        return food;
+    }
+
+    private void setDisplayFood(Food food) {
+        Picasso.get().load(food.getUrl()).fit().centerCrop().into(foodImage);
+        foodName.setText(food.getName());
+        foodDescription.setText(food.getDescription());
+        foodPrice.setText(food.getPrice() + "");
+    }
+
+    private void setLoading(boolean isLoading) {
+        if (isLoading) {
             foodAddButton.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
         } else {

@@ -4,10 +4,11 @@ import com.g05.itkmitl.multioder.User;
 import com.g05.itkmitl.multioder.food.Food;
 import com.g05.itkmitl.multioder.map.LatLng;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartItem {
+public class CartItem implements Serializable {
     private Food food;
     private String uid;
     private int amount;
