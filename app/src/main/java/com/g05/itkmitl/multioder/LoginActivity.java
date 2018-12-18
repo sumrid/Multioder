@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.g05.itkmitl.multioder.managerestaurant.OrderListActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -37,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText emailLogin = (EditText) findViewById(R.id.username);
         final EditText passwordLogin = (EditText) findViewById(R.id.password);
-        final Button btnLogin = (Button) findViewById(R.id.button_login);
+        final Button btnLogin = (Button) findViewById(R.id.btn_login);
         final TextView register_link = (TextView) findViewById(R.id.register_link);
         final ImageView appLogo = (ImageView) findViewById(R.id.app_logo);
 
@@ -105,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
     private void loginState() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if(auth.getCurrentUser() != null){
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, OrderListActivity.class);
             startActivity(intent);
         }
     }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="10dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/order_icon"
+        android:layout_width="112dp"
+        android:layout_height="84dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:layout_toEndOf="@+id/order_number"
+        android:scaleType="centerCrop"
+        android:src="@drawable/one_pot_chorizo"
+        app:riv_corner_radius="3dip"
+        app:riv_oval="false" />
+
+    <TextView
+        android:id="@+id/food_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food_detail"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/order_icon"
+        android:textColor="#4E4E4E"
+        android:textSize="16sp"
+        tools:text="ต้มยำกุ้ง" />
+
+
+    <TextView
+        android:id="@+id/food_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/order_icon"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/order_icon"
+        android:fontFamily="@font/mitr_light"
+        android:textColor="#585858"
+        android:textSize="12sp"
+        tools:text="หมายเลขคำสั่งซื้อ 345" />
+
+
+    <TextView
+        android:id="@+id/food_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food_name"
+        android:layout_alignBottom="@+id/order_icon"
+        android:layout_marginStart="11dp"
+        android:layout_toEndOf="@+id/order_icon"
+        android:textColor="#FFB771"
+        android:textSize="14sp"
+        tools:text="จำนวน x2" />
+
+
+    <ImageView
+        android:id="@+id/check_btn"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/checked_ico_green" />
+
+    <TextView
+        android:id="@+id/order_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="14dp"
+        android:textSize="20sp"
+        tools:text="1" />
+
+
+</RelativeLayout>

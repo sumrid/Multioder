@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="10dp">
+
+
+
+
+        <LinearLayout
+            android:id="@+id/layout_food"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shadow_mat"
+            android:padding="15dp"
+
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="รายการอาหาร"
+                android:textColor="#FEAE62"
+                android:textSize="16sp" />
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/order_detail_foodlist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/popular_food_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/shadow_mat"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:text="พื้นที่จัดส่ง"
+                android:textColor="#5b5b5b"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:src="@drawable/map_location" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="10dp"
+            android:background="#7fd7d7d7" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="ราคารวมทั้งหมด"
+                android:textColor="#5b5b5b"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text="150"
+                android:textColor="#5b5b5b"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:text="บาท"
+                android:textColor="#5b5b5b"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

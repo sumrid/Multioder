@@ -1,10 +1,11 @@
 package com.g05.itkmitl.multioder;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -12,14 +13,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.g05.itkmitl.multioder.cart.CartItem;
-import com.g05.itkmitl.multioder.food.Food;
+import com.g05.itkmitl.multioder.Showfood.ShowMenuFragment;
 import com.g05.itkmitl.multioder.notification.NotificationCountSetClass;
 import com.g05.itkmitl.multioder.restaurant.RestaurantFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,10 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
     final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -47,15 +43,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String userAddress;
     String userPhone;
     User curUser;
+    TextView mTitle;
 
     public static int CountCart;
 
-    void getUserData(){
+    void getUserData() {
         mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     DocumentSnapshot documentSnapshot = task.getResult();
                     userEmail = mAuth.getCurrentUser().getEmail();
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     userAddress = documentSnapshot.getString("address");
                     userPhone = documentSnapshot.getString("phone");
 
-                    curUser = new User(userFullName,userPhone,userAddress);
+                    curUser = new User(userFullName, userPhone, userAddress);
 
                     TextView navName = (TextView) findViewById(R.id.nvName);
                     TextView navEmail = (TextView) findViewById(R.id.nvEmail);
@@ -82,20 +79,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
 
-        if(!haveCurrentUser()){
+        if (!haveCurrentUser()) {
             finish();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
 
+
         getCountCart();
         getUserData();
-        changeFragment(new RestaurantFragment());
-
+        changeFragment(new TestFragment());
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
+        setTitle("ทดสอบ");
+
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -115,62 +119,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation_button);
-//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Toast.makeText(getBaseContext(), item+"", Toast.LENGTH_SHORT).show();
-//                switch (item.getItemId()){
-//                    case R.id.navigation_home:
-//                        changeFragment(new RestaurantFragment());
-//                        break;
-//                    case R.id.navigation_cart:
-//                        changeFragment(new CartFragment()); break;
-//                    case R.id.navigation_account:
-//
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-
-
-//        -------------------------- ของเก่า ------------------------------------
-
-//        navigationView = findViewById(R.id.navigation_button);
-//
-//        // check current user
-//        if(haveCurrentUser()){
-//            if(savedInstanceState == null) {
-//                changeFragment(new FoodListFragment());
-//            }
-//        } else {
-//            if(savedInstanceState == null) {
-//                navigationView.setVisibility(View.GONE);
-//                changeFragment(new LoginFragment());
-//            }
-//        }
-//
-//        // onItemSelected
-//        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Toast.makeText(getBaseContext(), item+"", Toast.LENGTH_SHORT).show();
-//                switch (item.getItemId()){
-//                    case R.id.navigation_home:
-//                        changeFragment(new FoodListFragment());
-//                        break;
-//                    case R.id.navigation_cart:
-//                        changeFragment(new CartFragment()); break;
-//                    case R.id.navigation_account:
-////                        changeFragment();
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-
-
 
     }
 
@@ -180,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_view);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if(f instanceof RestaurantFragment) {
+        } else if (f instanceof RestaurantFragment) {
             if (doubleBackToExitPressedOnce) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -189,13 +137,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return;
             }
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "กด Back อีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "กดอีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
 
                 @Override
                 public void run() {
-                    doubleBackToExitPressedOnce=false;
+                    doubleBackToExitPressedOnce = false;
                 }
             }, 2000);
 
@@ -216,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Get the notifications MenuItem and
         // its LayerDrawable (layer-list)
         MenuItem item = menu.findItem(R.id.action_cart);
-        NotificationCountSetClass.setAddToCart(MainActivity.this, item,CountCart);
+        NotificationCountSetClass.setAddToCart(MainActivity.this, item, CountCart);
         // force the ActionBar to relayout its MenuItems.
         // onCreateOptionsMenu(Menu) will be called again.
         invalidateOptionsMenu();
@@ -247,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         getUserData();
-        if(GoToCartFragment){
+        if (GoToCartFragment) {
             changeFragment(new CartFragment());
             GoToCartFragment = false;
         }
@@ -284,13 +232,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private boolean haveCurrentUser() {
-        if(mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             return true;
         }
         return false;
     }
 
-    private void changeFragment(Fragment fragment){
+    private void changeFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_view, fragment)
@@ -312,5 +260,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     }
                 });
+    }
+
+    public void setTitle(String name) {
+        mTitle.setText(name);
     }
 }

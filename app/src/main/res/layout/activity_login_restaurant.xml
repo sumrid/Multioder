@@ -34,20 +34,20 @@
                 android:src="@drawable/app_logo" />
 
             <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="MultiOder App"-->
-                <!--android:textSize="24sp"-->
-                <!--android:textStyle="bold"-->
-                <!--android:textColor="#fff"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:paddingLeft="16dp"-->
-                <!--android:paddingRight="16dp"-->
-                <!--android:paddingTop="2dp"-->
-                <!--android:paddingBottom="16dp"/>-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="MultiOder App"-->
+            <!--android:textSize="24sp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="#fff"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:paddingLeft="16dp"-->
+            <!--android:paddingRight="16dp"-->
+            <!--android:paddingTop="2dp"-->
+            <!--android:paddingBottom="16dp"/>-->
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/res_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -63,7 +63,7 @@
                 android:textColorHint="#fff6e9" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/res_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -71,11 +71,11 @@
                 android:drawableRight="@drawable/ic_password_login"
                 android:drawablePadding="16dp"
                 android:ems="10"
-                android:textColor="@color/white"
                 android:hint="password"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="16dp"
+                android:textColor="@color/white"
                 android:textColorHint="#fff6e9" />
 
             <Button
@@ -98,27 +98,6 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textregis"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/register"
-                    android:textAlignment="center"
-                    android:textColor="#fff"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_toEndOf="@+id/textregis"
-                    android:id="@+id/register_link"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" sign up here"
-                    android:textAlignment="center"
-                    android:textColor="#ffff4e"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
 
             </RelativeLayout>
 
