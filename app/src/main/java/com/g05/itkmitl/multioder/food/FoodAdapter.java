@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.cart.CartItem;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,6 +42,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         public TextView foodName;
         public TextView foodDescrip;
         public TextView foodPrice;
+        public TextView foodResName;
         public ImageView foodImage;
         private Button btnAddCart;
 
@@ -53,6 +55,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             foodPrice = (TextView) view.findViewById(R.id.food_item_price);
             foodImage = (ImageView) view.findViewById(R.id.cart_item_image);
             btnAddCart = (Button) view.findViewById(R.id.btn_addcart);
+            foodResName = view.findViewById(R.id.food_item_res_name);
 
         }
     }
@@ -72,13 +75,22 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         final Food selectFood = foods.get(position);
 
         viewHolder.foodName.setText(selectFood.getName());
         viewHolder.foodDescrip.setText(selectFood.getDescription());
         viewHolder.foodPrice.setText(String.format("%.0f บาท", selectFood.getPrice()));
         Picasso.get().load(selectFood.getUrl()).fit().centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(viewHolder.foodImage);
+
+        firebaseFirestore.collection("restaurant")
+                .whereEqualTo("id", selectFood.getRestaurantID())
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot query) {
+                viewHolder.foodResName.setText(query.getDocuments().get(0).getString("name"));
+            }
+        });
 
         loadCartItem();
         viewHolder.btnAddCart.setOnClickListener(new View.OnClickListener() {
