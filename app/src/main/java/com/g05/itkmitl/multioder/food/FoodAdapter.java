@@ -50,12 +50,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         public ViewHolder(View view) {
             super(view);
 
-            foodName = (TextView) view.findViewById(R.id.food_name_order);
-            foodDescrip = (TextView) view.findViewById(R.id.food_item_description);
+            foodName = (TextView) view.findViewById(R.id.res_name);
+            foodDescrip = (TextView) view.findViewById(R.id.res_telephone);
             foodPrice = (TextView) view.findViewById(R.id.food_item_price);
-            foodImage = (ImageView) view.findViewById(R.id.cart_item_image);
+            foodImage = (ImageView) view.findViewById(R.id.res_image);
             btnAddCart = (Button) view.findViewById(R.id.btn_addcart);
-            foodResName = view.findViewById(R.id.food_item_res_name);
+            foodResName = view.findViewById(R.id.restaurant_name);
 
         }
     }

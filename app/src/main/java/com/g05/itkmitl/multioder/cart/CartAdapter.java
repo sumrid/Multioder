@@ -38,8 +38,8 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
                 .from(context)
                 .inflate(R.layout.fragment_cart_item, parent, false);
 
-        ImageView imageView = CartListView.findViewById(R.id.cart_item_image);
-        TextView name = CartListView.findViewById(R.id.food_name_order);
+        ImageView imageView = CartListView.findViewById(R.id.res_image);
+        TextView name = CartListView.findViewById(R.id.res_name);
         final TextView amount = CartListView.findViewById(R.id.food_item_price);
         final TextView total = CartListView.findViewById(R.id.cart_item_total);
         ImageView reduceButton = CartListView.findViewById(R.id.cart_item_reduce);

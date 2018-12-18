@@ -51,8 +51,8 @@ public class AddFoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_addfood);
 
         foodImage = findViewById(R.id.food_image);
-        foodName = findViewById(R.id.food_name_order);
-        foodDescription = findViewById(R.id.food_item_description);
+        foodName = findViewById(R.id.res_name);
+        foodDescription = findViewById(R.id.res_telephone);
         foodPrice = findViewById(R.id.food_item_price);
         foodAddButton = findViewById(R.id.food_add_button);
         progressBar = findViewById(R.id.progressBar);

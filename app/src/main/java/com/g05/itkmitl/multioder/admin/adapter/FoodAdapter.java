@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,10 +38,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            foodName = itemView.findViewById(R.id.food_name_order);
-            foodDescrip = itemView.findViewById(R.id.food_item_description);
+            foodName = itemView.findViewById(R.id.res_name);
+            foodDescrip = itemView.findViewById(R.id.res_telephone);
             foodPrice = itemView.findViewById(R.id.food_item_price);
-            foodImage = itemView.findViewById(R.id.cart_item_image);
+            foodImage = itemView.findViewById(R.id.res_image);
             editButton = itemView.findViewById(R.id.edit_btn);
             deleteButton = itemView.findViewById(R.id.remove_btn);
         }

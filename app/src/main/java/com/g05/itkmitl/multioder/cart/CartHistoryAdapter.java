@@ -35,10 +35,10 @@ public class CartHistoryAdapter extends ArrayAdapter<CartItem> {
         View view = LayoutInflater.from(mContext).inflate(R.layout.orderdetail_item, parent, false);
 
         CartItem item = mCartItems.get(position);
-        ImageView image = view.findViewById(R.id.cart_item_image);
-        TextView name = view.findViewById(R.id.food_name_order);
+        ImageView image = view.findViewById(R.id.res_image);
+        TextView name = view.findViewById(R.id.res_name);
         TextView amount = view.findViewById(R.id.food_item_price);
-        TextView price = view.findViewById(R.id.food_item_description);
+        TextView price = view.findViewById(R.id.res_telephone);
         final TextView restaurant = view.findViewById(R.id.cart_item_res);
         TextView total = view.findViewById(R.id.cart_item_total);
 

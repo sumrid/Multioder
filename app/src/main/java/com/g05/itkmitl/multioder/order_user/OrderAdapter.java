@@ -26,8 +26,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            orderId = itemView.findViewById(R.id.food_name_order);
-            orderDate = itemView.findViewById(R.id.food_item_description);
+            orderId = itemView.findViewById(R.id.res_name);
+            orderDate = itemView.findViewById(R.id.res_telephone);
 //            orderDetail = itemView.findViewById(R.id.order_detail_button);
             itemView.setOnClickListener(this);
         }

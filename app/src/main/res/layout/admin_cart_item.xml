@@ -8,7 +8,7 @@
     android:paddingBottom="10dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/cart_item_image"
+            android:id="@+id/res_image"
             android:layout_width="112dp"
             android:layout_height="84dp"
             android:layout_alignParentTop="true"
@@ -23,13 +23,13 @@
 
 
         <TextView
-            android:id="@+id/food_name_order"
+            android:id="@+id/res_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/cart_item_image"
+            android:layout_alignTop="@+id/res_image"
             android:layout_marginStart="12dp"
             android:layout_marginTop="37dp"
-            android:layout_toEndOf="@+id/cart_item_image"
+            android:layout_toEndOf="@+id/res_image"
             android:textColor="#4E4E4E"
             android:textSize="16sp"
             tools:text="ต้มยำกุ้ง" />
@@ -39,9 +39,9 @@
             android:id="@+id/food_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/food_name_order"
+            android:layout_below="@+id/res_name"
             android:layout_marginStart="12dp"
-            android:layout_toEndOf="@+id/cart_item_image"
+            android:layout_toEndOf="@+id/res_image"
             android:textColor="#FFB771"
             android:textSize="14sp"
             tools:text="จำนวน x2" />

@@ -1,6 +1,7 @@
 package com.g05.itkmitl.multioder.restaurant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,12 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.g05.itkmitl.multioder.R;
+import com.g05.itkmitl.multioder.food.FoodListActivity;
 import com.g05.itkmitl.multioder.map.RestaurantMapsFragment;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -26,15 +25,16 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class RestaurantMapsAdapter extends RecyclerView.Adapter<RestaurantMapsAdapter.ViewHolder> {
+public class RestaurantMapsAdapter extends RecyclerView.Adapter<RestaurantMapsAdapter.ViewHolder>  {
     private Context mContext;
     private List<Restaurant> mRestaurants;
 
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
         public ImageView image;
         public TextView name, telephone, queue, status;
+        private ClickListener clickListener;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -44,8 +44,25 @@ public class RestaurantMapsAdapter extends RecyclerView.Adapter<RestaurantMapsAd
             telephone = itemView.findViewById(R.id.res_telephone);
             queue = itemView.findViewById(R.id.res_queue);
             status = itemView.findViewById(R.id.res_status);
+            itemView.setOnClickListener(this);
+        }
+
+        public void setOnItemClickListener(ClickListener clickListener) {
+            this.clickListener = clickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.onItemClick(getAdapterPosition(), v);
         }
     }
+
+
+    public interface ClickListener {
+        void onItemClick(int position, View v);
+    }
+
+
 
     public RestaurantMapsAdapter(Context mContext, List<Restaurant> mRestaurants) {
         this.mContext = mContext;
@@ -65,7 +82,7 @@ public class RestaurantMapsAdapter extends RecyclerView.Adapter<RestaurantMapsAd
 
         Picasso.get().load(item.getUrl()).fit().centerCrop().into(view.image);
         view.name.setText(item.getName());
-        view.telephone.setText("tel." + item.getTelephone());
+        view.telephone.setText("เบอร์โทร: " + item.getTelephone());
         view.status.setText("เปิด");
 
         firestore.collection("restaurant")
@@ -74,9 +91,19 @@ public class RestaurantMapsAdapter extends RecyclerView.Adapter<RestaurantMapsAd
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot query, @Nullable FirebaseFirestoreException e) {
-                        view.queue.setText("จำนวนคิวอาหาร: " + query.size());
+                        view.queue.setText(""+query.size());
                     }
                 });
+
+        view.setOnItemClickListener(new ClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Intent intent = new Intent(mContext, FoodListActivity.class);
+                intent.putExtra("restaurant", item);
+                mContext.startActivity(intent);
+            }
+        });
+
 
         view.image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +111,8 @@ public class RestaurantMapsAdapter extends RecyclerView.Adapter<RestaurantMapsAd
                 moveCamera(item);
             }
         });
+
+
     }
 
     @Override

@@ -16,7 +16,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/cart_item_image"
+            android:id="@+id/res_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginRight="16dp"
@@ -24,10 +24,10 @@
             android:src="@drawable/one_pot_chorizo" />
 
         <TextView
-            android:id="@+id/food_name_order"
+            android:id="@+id/res_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/cart_item_image"
+            android:layout_toRightOf="@id/res_image"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="#535353"
@@ -35,12 +35,12 @@
             android:textSize="17dp" />
 
         <TextView
-            android:id="@+id/food_item_description"
+            android:id="@+id/res_telephone"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/food_name_order"
+            android:layout_below="@id/res_name"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/cart_item_image"
+            android:layout_toRightOf="@id/res_image"
             android:textColor="#a9a9a9"
             android:maxLines="2"
             android:text="ไม่ใส่ถั่วฝักยาว พิเศษข้าว"
@@ -50,9 +50,9 @@
             android:id="@+id/food_item_description3"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/food_item_description"
+            android:layout_below="@id/res_telephone"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/cart_item_image"
+            android:layout_toRightOf="@id/res_image"
             android:maxLines="2"
             android:textColor="#a9a9a9"
             android:textSize="12dp"

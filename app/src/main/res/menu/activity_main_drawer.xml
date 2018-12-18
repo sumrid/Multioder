@@ -11,7 +11,7 @@
         <item
             android:id="@+id/nav_list"
             android:icon="@drawable/ic_home"
-            android:title="รายการอาหาร" />
+            android:title="รายการร้านค้า" />
         <item
             android:id="@+id/nav_cart"
             android:icon="@drawable/ic_navbar_cart"
@@ -20,17 +20,8 @@
         <item
             android:id="@+id/nav_orders_history"
             android:icon="@drawable/ic_navbar_cart"
-            android:title="ประวัติของฉัน" />
+            android:title="ประวัติการสั่งซื้อ" />
 
-        <item
-            android:id="@+id/nav_admin"
-            android:icon="@drawable/ic_setting_profile"
-            android:title="admin" />
-
-        <item
-            android:id="@+id/nav_orders"
-            android:icon="@drawable/ic_navbar_cart"
-            android:title="admin_oders" />
 
     </group>
 

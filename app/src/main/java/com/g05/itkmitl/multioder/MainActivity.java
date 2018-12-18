@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.admin.OrderFragment;
 import com.g05.itkmitl.multioder.food.FoodListFragment;
+import com.g05.itkmitl.multioder.map.RestaurantMapsFragment;
 import com.g05.itkmitl.multioder.notification.NotificationCountSetClass;
 import com.g05.itkmitl.multioder.order_user.OrderHistoryFragment;
 import com.g05.itkmitl.multioder.restaurant.RestaurantFragment;
@@ -205,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             changeFragment(new FoodListFragment());
         } else if (id == R.id.nav_list) {
             setTitle("ร้านอาหาร");
-            changeFragment(new RestaurantFragment());
+            changeFragment(new RestaurantMapsFragment());
         } else if (id == R.id.nav_cart) {
             changeFragment(new CartFragment());
         } else if (id == R.id.nav_profile) {
@@ -217,11 +218,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, SelectLoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        } else if (id == R.id.nav_admin) {
-
-
-        } else if (id == R.id.nav_orders) {
-            changeFragment(new OrderFragment());
         } else if (id == R.id.nav_orders_history) {
             setTitle("ประวัติการสั่งซื้อ");
             changeFragment(new OrderHistoryFragment());

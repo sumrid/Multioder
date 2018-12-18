@@ -30,8 +30,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            image = itemView.findViewById(R.id.cart_item_image);
-            name = itemView.findViewById(R.id.food_name_order);
+            image = itemView.findViewById(R.id.res_image);
+            name = itemView.findViewById(R.id.res_name);
             amount = itemView.findViewById(R.id.food_item_price);
             checkButton = itemView.findViewById(R.id.cart_check);
         }

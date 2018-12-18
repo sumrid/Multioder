@@ -1,58 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/shadow_mat"
+    android:paddingBottom="10dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="5dp">
 
-    <ImageView
+
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/res_image"
-        android:layout_width="140dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/one_pot_chorizo" />
+        android:layout_width="143dp"
+        android:layout_height="107dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/one_pot_chorizo"
+        app:riv_corner_radius="3dip"
+        app:riv_oval="false" />
 
     <TextView
         android:id="@+id/res_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/res_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignTop="@+id/res_image"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/res_image"
+        android:textColor="#4E4E4E"
+        android:textSize="20sp"
+        tools:text="ร้านลุงตู่" />
+
 
     <TextView
         android:id="@+id/res_telephone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/res_image"
-        app:layout_constraintTop_toBottomOf="@+id/res_name" />
+        android:layout_below="@+id/res_name"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/res_image"
+        android:fontFamily="@font/mitr_light"
+        android:textColor="#979797"
+        android:textSize="14sp"
+        tools:text="เบอร์โทร: 081234578" />
 
-    <TextView
-        android:id="@+id/res_queue"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/res_image"
-        app:layout_constraintTop_toBottomOf="@+id/res_telephone" />
+        android:layout_alignBottom="@+id/res_image"
+        android:layout_toEndOf="@+id/res_image">
+    <TextView
+        android:id="@+id/text_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="#6c6c6c"
+        android:textSize="14sp"
+        android:text="จำนวนคิวอาหาร: " />
+
+        <TextView
+            android:id="@+id/res_queue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFB771"
+            android:textSize="14sp"
+            tools:text="3" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/res_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="9dp"
+        android:layout_marginRight="9dp"
+        android:textColor="#27b668"
+        android:textSize="14sp"
+        tools:text="เปิด" />
+
+
+</RelativeLayout>

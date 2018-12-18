@@ -15,7 +15,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/cart_item_image"
+            android:id="@+id/res_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
@@ -24,10 +24,10 @@
             android:src="@drawable/one_pot_chorizo" />
 
         <TextView
-            android:id="@+id/food_name_order"
+            android:id="@+id/res_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/cart_item_image"
+            android:layout_toRightOf="@id/res_image"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="#535353"
@@ -35,12 +35,12 @@
             tools:text="ผัดกระเพราไก่" />
 
         <TextView
-            android:id="@+id/food_item_description"
+            android:id="@+id/res_telephone"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/food_name_order"
+            android:layout_below="@id/res_name"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/cart_item_image"
+            android:layout_toRightOf="@id/res_image"
             android:maxLines="2"
             android:textColor="#a9a9a9"
             android:textSize="12dp"
@@ -50,10 +50,10 @@
             android:id="@+id/food_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/food_item_description"
+            android:layout_below="@+id/res_telephone"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="12dp"
-            android:layout_toRightOf="@id/cart_item_image"
+            android:layout_toRightOf="@id/res_image"
             android:fontFamily="sans-serif-medium"
             android:textColor="#f7af63"
             android:textStyle="bold"
