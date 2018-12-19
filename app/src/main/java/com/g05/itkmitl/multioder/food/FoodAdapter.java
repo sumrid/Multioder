@@ -96,22 +96,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         viewHolder.btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(selectFood);
-//                addFoodToCart(selectFood);
-//                Intent intent = new Intent(mContext, FoodDetailActivity.class);
-//                intent.putExtra("food", food);
-//                mContext.startActivity(intent);
+
+                addFoodToCart(selectFood);
+
             }
         });
 
-        viewHolder.foodImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, FoodDetailActivity.class);
-                intent.putExtra("food", selectFood);
-                mContext.startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -165,36 +155,4 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         Log.d("FoodAdapter", "cart item size = " + cartItems.size());
     }
 
-    private void showDialog(final Food selectedFood) {
-        final EditText input = new EditText(mContext);
-        input.setHint("เช่น เผ็ดน้อย, ไม่เอาผัก");
-
-        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-        alertDialog.setTitle("รายละเอียดเพิ่มเติม");
-        alertDialog.setView(input);
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Add to Cart",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String additional = input.getText().toString();
-                        addFoodToCart(selectedFood);
-                        Toast.makeText(mContext, "Added", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                dialog.dismiss();
-            }
-        });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-        alertDialog.show();
-    }
 }

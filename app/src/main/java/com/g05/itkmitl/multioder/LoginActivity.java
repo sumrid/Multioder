@@ -40,12 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        if (getIntent().getBooleanExtra("EXIT", false)) {
-            finish();
-        } else {
-            loginState();
-        }
-
         final EditText emailLogin = (EditText) findViewById(R.id.username);
         final EditText passwordLogin = (EditText) findViewById(R.id.password);
         final Button btnLogin = (Button) findViewById(R.id.btn_login);
@@ -110,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+       finish();
     }
 
     private void loginState() {
@@ -120,5 +114,14 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+
+
+    private boolean haveCurrentUser() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            return true;
+        }
+        return false;
+    }
 
 }

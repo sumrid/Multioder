@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,13 +25,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.g05.itkmitl.multioder.CheckLoginActivity;
 import com.g05.itkmitl.multioder.LoginActivity;
 import com.g05.itkmitl.multioder.MainActivity;
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.SelectLoginActivity;
 import com.g05.itkmitl.multioder.User;
 import com.g05.itkmitl.multioder.admin.EditFoodListActivity;
+import com.g05.itkmitl.multioder.food.FoodListFragment;
 import com.g05.itkmitl.multioder.restaurant.Restaurant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,6 +65,7 @@ public class RestaurantMainActivity  extends AppCompatActivity {
     private TextView orderCount;
     private TextView foodCount;
     Restaurant cur;
+    private boolean doubleBackToExitPressedOnce = false;
 
     public String getUserImgUrl() {
         return userImgUrl;
@@ -143,7 +150,33 @@ public class RestaurantMainActivity  extends AppCompatActivity {
         setCount();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setCount();
+    }
 
+    @Override
+    public void onBackPressed() {
+            if (doubleBackToExitPressedOnce) {
+                Intent intent = new Intent(RestaurantMainActivity.this, CheckLoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("EXIT", true);
+                startActivity(intent);
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "กดอีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+
+    }
 
     private void getUserData() {
         FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();

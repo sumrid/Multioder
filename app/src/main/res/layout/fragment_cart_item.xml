@@ -34,29 +34,18 @@
             tools:text="ผัดกระเพราไก่"
             android:textSize="17dp" />
 
+
         <TextView
-            android:id="@+id/res_telephone"
+            android:id="@+id/food_item_restaname"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/res_name"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/res_image"
-            android:textColor="#a9a9a9"
-            android:maxLines="2"
-            android:text="ไม่ใส่ถั่วฝักยาว พิเศษข้าว"
-            android:textSize="12dp" />
-
-        <TextView
-            android:id="@+id/food_item_description3"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/res_telephone"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/res_image"
             android:maxLines="2"
             android:textColor="#a9a9a9"
             android:textSize="12dp"
-            android:text="ร้าน 2 โรงอาหารคณะไอที" />
+            tools:text="ร้าน 2 โรงอาหารคณะไอที" />
 
         <LinearLayout
             android:layout_width="wrap_content"

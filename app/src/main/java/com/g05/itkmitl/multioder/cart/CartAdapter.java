@@ -42,6 +42,7 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
         TextView name = CartListView.findViewById(R.id.res_name);
         final TextView amount = CartListView.findViewById(R.id.food_item_price);
         final TextView total = CartListView.findViewById(R.id.cart_item_total);
+        final TextView detail = CartListView.findViewById(R.id.food_item_restaname);
         ImageView reduceButton = CartListView.findViewById(R.id.cart_item_reduce);
         ImageView addButton = CartListView.findViewById(R.id.cart_item_add);
 
@@ -49,6 +50,7 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
         Log.d("Cart Adapter", item.toString());
         name.setText(item.getFood().getName());
         amount.setText("" + item.getAmount());
+        detail.setText(""+ item.getFood().getDescription());
         total.setText("฿ " + item.getTotal());
         Picasso.get().load(item.getFood().getUrl()).fit().centerCrop().into(imageView);
 

@@ -152,7 +152,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void setLocationToOrder(Location location) {
         CartFragment.location = new com.g05.itkmitl.multioder.map.LatLng(location.getLatitude(), location.getLongitude());
         CartFragment.locationText.setTextColor(getColor(R.color.green_primary));
-        CartFragment.locationText.setText("เลือกพื้นที่จัดส่งแล้ว");
+        CartFragment.locationText.setText("แก้ไขพื้นที่จัดส่ง");
     }
 
     private void getLocationPermission() {

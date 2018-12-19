@@ -8,12 +8,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.g05.itkmitl.multioder.CartFragment;
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.admin.Order2Fragment;
 import com.g05.itkmitl.multioder.admin.OrderFragment;
+import com.g05.itkmitl.multioder.admin.OrderSuccessFragment;
 import com.g05.itkmitl.multioder.order_user.Order;
 
 import java.util.ArrayList;
@@ -27,6 +30,14 @@ public class OrderListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_orderlist);
 
 
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.orderlist_toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -37,6 +48,15 @@ public class OrderListActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 
@@ -44,7 +64,7 @@ public class OrderListActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager());
 
         adapter.addFragment(new OrderFragment(), "ที่ต้องทำ");
-        adapter.addFragment(new Order2Fragment(), "ทำเสร็จแล้ว");
+        adapter.addFragment(new OrderSuccessFragment(), "ทำเสร็จแล้ว");
         viewPager.setAdapter(adapter);
     }
 

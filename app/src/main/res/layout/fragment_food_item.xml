@@ -80,9 +80,9 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/res_image"
             android:fontFamily="@font/mitr_light"
+            android:text="ร้านลุงตู่"
             android:textColor="#CACACA"
-            android:textSize="9sp"
-            android:text="ร้านลุงตู่" />
+            android:textSize="11sp" />
     </LinearLayout>
 
 

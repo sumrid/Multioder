@@ -26,6 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
@@ -45,7 +46,7 @@ public class OrderSuccessFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_order_success, container, false);
+        return inflater.inflate(R.layout.fragment_order2, container, false);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class OrderSuccessFragment extends Fragment {
         mCarts = new ArrayList<>();
         adapter = new OrderSuccessAdapter(getActivity(), mCarts);
 
-        mRecyclerView = getActivity().findViewById(R.id.order_list);
+        mRecyclerView = getActivity().findViewById(R.id.order_list2);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -110,6 +111,7 @@ public class OrderSuccessFragment extends Fragment {
         firestore.collection("restaurant")
                 .document(resId)
                 .collection("orders_history")
+                .orderBy("uid", Query.Direction.DESCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {

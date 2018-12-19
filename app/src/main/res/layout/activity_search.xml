@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,19 +7,57 @@
     android:orientation="vertical"
     tools:context=".SearchActivity">
 
-    <EditText
-        android:id="@+id/text_search"
-        android:layout_height="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/header_app_bar"
         android:layout_width="match_parent"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:imeOptions="actionSearch"
-        android:hint="Search" />
+        android:layout_height="wrap_content"
+        android:translationZ="0.1dp"
+        app:elevation="1dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/orderlist_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:theme="@style/ToolbarTheme">
+
+
+
+            <EditText
+                android:id="@+id/text_search"
+                android:layout_height="wrap_content"
+                android:layout_width="325dp"
+                android:layout_marginRight="25dp"
+                android:ems="10"
+                android:layout_gravity="right"
+                android:inputType="textPersonName"
+                android:imeOptions="actionSearch"
+                android:background="@color/transparent"
+                android:textColor="#beffffff"
+                android:textColorHint="#a0ffffff"
+                android:fontFamily="@font/mitr_light"
+                android:drawableRight="@drawable/ic_search_white"
+                android:hint="พิมพ์ชื่อาหาร" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:tabTextAppearance="@style/profileTabs" />
+    </android.support.design.widget.AppBarLayout>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_list"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/header_app_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+</RelativeLayout>

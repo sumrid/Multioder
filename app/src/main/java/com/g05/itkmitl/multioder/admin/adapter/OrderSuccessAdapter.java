@@ -23,7 +23,7 @@ public class OrderSuccessAdapter extends RecyclerView.Adapter<OrderSuccessAdapte
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, amount;
+        public TextView name, amount,orderID;
         public ImageView image;
 
         public ViewHolder(@NonNull View itemView) {
@@ -32,6 +32,7 @@ public class OrderSuccessAdapter extends RecyclerView.Adapter<OrderSuccessAdapte
             image = itemView.findViewById(R.id.order_success_img);
             name = itemView.findViewById(R.id.order_success_name);
             amount = itemView.findViewById(R.id.order_success_amount);
+            orderID = itemView.findViewById(R.id.order_id_item);
         }
     }
 
@@ -51,7 +52,9 @@ public class OrderSuccessAdapter extends RecyclerView.Adapter<OrderSuccessAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final CartItem item = mCartItem.get(i);
+
         Picasso.get().load(item.getFood().getUrl()).fit().centerCrop().into(viewHolder.image);
+        viewHolder.orderID.setText(item.getUid().replaceAll("order_","เลขใบสั่งซื้อ - "));
         viewHolder.name.setText(item.getFood().getName());
         viewHolder.amount.setText(String.format("%d ชิ้น", item.getAmount()));
 
