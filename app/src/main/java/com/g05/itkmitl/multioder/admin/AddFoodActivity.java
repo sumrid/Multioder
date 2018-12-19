@@ -1,6 +1,7 @@
 package com.g05.itkmitl.multioder.admin;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -92,10 +93,10 @@ public class AddFoodActivity extends AppCompatActivity {
             String id = "food_" + System.currentTimeMillis();
             mFood = new Food();
             mFood.setUid(id);
-            
-            SharedPreferences data = getSharedPreferences("staff", MODE_PRIVATE);
-            String resID = data.getString("res_id", "null");
-            mFood.setRestaurantID(resID);
+
+            SharedPreferences data = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+            String key = data.getString("resid", null);
+            mFood.setRestaurantID(key);
         }
     }
 

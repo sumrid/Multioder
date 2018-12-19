@@ -1,15 +1,19 @@
 package com.g05.itkmitl.multioder.admin.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.g05.itkmitl.multioder.MainActivity;
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.admin.AddFoodActivity;
 import com.g05.itkmitl.multioder.food.Food;
@@ -81,7 +85,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteFood(food);
+                openDeleteDialog(food);
             }
         });
     }
@@ -103,5 +107,23 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
                 notifyDataSetChanged();
             }
         });
+    }
+
+    private void openDeleteDialog(final Food food) {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(mContext);
+        builder.setMessage("ยืนยันการลบรายการ");
+        builder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                deleteFood(food);
+            }
+        });
+        builder.setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
     }
 }

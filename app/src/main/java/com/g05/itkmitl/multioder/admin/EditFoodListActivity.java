@@ -52,7 +52,7 @@ public class EditFoodListActivity extends AppCompatActivity {
 
 
         mFoods = new ArrayList<>();
-        adapter = new FoodAdapter(getApplicationContext(), mFoods);
+        adapter = new FoodAdapter(this, mFoods);
 
         mRecylerView = findViewById(R.id.food_list_recyclerView);
         addFoodButton = findViewById(R.id.add_food);
@@ -70,9 +70,9 @@ public class EditFoodListActivity extends AppCompatActivity {
         });
 
         // TODO :  get res id when login
-        SharedPreferences data = getSharedPreferences("staff", Context.MODE_PRIVATE);
-        data.edit().putString("res_id", "restaurant_04").commit();
-        loadDataSet("restaurant_04");
+        SharedPreferences data = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        String id = data.getString("resid", null);
+        if(id != null) loadDataSet(id);
     }
 
 
