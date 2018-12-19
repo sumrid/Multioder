@@ -57,9 +57,6 @@
             android:name=".CheckLoginActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SelectLoginActivity"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".managerestaurant.OrderListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 

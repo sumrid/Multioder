@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -36,7 +37,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
+
+    private boolean doubleBackToExitPressedOnce = false;
     private SharedPreferences shared;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +123,23 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       finish();
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(LoginActivity.this, CheckLoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("EXIT", true);
+            startActivity(intent);
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "กดอีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     private void loginState() {

@@ -3,23 +3,12 @@ package com.g05.itkmitl.multioder.managerestaurant;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,17 +18,10 @@ import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.CheckLoginActivity;
 import com.g05.itkmitl.multioder.LoginActivity;
-import com.g05.itkmitl.multioder.MainActivity;
 import com.g05.itkmitl.multioder.R;
-import com.g05.itkmitl.multioder.SelectLoginActivity;
-import com.g05.itkmitl.multioder.User;
 import com.g05.itkmitl.multioder.admin.EditFoodListActivity;
-import com.g05.itkmitl.multioder.food.FoodListFragment;
 import com.g05.itkmitl.multioder.restaurant.Restaurant;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -47,13 +29,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class RestaurantMainActivity  extends AppCompatActivity {
