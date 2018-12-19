@@ -56,7 +56,8 @@ import java.util.List;
 public class CartFragment extends Fragment {
     private ListView listView;
     private CartAdapter cartAdapter;
-    private TextView totalTextView,cartSizeText,locationText;
+    private TextView totalTextView,cartSizeText;
+    public static TextView locationText;
     private Button comfirmButton;
 
     private double total;
@@ -94,8 +95,8 @@ public class CartFragment extends Fragment {
         cartSizeText = getActivity().findViewById(R.id.cartsize_text);
         listView = getActivity().findViewById(R.id.cart_listView);
         comfirmButton = getActivity().findViewById(R.id.button_confirm);
-
-        locationText = getView().findViewById(R.id.location_text);
+        locationText = getActivity().findViewById(R.id.location_text);
+        locationText.setTextColor(getActivity().getColor(R.color.red_primary));
 
         cartAdapter = new CartAdapter(getContext(), R.layout.fragment_cart_item, cartItems);
 
@@ -118,7 +119,7 @@ public class CartFragment extends Fragment {
             public void onClick(View v) {
                 if(!cartItems.isEmpty()) {
                     if(location == null) {
-                        Toast.makeText(getContext(), "กรุณาเลือกตำแหน่ง", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "กรุณาเลือกพื ้นที่จัดส่ง", Toast.LENGTH_SHORT).show();
                     }
                     else createOrder();
                 } else {

@@ -52,7 +52,7 @@ public class EditFoodListActivity extends AppCompatActivity {
 
 
         mFoods = new ArrayList<>();
-        adapter = new FoodAdapter(getApplicationContext(), mFoods);
+        adapter = new FoodAdapter(this, mFoods);
 
         mRecylerView = findViewById(R.id.food_list_recyclerView);
         addFoodButton = findViewById(R.id.add_food);

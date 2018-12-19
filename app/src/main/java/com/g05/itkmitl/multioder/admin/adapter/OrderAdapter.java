@@ -1,7 +1,9 @@
 package com.g05.itkmitl.multioder.admin.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.cart.CartItem;
+import com.g05.itkmitl.multioder.food.Food;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -51,7 +54,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         final CartItem item = mCartItem.get(i);
 
         Picasso.get().load(item.getFood().getUrl()).fit().centerCrop().into(viewHolder.image);
@@ -60,7 +63,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         viewHolder.checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeStatusOrder(item);
+                opepDialog(item);
             }
         });
     }
@@ -82,5 +85,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 .collection("orders")
                 .document(item.getUid())
                 .delete();
+    }
+
+    private void opepDialog(final CartItem item) {
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(mContext);
+        builder.setMessage("ทำเสร็จแล้ว");
+        builder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                changeStatusOrder(item);
+            }
+        });
+        builder.setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
     }
 }

@@ -37,7 +37,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -90,8 +92,8 @@ public class RestaurantMainActivity  extends AppCompatActivity {
             Picasso.get().load(cur.getUrl()).fit().centerCrop().into(resImage);
             mTitle.setText(cur.getName());
 
-            shared.edit().putString("resid", mAuth.getCurrentUser().getUid()).apply();
         }
+        shared.edit().putString("resid", mAuth.getCurrentUser().getUid()).apply();
 
 
         final ImageView linkEdit = findViewById(R.id.link_edit);
@@ -171,20 +173,18 @@ public class RestaurantMainActivity  extends AppCompatActivity {
         firebase.collection("restaurant")
                 .document(mAuth.getCurrentUser().getUid())
                 .collection("food")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot query) {
+                    public void onEvent(@javax.annotation.Nullable QuerySnapshot query, @javax.annotation.Nullable FirebaseFirestoreException e) {
                         foodCount.setText("จำนวนทั้งหมด " + query.size());
                     }
                 });
         firebase.collection("restaurant")
                 .document(mAuth.getCurrentUser().getUid())
                 .collection("orders")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot query) {
+                    public void onEvent(@javax.annotation.Nullable QuerySnapshot query, @javax.annotation.Nullable FirebaseFirestoreException e) {
                         orderCount.setText("" + query.size());
                     }
                 });

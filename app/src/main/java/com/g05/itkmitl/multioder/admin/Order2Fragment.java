@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class Order2Fragment extends Fragment {
         SharedPreferences shared = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
         String id = shared.getString("resid", null);
 
-        Log.d("OrderList", "id="+id);
+        Log.d("OrderList2", "id="+id);
         if(id != null) {
             loadAlreadyOrders(id);
         }
@@ -68,6 +69,7 @@ public class Order2Fragment extends Fragment {
         firestore.collection("restaurant")
                 .document(resId)
                 .collection("orders_history")
+                .orderBy("uid", Query.Direction.DESCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
