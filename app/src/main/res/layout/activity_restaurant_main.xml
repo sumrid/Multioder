@@ -46,61 +46,86 @@
         </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_below="@+id/appbar"
-      android:paddingHorizontal="35dp"
-      >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="0dp"
+        android:paddingHorizontal="35dp">
 
-      <LinearLayout
-          android:id="@+id/link_order_list"
-          android:layout_width="match_parent"
-          android:layout_height="110dp"
-          android:background="@drawable/shadow_mat"
-          android:gravity="center_vertical"
-          android:layout_marginTop="30dp"
-          android:paddingHorizontal="30dp">
+        <LinearLayout
+            android:id="@+id/link_order_list"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shadow_mat"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="30dp">
 
-          <ImageView
-              android:layout_width="60dp"
-              android:layout_height="60dp"
-              android:src="@drawable/recipe_ico"
-              android:layout_marginEnd="20dp"/>
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/recipe_ico" />
 
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="ข้อมูลรายการสั่งซื้อ"
-              android:textSize="22sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ข้อมูลรายการสั่งซื้อ"
+                android:textSize="22sp" />
 
-      </LinearLayout>
+        </LinearLayout>
 
-      <LinearLayout
-          android:id="@+id/link_menu_list"
-          android:layout_width="match_parent"
-          android:layout_height="110dp"
-          android:layout_below="@+id/link_order_list"
-          android:layout_centerHorizontal="true"
-          android:layout_marginTop="33dp"
-          android:background="@drawable/shadow_mat"
-          android:gravity="center_vertical"
-          android:paddingHorizontal="30dp">
+        <LinearLayout
+            android:id="@+id/link_menu_list"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_below="@+id/link_order_list"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp"
+            android:background="@drawable/shadow_mat"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="30dp">
 
-          <ImageView
-              android:layout_width="60dp"
-              android:layout_height="60dp"
-              android:layout_marginEnd="20dp"
-              android:src="@drawable/food_menu_ico" />
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/food_menu_ico" />
 
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="จัดการเมนูอาหาร"
-              android:textSize="22sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="จัดการเมนูอาหาร"
+                android:textSize="22sp" />
 
-      </LinearLayout>
-  </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/food_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/link_order_list"
+            android:layout_alignBottom="@+id/link_menu_list"
+            android:layout_marginEnd="103dp"
+            android:layout_marginBottom="14dp"
+            android:layout_weight="1"
+            android:text="จำนวนทั้งหมด 12"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/order_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/link_order_list"
+            android:layout_alignEnd="@+id/link_order_list"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="3dp"
+            android:layout_weight="1"
+            android:text="12"
+            android:textColor="@color/colorPrimary" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button_logout"

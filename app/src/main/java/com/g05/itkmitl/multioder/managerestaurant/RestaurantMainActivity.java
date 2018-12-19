@@ -27,10 +27,12 @@ import com.g05.itkmitl.multioder.User;
 import com.g05.itkmitl.multioder.admin.EditFoodListActivity;
 import com.g05.itkmitl.multioder.restaurant.Restaurant;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -44,6 +46,8 @@ public class RestaurantMainActivity  extends AppCompatActivity {
     private SharedPreferences shared;
     private TextView mTitle;
     private ImageView resImage;
+    private TextView orderCount;
+    private TextView foodCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,6 +104,9 @@ public class RestaurantMainActivity  extends AppCompatActivity {
             }
         });
 
+        orderCount = findViewById(R.id.order_count);
+        foodCount = findViewById(R.id.food_count);
+        setCount();
     }
 
 
@@ -130,6 +137,27 @@ public class RestaurantMainActivity  extends AppCompatActivity {
 
     }
 
-
-
+    private void setCount() {
+        FirebaseFirestore firebase = FirebaseFirestore.getInstance();
+        firebase.collection("restaurant")
+                .document(mAuth.getCurrentUser().getUid())
+                .collection("food")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot query) {
+                        foodCount.setText("จำนวนทั้งหมด " + query.size());
+                    }
+                });
+        firebase.collection("restaurant")
+                .document(mAuth.getCurrentUser().getUid())
+                .collection("orders")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot query) {
+                        orderCount.setText("" + query.size());
+                    }
+                });
+    }
 }

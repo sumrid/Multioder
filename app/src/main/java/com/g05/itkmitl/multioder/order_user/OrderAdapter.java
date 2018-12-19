@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.g05.itkmitl.multioder.R;
+import com.g05.itkmitl.multioder.cart.CartItem;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
@@ -19,7 +21,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     private List<Order> mOrders;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
-        public TextView orderId, orderDate;
+        public TextView orderId, orderDate, orderUnit, orderTotal;
         public Button orderDetail;
         private ClickListener clickListener;
 
@@ -28,6 +30,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
             orderId = itemView.findViewById(R.id.res_name);
             orderDate = itemView.findViewById(R.id.res_telephone);
+            orderUnit = itemView.findViewById(R.id.order_unit);
+            orderTotal = itemView.findViewById(R.id.order_total);
 //            orderDetail = itemView.findViewById(R.id.order_detail_button);
             itemView.setOnClickListener(this);
         }
@@ -65,7 +69,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         final Order order = mOrders.get(i);
 
         viewHolder.orderId.setText(order.getId());
-        viewHolder.orderDate.setText(order.getDate().toString());
+        viewHolder.orderTotal.setText(String.format("ยอดรวม %.0f บาท", order.getTotal()));
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+        viewHolder.orderDate.setText(sdf.format(order.getDate()));
 
         viewHolder.setOnItemClickListener(new ClickListener() {
             @Override
@@ -76,6 +82,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             }
         });
 
+        int amount = 0;
+        for(CartItem item : order.getCartItems()) {
+            amount += item.getAmount();
+        }
+        viewHolder.orderUnit.setText(String.format("จำนวน %s รายการ", amount));
     }
 
     @Override
