@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private boolean doubleBackToExitPressedOnce = false;
+    private Button btnLogin;
     private SharedPreferences shared;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -61,9 +64,10 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText emailLogin = (EditText) findViewById(R.id.username);
         final EditText passwordLogin = (EditText) findViewById(R.id.password);
-        final Button btnLogin = (Button) findViewById(R.id.btn_login);
         final TextView register_link = (TextView) findViewById(R.id.register_link);
         final ImageView appLogo = (ImageView) findViewById(R.id.app_logo);
+        btnLogin = (Button) findViewById(R.id.btn_login);
+        progressBar = findViewById(R.id.progressBar);
 
 
 
@@ -99,7 +103,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Please enter your informations", Toast.LENGTH_SHORT).show();
                 }else{
                     signIn(userEmail, userPass);
-                    Toast.makeText(LoginActivity.this, "Please wait...", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -107,11 +110,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void signIn(String email, String password) {
+        setLoading(true);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(LoginActivity.this, "Fail : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                setLoading(false);
             }
         }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
@@ -119,6 +124,16 @@ public class LoginActivity extends AppCompatActivity {
                 loginState();
             }
         });
+    }
+
+    private void setLoading(boolean isLoading) {
+        if (isLoading) {
+            btnLogin.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            btnLogin.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -146,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if(auth.getCurrentUser() != null){
             startActivity(new Intent(LoginActivity.this, CheckLoginActivity.class));
+            finish();
         }
     }
 

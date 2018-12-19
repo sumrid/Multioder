@@ -31,6 +31,7 @@ import com.g05.itkmitl.multioder.cart.CartAdapter;
 import com.g05.itkmitl.multioder.cart.CartItem;
 import com.g05.itkmitl.multioder.food.Food;
 import com.g05.itkmitl.multioder.food.FoodAdapter;
+import com.g05.itkmitl.multioder.food.FoodListFragment;
 import com.g05.itkmitl.multioder.map.LatLng;
 import com.g05.itkmitl.multioder.map.MapsActivity;
 import com.g05.itkmitl.multioder.order_user.Order;
@@ -278,7 +279,13 @@ public class CartFragment extends Fragment {
                             .document(deleteKey).delete();
                 }
 
-                Toast.makeText(getContext(), "ทำรายการสั่งซื้อ เรียบร้อย!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "สั่งซื้อเรียบร้อย!", Toast.LENGTH_SHORT).show();
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view,new FoodListFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

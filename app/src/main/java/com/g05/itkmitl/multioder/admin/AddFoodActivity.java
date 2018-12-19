@@ -277,7 +277,8 @@ public class AddFoodActivity extends AppCompatActivity {
         Picasso.get().load(food.getUrl()).fit().centerCrop().into(foodImage);
         foodName.setText(food.getName());
         foodDescription.setText(food.getDescription());
-        foodPrice.setText(food.getPrice() + "");
+        foodPrice.setText(String.format("%.0f", food.getPrice()));
+
     }
 
     private void setLoading(boolean isLoading) {

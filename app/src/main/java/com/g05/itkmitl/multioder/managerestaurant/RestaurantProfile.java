@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,9 @@ public class RestaurantProfile extends AppCompatActivity {
     private Uri profileImageUri;
     private EditText pro_name;
     private EditText pro_phone;
+    private ProgressBar progressBar;
+    private Button btn_save;
+
     Restaurant cur;
 
     @Override
@@ -108,8 +112,8 @@ public class RestaurantProfile extends AppCompatActivity {
             }
         });
 
-
-        final Button btn_save = (Button) findViewById(R.id.btn_save);
+        progressBar = findViewById(R.id.progressBar);
+        btn_save = (Button) findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,8 +125,7 @@ public class RestaurantProfile extends AppCompatActivity {
                 if (phoneStr.isEmpty()){
                     Toast.makeText(getApplicationContext(),"กรอกข้อมูลให้ครบ", Toast.LENGTH_LONG).show();
                 }else{
-
-                    Toast.makeText(getApplicationContext(),"Working...", Toast.LENGTH_LONG).show();
+                    setLoading(true);
                     Restaurant resta = cur;
                     resta.setTelephone(phoneStr);
                     resta.setName(nameStr);
@@ -139,6 +142,7 @@ public class RestaurantProfile extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"บันทึกเรียบร้อย", Toast.LENGTH_LONG).show();
                                 finish();
                             }else{
+                                setLoading(false);
                                 Toast.makeText(getApplicationContext(),task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
@@ -149,6 +153,18 @@ public class RestaurantProfile extends AppCompatActivity {
         });
 
 
+    }
+
+
+
+    private void setLoading(boolean isLoading) {
+        if (isLoading) {
+            btn_save.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            btn_save.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -46,7 +46,7 @@ public class CartHistoryAdapter extends ArrayAdapter<CartItem> {
         name.setText(item.getFood().getName());
         amount.setText(String.format("จำนวน %d", item.getAmount()));
         price.setText(String.format("ราคา %.0f บาท", item.getFood().getPrice()));
-        total.setText(item.getTotal() + " บาท");
+        total.setText(String.format("%.0f บาท", item.getTotal()));
 
         firestore.collection("restaurant")
                 .whereEqualTo("id", item.getFood().getRestaurantID())

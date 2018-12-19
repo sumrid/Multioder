@@ -131,6 +131,8 @@ public class RestaurantMainActivity  extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setCount();
+        getUserData();
+
     }
 
     @Override
@@ -154,6 +156,7 @@ public class RestaurantMainActivity  extends AppCompatActivity {
             }, 2000);
 
     }
+
 
     private void getUserData() {
         FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();

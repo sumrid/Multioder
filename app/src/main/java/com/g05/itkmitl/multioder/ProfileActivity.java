@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ public class ProfileActivity extends AppCompatActivity {
     private User curUser;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+    private ProgressBar progressBar;
+    private Button btn_save;
     FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
     @Override
@@ -55,7 +58,8 @@ public class ProfileActivity extends AppCompatActivity {
         final EditText pro_name = (EditText) findViewById(R.id.profile_name);
         final TextView pro_email = (TextView) findViewById(R.id.profile_email);
         final EditText pro_phone = (EditText) findViewById(R.id.profile_phone);
-        final Button btn_save = (Button) findViewById(R.id.btn_profile_save);
+        btn_save = (Button) findViewById(R.id.btn_profile_save);
+        progressBar = findViewById(R.id.progressBar);
 
 
         pro_headername.setText(curUser.name);
@@ -79,18 +83,19 @@ public class ProfileActivity extends AppCompatActivity {
                 String phoneStr = pro_phone.getText().toString();
 
                 if (nameStr.isEmpty() || phoneStr.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Please enter your information", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"กรุณากรอกข้อมูลให้ครบถ้วน", Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(getApplicationContext(),"Working...", Toast.LENGTH_LONG).show();
+                    setLoading(true);
                     User user = new User(nameStr, phoneStr);
                     mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
                             .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                Toast.makeText(getApplicationContext(),"Saved Changes", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"บันทึกข้อมูลเรียบร้อย", Toast.LENGTH_LONG).show();
                                 finish();
                             }else{
+                                setLoading(false);
                                 Toast.makeText(getApplicationContext(),task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
@@ -100,6 +105,17 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    private void setLoading(boolean isLoading) {
+        if (isLoading) {
+            btn_save.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            btn_save.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     private void showPassChangeDialog(){

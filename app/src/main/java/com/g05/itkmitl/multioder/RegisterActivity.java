@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +36,10 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout inpLayoutName, inpLayoutEmail, inpLayoutPassword,
             inpLayoutRepass, inpLayoutPhone, inpLayoutAddress;
     private String nameStr, emailStr, passStr, repassStr, phoneStr, addressStr;
+
+    Button sigupBtn;
+    private ProgressBar progressBar;
+
 
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -82,6 +87,8 @@ public class RegisterActivity extends AppCompatActivity {
         inpLayoutRepass = (TextInputLayout) findViewById(R.id.input_layout_repass);
         inpLayoutPhone = (TextInputLayout) findViewById(R.id.input_layout_phone);
 
+        progressBar = findViewById(R.id.progressBar);
+
         nameReg.addTextChangedListener(new MyTextWatcher(nameReg));
         emailReg.addTextChangedListener(new MyTextWatcher(emailReg));
         passwordReg.addTextChangedListener(new MyTextWatcher(passwordReg));
@@ -89,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
         phoneReg.addTextChangedListener(new MyTextWatcher(phoneReg));
         final ImageView appLogo = (ImageView) findViewById(R.id.app_logo);
 
-        Button sigupBtn = (Button) findViewById(R.id.button_register);
+        sigupBtn = (Button) findViewById(R.id.button_register);
         sigupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,13 +143,14 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private void createAccount(String email, String password, final String phone, final String name) {
+        setLoading(true);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
 
             @Override
             public void onSuccess(AuthResult authResult) {
                 saveUserInfo(name, phone);
-                Toast.makeText(getApplicationContext(), "Register Complete", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "สมัครสมาชิกสำเร็จ", Toast.LENGTH_LONG).show();
                 mAuth.getCurrentUser();
                 mAuth.signOut();
                 finish();
@@ -152,6 +160,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("RegisterResult", e.getMessage());
+                setLoading(false);
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
             }
@@ -216,6 +225,16 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void setLoading(boolean isLoading) {
+        if (isLoading) {
+            sigupBtn.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            sigupBtn.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     private static boolean isValidEmail(String email) {

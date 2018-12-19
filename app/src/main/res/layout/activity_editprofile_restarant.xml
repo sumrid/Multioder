@@ -170,8 +170,13 @@
                 </LinearLayout>
 
 
-                
 
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/btn_save"
@@ -185,15 +190,6 @@
                     android:textColor="#FFFF"
                     android:textSize="19sp" />
 
-                <ProgressBar
-                    android:id="@+id/loadbar"
-                    android:layout_gravity="center"
-                    android:layout_below="@+id/layout_password"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
             </LinearLayout>
 
 

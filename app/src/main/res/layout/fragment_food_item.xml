@@ -27,6 +27,10 @@
         android:layout_alignTop="@+id/res_image"
         android:layout_marginStart="12dp"
         android:layout_toEndOf="@+id/res_image"
+        android:maxLines="1"
+        android:maxEms="9"
+        android:lineSpacingMultiplier="0.8"
+        android:ellipsize="end"
         android:textColor="#4E4E4E"
         android:textSize="16sp"
         tools:text="ต้มยำกุ้ง" />
@@ -80,6 +84,10 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/res_image"
             android:fontFamily="@font/mitr_light"
+            android:maxLines="1"
+            android:maxEms="9"
+            android:lineSpacingMultiplier="0.8"
+            android:ellipsize="end"
             android:text="ร้านลุงตู่"
             android:textColor="#CACACA"
             android:textSize="11sp" />

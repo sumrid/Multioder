@@ -32,8 +32,8 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/res_image"
-        android:textColor="#4E4E4E"
-        android:textSize="20sp"
+        android:textColor="#595959"
+        android:textSize="18sp"
         tools:text="ร้านลุงตู่" />
 
 
@@ -62,6 +62,7 @@
         android:layout_marginStart="12dp"
         android:textColor="#6c6c6c"
         android:textSize="14sp"
+        android:fontFamily="@font/mitr_light"
         android:text="จำนวนคิวอาหาร: " />
 
         <TextView
