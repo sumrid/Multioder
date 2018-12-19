@@ -96,10 +96,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:maxLength="30"
                         android:fontFamily="@font/mitr_light"
                         android:background="@color/transparent"
                         android:paddingHorizontal="20dp"
-                        android:enabled="false"
                         android:textSize="18sp" />
 
                     <View
@@ -129,7 +129,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/mitr_light"
+                        android:inputType="number|numberDecimal"
                         android:textColor="#565656"
+                        android:maxLength="20"
                         android:background="@color/transparent"
                         android:paddingHorizontal="20dp"
                         android:textSize="18sp" />

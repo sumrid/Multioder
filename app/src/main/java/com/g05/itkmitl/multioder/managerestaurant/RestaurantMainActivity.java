@@ -186,9 +186,8 @@ public class RestaurantMainActivity  extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    cur = new Restaurant(documentSnapshot.getString("name"),
-                            documentSnapshot.getString("url"), mAuth.getCurrentUser().getUid(),
-                            documentSnapshot.getString("telephone"));
+
+                    cur = documentSnapshot.toObject(Restaurant.class);
                     Gson gson = new Gson();
                     String json = gson.toJson(cur);
                     shared.edit().putString("current_user", json).commit();

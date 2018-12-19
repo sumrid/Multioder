@@ -61,7 +61,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         Picasso.get().load(item.getFood().getUrl()).fit().centerCrop().into(viewHolder.image);
 
         viewHolder.name.setText(item.getFood().getName());
-        viewHolder.orderID.setText("เลขใบสั่งซื้อ: "+item.getUid().replaceAll("order_","").substring(0,6));
+        viewHolder.orderID.setText("เลขใบสั่งซื้อ: "+item.getUid().replaceAll("order_","").substring(7,12));
         viewHolder.amount.setText(String.format("%d ชิ้น", item.getAmount()));
         viewHolder.checkButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -39,7 +39,7 @@ public class OrdersDetailActivity extends AppCompatActivity {
         final LatLng latLng = order.getCartItems().get(0).getLocation();
         final TextView textTitle = findViewById(R.id.toolbar_title);
 
-        textTitle.setText("เลฃใบสั่งซื้อ "+order.getId().replaceAll("my_order_",""));
+        textTitle.setText("เลฃใบสั่งซื้อ "+order.getId().replaceAll("my_order_","").substring(7,12));
 
         mListView = findViewById(R.id.cart_item_list);
         orderArea = findViewById(R.id.link_location);

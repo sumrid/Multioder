@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String userAddress;
     String userPhone;
     User curUser;
-    TextView mTitle;
+    public static TextView mTitle;
 
     public static int CountCart;
 

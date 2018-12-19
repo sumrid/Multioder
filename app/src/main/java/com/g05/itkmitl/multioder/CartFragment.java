@@ -88,6 +88,7 @@ public class CartFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
+        MainActivity.mTitle.setText("ตะกร้า");
         checktNew=true;
 
         swipeListView = getView().findViewById(R.id.cart_listView);

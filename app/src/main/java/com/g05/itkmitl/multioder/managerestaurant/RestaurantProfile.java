@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.User;
 import com.g05.itkmitl.multioder.restaurant.Restaurant;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +37,10 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -111,23 +115,28 @@ public class RestaurantProfile extends AppCompatActivity {
             public void onClick(View v) {
 
                 mFirestore = FirebaseFirestore.getInstance();
+                final String nameStr = pro_name.getText().toString();
                 final String phoneStr = pro_phone.getText().toString();
 
                 if (phoneStr.isEmpty()){
                     Toast.makeText(getApplicationContext(),"กรอกข้อมูลให้ครบ", Toast.LENGTH_LONG).show();
                 }else{
+
                     Toast.makeText(getApplicationContext(),"Working...", Toast.LENGTH_LONG).show();
-                    Restaurant resta = new Restaurant(nameStr, urlStr, mAuth.getUid(), phoneStr);
+                    Restaurant resta = cur;
+                    resta.setTelephone(phoneStr);
+                    resta.setName(nameStr);
                     mFirestore.collection("restaurant").document(mAuth.getCurrentUser().getUid())
                             .set(resta).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 cur.setTelephone(phoneStr);
+                                cur.setName(nameStr);
                                 Gson gson = new Gson();
                                 String json = gson.toJson(cur);
                                 shared.edit().putString("current_user", json).commit();
-                                Toast.makeText(getApplicationContext(),"Saved Changes", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"บันทึกเรียบร้อย", Toast.LENGTH_LONG).show();
                                 finish();
                             }else{
                                 Toast.makeText(getApplicationContext(),task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -242,9 +251,17 @@ public class RestaurantProfile extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    cur = new Restaurant(documentSnapshot.getString("name"),
-                            documentSnapshot.getString("url"), mAuth.getCurrentUser().getUid(),
-                            documentSnapshot.getString("telephone"));
+                    cur = documentSnapshot.toObject(Restaurant.class);
+
+//                    Restaurant cur2 = documentSnapshot.toObject(Restaurant.class);
+//
+//                    LatLng location = cur2.getLocation().getGoogleLatLng();
+//
+//                    Double coordl1 = location.latitude;
+//                    Log.d("TEST551","LALA = "+cur2.getName());
+//
+//                    Log.d("TEST551","LALA2 = "+coordl1);
+
                     Gson gson = new Gson();
                     String json = gson.toJson(cur);
                     shared.edit().putString("current_user", json).commit();
@@ -255,6 +272,8 @@ public class RestaurantProfile extends AppCompatActivity {
         });
 
     }
+
+
 
 
 }
