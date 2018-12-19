@@ -51,7 +51,8 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
         name.setText(item.getFood().getName());
         amount.setText("" + item.getAmount());
         detail.setText(""+ item.getFood().getDescription());
-        total.setText("฿ " + item.getTotal());
+        total.setText(String.format("฿ %.0f", item.getTotal()));
+
         Picasso.get().load(item.getFood().getUrl()).fit().centerCrop().into(imageView);
 
 
@@ -61,7 +62,7 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
                 if (item.getAmount() > 1) {
                     item.setAmount(item.getAmount() - 1);
                     amount.setText("" + item.getAmount());
-                    total.setText("฿ " + item.getTotal());
+                    total.setText(String.format("฿ %.0f", item.getTotal()));
                     updateItem(item);
                 }
             }
@@ -72,7 +73,7 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
             public void onClick(View v) {
                 item.setAmount(item.getAmount() + 1);
                 amount.setText("" + item.getAmount());
-                total.setText("฿ " + item.getTotal());
+                total.setText(String.format("฿ %.0f", item.getTotal()));
                 updateItem(item);
             }
         });

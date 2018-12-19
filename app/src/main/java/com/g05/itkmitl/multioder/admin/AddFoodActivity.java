@@ -78,8 +78,23 @@ public class AddFoodActivity extends AppCompatActivity {
         foodAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLoading(true);
-                uploadImage();
+
+                String regexStr = "^[0-9]*$";
+
+
+                String nameStr = foodName.getText().toString();
+                String detailStr = foodDescription.getText().toString();
+                String priceStr = foodPrice.getText().toString();
+                if(nameStr.isEmpty() || detailStr.isEmpty() || priceStr.isEmpty()){
+                    showToast("กรุณากรอกข้อมูลให้ครบ");
+                } else if(!priceStr.trim().matches(regexStr)){
+                    showToast("ราคาเป็น ตัวเลขจำนวนเต็มเท่านั้น");
+                } else {
+                    setLoading(true);
+                    uploadImage();
+                }
+
+
             }
         });
 

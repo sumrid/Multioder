@@ -68,6 +68,8 @@ public class CartFragment extends Fragment {
 
     public static LatLng location;
 
+    public static boolean checktNew;
+
 
 
     public CartFragment() {
@@ -86,11 +88,7 @@ public class CartFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-
-
-
-
-
+        checktNew=true;
 
         swipeListView = getView().findViewById(R.id.cart_listView);
 
@@ -114,7 +112,7 @@ public class CartFragment extends Fragment {
         btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "กรุณาเลือกตำแหน่ง", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "กรุณาเลือกพื้นที่จัดส่ง", Toast.LENGTH_SHORT).show();
                 getActivity().startActivity(new Intent(getActivity(), MapsActivity.class));
             }
         });
@@ -123,8 +121,8 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(!cartItems.isEmpty()) {
-                    if(location == null) {
-                        Toast.makeText(getContext(), "กรุณาเลือกพื ้นที่จัดส่ง", Toast.LENGTH_SHORT).show();
+                    if(location == null || checktNew) {
+                        Toast.makeText(getContext(), "กรุณาเลือกพื้นที่จัดส่ง", Toast.LENGTH_SHORT).show();
                     }
                     else createOrder();
                 } else {
@@ -215,7 +213,7 @@ public class CartFragment extends Fragment {
     }
 
     private void updateTotalPrice(double price) {
-        totalTextView.setText("" + price);
+        totalTextView.setText(String.format("%.0f", price));
         cartSizeText.setText("คุณมีรายการอาหารในตะกร้าทั้งหมด "+getCartSize());
         MainActivity.CountCart = getCartSize();
         total = 0;

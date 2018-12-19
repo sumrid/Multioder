@@ -37,7 +37,7 @@
                 android:textColorHint="#a0ffffff"
                 android:fontFamily="@font/mitr_light"
                 android:drawableRight="@drawable/ic_search_white"
-                android:hint="พิมพ์ชื่อาหาร" />
+                android:hint="พิมพ์ชื่ออาหาร" />
 
         </android.support.v7.widget.Toolbar>
 
