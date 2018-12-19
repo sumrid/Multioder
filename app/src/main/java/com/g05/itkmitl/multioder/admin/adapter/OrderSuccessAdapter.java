@@ -54,7 +54,7 @@ public class OrderSuccessAdapter extends RecyclerView.Adapter<OrderSuccessAdapte
         final CartItem item = mCartItem.get(i);
 
         Picasso.get().load(item.getFood().getUrl()).fit().centerCrop().into(viewHolder.image);
-        viewHolder.orderID.setText(item.getUid().replaceAll("order_","เลขใบสั่งซื้อ - "));
+        viewHolder.orderID.setText("เลขใบสั่งซื้อ: "+item.getUid().replaceAll("order_","").substring(0,6));
         viewHolder.name.setText(item.getFood().getName());
         viewHolder.amount.setText(String.format("%d ชิ้น", item.getAmount()));
 

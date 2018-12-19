@@ -87,6 +87,11 @@ public class CartFragment extends Fragment {
 
 
 
+
+
+
+
+
         swipeListView = getView().findViewById(R.id.cart_listView);
 
         total = 0;
@@ -96,7 +101,7 @@ public class CartFragment extends Fragment {
         listView = getActivity().findViewById(R.id.cart_listView);
         comfirmButton = getActivity().findViewById(R.id.button_confirm);
         locationText = getActivity().findViewById(R.id.location_text);
-        locationText.setTextColor(getActivity().getColor(R.color.red_primary));
+        locationText.setTextColor(getActivity().getColor(R.color.pinky));
 
         cartAdapter = new CartAdapter(getContext(), R.layout.fragment_cart_item, cartItems);
 
@@ -130,6 +135,7 @@ public class CartFragment extends Fragment {
 
         // set this for POP-UP menu when long click on item
 //        registerForContextMenu(listView);
+
     }
 
 
@@ -192,38 +198,6 @@ public class CartFragment extends Fragment {
         updateTotalPrice(total);
     }
 
-
-    /*************************************************************************************************************
-     *   refer : https://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/
-     */
-//    @Override
-//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-//        menu.add(Menu.NONE, 1, 1, "Delete All");
-//        Log.d("Context Menu", "cart item : " + info.id);
-//    }
-//
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item) {
-//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-//        Log.d("Context Menu", "Menu ID : " + item.getItemId() + " || Item : " + info.id);
-//        deleteAll(info.id);
-//        return true;
-//    }
-//
-//    private void deleteFood(long position) {
-//        CartItem item = cartItems.get((int) position);
-//        firestore.collection("Users")
-//                .document(auth.getCurrentUser().getUid())
-//                .collection("cart")
-//                .document(item.getDeleteKeys().get(0))
-//                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void aVoid) {
-//                calculatePrice();
-//            }
-//        });
-//    }
 
     private void deleteAll(long position) {
         CartItem item = cartItems.get((int) position);
@@ -305,7 +279,7 @@ public class CartFragment extends Fragment {
                             .document(deleteKey).delete();
                 }
 
-                Toast.makeText(getContext(), "Create Order", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "ทำรายการสั่งซื้อ เรียบร้อย!", Toast.LENGTH_SHORT).show();
             }
         });
     }

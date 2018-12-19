@@ -33,7 +33,7 @@ public class RestaurantMapsAdapter extends RecyclerView.Adapter<RestaurantMapsAd
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
         public ImageView image;
-        public TextView name, telephone, queue, status;
+        public TextView name, telephone, queue;
         private ClickListener clickListener;
 
         public ViewHolder(@NonNull View itemView) {
@@ -43,7 +43,6 @@ public class RestaurantMapsAdapter extends RecyclerView.Adapter<RestaurantMapsAd
             name = itemView.findViewById(R.id.res_name);
             telephone = itemView.findViewById(R.id.res_telephone);
             queue = itemView.findViewById(R.id.res_queue);
-            status = itemView.findViewById(R.id.res_status);
             itemView.setOnClickListener(this);
         }
 
@@ -83,7 +82,6 @@ public class RestaurantMapsAdapter extends RecyclerView.Adapter<RestaurantMapsAd
         Picasso.get().load(item.getUrl()).fit().centerCrop().into(view.image);
         view.name.setText(item.getName());
         view.telephone.setText("เบอร์โทร: " + item.getTelephone());
-        view.status.setText("เปิด");
 
         firestore.collection("restaurant")
                 .document(item.getId())

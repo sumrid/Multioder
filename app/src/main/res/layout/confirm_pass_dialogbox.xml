@@ -10,6 +10,7 @@
         android:id="@+id/inp_oldpass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/mitr_light"
         android:hint="กรอกรหัสผ่านเก่า"
         android:inputType="textPassword"
         />
@@ -18,6 +19,7 @@
         android:id="@+id/inp_newpass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/mitr_light"
         android:hint="รหัสผ่านใหม่"
         android:inputType="textPassword" />
 
@@ -25,6 +27,7 @@
         android:id="@+id/inp_re_newpass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/mitr_light"
         android:hint="ยืนยัน"
         android:inputType="textPassword" />
 </LinearLayout>

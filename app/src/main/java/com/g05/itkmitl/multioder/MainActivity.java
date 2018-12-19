@@ -58,10 +58,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     DocumentSnapshot documentSnapshot = task.getResult();
                     userEmail = mAuth.getCurrentUser().getEmail();
                     userFullName = documentSnapshot.getString("name");
-                    userAddress = documentSnapshot.getString("address");
                     userPhone = documentSnapshot.getString("phone");
 
-                    curUser = new User(userFullName, userPhone, userAddress);
+                    curUser = new User(userFullName, userPhone);
 
                     TextView navName = (TextView) findViewById(R.id.nvName);
                     TextView navEmail = (TextView) findViewById(R.id.nvEmail);

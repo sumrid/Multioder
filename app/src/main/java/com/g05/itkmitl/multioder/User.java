@@ -8,7 +8,7 @@ public class User implements Serializable {
 
     }
 
-    public User(String name, String phone, String address) {
+    public User(String name, String phone) {
         this.name = name;
         this.phone = phone;
         this.address = address;

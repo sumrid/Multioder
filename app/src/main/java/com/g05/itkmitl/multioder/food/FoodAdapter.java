@@ -98,6 +98,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             public void onClick(View v) {
 
                 addFoodToCart(selectFood);
+                Toast.makeText(mContext, "เพิ่มไปยังตะกร้าเรียบร้อย", Toast.LENGTH_LONG).show();
 
             }
         });

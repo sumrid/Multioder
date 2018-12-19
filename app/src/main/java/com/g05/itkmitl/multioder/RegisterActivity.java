@@ -1,5 +1,7 @@
 package com.g05.itkmitl.multioder;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -13,6 +15,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText nameReg, emailReg, passwordReg, repasswordReg, phoneReg, addressReg;
+    private EditText nameReg, emailReg, passwordReg, repasswordReg, phoneReg;
     private TextInputLayout inpLayoutName, inpLayoutEmail, inpLayoutPassword,
             inpLayoutRepass, inpLayoutPhone, inpLayoutAddress;
     private String nameStr, emailStr, passStr, repassStr, phoneStr, addressStr;
@@ -37,10 +40,25 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+//        getWindow().getDecorView().setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//
+//
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window window = getWindow();
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.setStatusBarColor(Color.parseColor("#00000000"));
+//        }
+
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.regis_toolbar);
         setSupportActionBar(toolbar);
@@ -54,7 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
         passwordReg = (EditText) findViewById(R.id.inp_password);
         repasswordReg = (EditText) findViewById(R.id.inp_repass);
         phoneReg = (EditText) findViewById(R.id.inp_phone);
-        addressReg = (EditText) findViewById(R.id.inp_address);
 
         passwordReg.setTransformationMethod(new PasswordTransformationMethod());
         repasswordReg.setTransformationMethod(new PasswordTransformationMethod());
@@ -63,14 +80,12 @@ public class RegisterActivity extends AppCompatActivity {
         inpLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
         inpLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_pass);
         inpLayoutRepass = (TextInputLayout) findViewById(R.id.input_layout_repass);
-        inpLayoutAddress = (TextInputLayout) findViewById(R.id.input_layout_address);
         inpLayoutPhone = (TextInputLayout) findViewById(R.id.input_layout_phone);
 
         nameReg.addTextChangedListener(new MyTextWatcher(nameReg));
         emailReg.addTextChangedListener(new MyTextWatcher(emailReg));
         passwordReg.addTextChangedListener(new MyTextWatcher(passwordReg));
         repasswordReg.addTextChangedListener(new MyTextWatcher(repasswordReg));
-        addressReg.addTextChangedListener(new MyTextWatcher(addressReg));
         phoneReg.addTextChangedListener(new MyTextWatcher(phoneReg));
         final ImageView appLogo = (ImageView) findViewById(R.id.app_logo);
 
@@ -84,8 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 phoneStr = phoneReg.getText().toString();
-                addressStr = addressReg.getText().toString();
-                createAccount(emailStr, passStr, phoneStr, addressStr, nameStr);
+                createAccount(emailStr, passStr, phoneStr, nameStr);
             }
         });
 
@@ -103,8 +117,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    private void saveUserInfo(String name, String phone, String address){
-        User user = new User(name, phone, address);
+    private void saveUserInfo(String name, String phone){
+        User user = new User(name, phone);
         firestore.collection("Users").document(FirebaseAuth.getInstance().getCurrentUser()
                 .getUid()).set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -121,13 +135,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    private void createAccount(String email, String password, final String phone, final String address, final String name) {
+    private void createAccount(String email, String password, final String phone, final String name) {
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
 
             @Override
             public void onSuccess(AuthResult authResult) {
-                saveUserInfo(name, phone, address);
+                saveUserInfo(name, phone);
                 Toast.makeText(getApplicationContext(), "Register Complete", Toast.LENGTH_LONG).show();
                 mAuth.getCurrentUser();
                 mAuth.signOut();

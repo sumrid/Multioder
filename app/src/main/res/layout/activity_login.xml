@@ -8,7 +8,9 @@
     android:paddingTop="16dp"
     android:paddingRight="24dp"
     android:paddingLeft="24dp"
-    android:background="@drawable/bg_login_color">
+    android:background="@drawable/bg_login_color"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <!--#ffb74d-->
 
@@ -57,10 +59,12 @@
                 android:ems="10"
                 android:hint="Email Address"
                 android:inputType="textEmailAddress"
+                android:fontFamily="@font/mitr_light"
+                android:imeOptions="flagNoExtractUi"
                 android:maxLines="1"
                 android:padding="16dp"
                 android:textColor="@color/white"
-                android:textColorHint="#fff6e9" />
+                android:textColorHint="#fff8ef" />
 
             <EditText
                 android:id="@+id/password"
@@ -72,11 +76,13 @@
                 android:drawablePadding="16dp"
                 android:ems="10"
                 android:textColor="@color/white"
+                android:imeOptions="flagNoExtractUi"
                 android:hint="password"
                 android:inputType="textPassword"
+                android:fontFamily="@font/mitr_light"
                 android:maxLines="1"
                 android:padding="16dp"
-                android:textColorHint="#fff6e9" />
+                android:textColorHint="#fff8ef" />
 
             <Button
                 android:id="@+id/btn_login"
@@ -90,34 +96,37 @@
                 android:padding="16dp"
                 android:text=" เข้าสู่ระบบ"
                 android:textAllCaps="false"
-                android:textColor="#f1b863"
+                android:textColor="#797979"
                 android:textSize="18sp" />
 
 
             <RelativeLayout
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
 
                 <TextView
                     android:id="@+id/textregis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/mitr_light"
                     android:text="@string/register"
                     android:textAlignment="center"
                     android:textColor="#fff"
-                    android:textSize="13sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_toEndOf="@+id/textregis"
                     android:id="@+id/register_link"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" sign up here"
+                    android:layout_toEndOf="@+id/textregis"
+                    android:fontFamily="@font/mitr"
+                    android:text=" สมัครสมาชิก"
                     android:textAlignment="center"
-                    android:textColor="#ffff4e"
-                    android:textSize="13sp"
+                    android:textColor="#ff6c7d"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>

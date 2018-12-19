@@ -9,17 +9,17 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:paddingTop="20dp"
         app:elevation="0dp"
-
         android:translationZ="0.1dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/regis_toolbar"
-            app:theme="@style/ToolbarTheme"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent">
-        </android.support.v7.widget.Toolbar>
+            android:background="@color/transparent"
+            app:theme="@style/ToolbarTheme"/>
 
     </android.support.design.widget.AppBarLayout>
 

@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
 
@@ -20,7 +22,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:theme="@style/ToolbarTheme"
-            />
+            >
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="แก้ไขข้อมูลร้าน"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </android.support.v7.widget.Toolbar>
 
 
     </android.support.design.widget.AppBarLayout>
@@ -77,14 +88,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ชื่อร้าน"
-                        android:textColor="#BBBABA"
-                        android:textSize="18sp" />
+                        android:textColor="@color/headings"
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/profile_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:fontFamily="@font/mitr_light"
                         android:background="@color/transparent"
                         android:paddingHorizontal="20dp"
                         android:enabled="false"
@@ -108,14 +120,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="เบอร์โทรศัพท์"
-                        android:textColor="#BBBABA"
-                        android:textSize="18sp" />
+                        android:textColor="@color/headings"
+                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/profile_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:fontFamily="@font/mitr_light"
+                        android:textColor="#565656"
                         android:background="@color/transparent"
                         android:paddingHorizontal="20dp"
                         android:textSize="18sp" />
@@ -141,8 +155,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="เปลี่ยนรหัสผ่าน"
-                        android:textColor="#BBBABA"
-                        android:textSize="20sp" />
+                        android:textColor="@color/headings"
+                        android:textSize="18sp" />
 
 
                     <View

@@ -26,7 +26,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, amount;
+        public TextView name, amount,orderID;
         public ImageView image;
         public ImageView checkButton;
 
@@ -35,6 +35,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
             image = itemView.findViewById(R.id.res_image);
             name = itemView.findViewById(R.id.res_name);
+            orderID = itemView.findViewById(R.id.order_id_text);
             amount = itemView.findViewById(R.id.food_item_price);
             checkButton = itemView.findViewById(R.id.cart_check);
         }
@@ -58,7 +59,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         final CartItem item = mCartItem.get(i);
 
         Picasso.get().load(item.getFood().getUrl()).fit().centerCrop().into(viewHolder.image);
+
         viewHolder.name.setText(item.getFood().getName());
+        viewHolder.orderID.setText("เลขใบสั่งซื้อ: "+item.getUid().replaceAll("order_","").substring(0,6));
         viewHolder.amount.setText(String.format("%d ชิ้น", item.getAmount()));
         viewHolder.checkButton.setOnClickListener(new View.OnClickListener() {
             @Override

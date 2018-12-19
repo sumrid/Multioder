@@ -7,7 +7,7 @@
     <string name="username_title">Username</string>
     <string name="password_title">Password</string>
     <string name="button_login">Login</string>
-    <string name="register">don\'t have an account?</string>
+    <string name="register">ยังไม่มีบัญชีใช่ไหม? </string>
     <string name="login_error_message">Username or Password is incorrect.</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

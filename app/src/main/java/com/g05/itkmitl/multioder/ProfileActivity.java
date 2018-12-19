@@ -82,7 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Please enter your information", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getApplicationContext(),"Working...", Toast.LENGTH_LONG).show();
-                    User user = new User(nameStr, phoneStr, null);
+                    User user = new User(nameStr, phoneStr);
                     mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
                             .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

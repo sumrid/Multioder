@@ -47,6 +47,9 @@
                 android:layout_marginTop="15sp"
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/white"
+                android:maxLines="2"
+                android:maxEms="6"
+                tools:text="นายขนมต้ม"
                 android:textSize="32sp" />
 
         </RelativeLayout>

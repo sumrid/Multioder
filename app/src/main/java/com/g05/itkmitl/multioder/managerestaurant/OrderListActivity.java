@@ -12,12 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.g05.itkmitl.multioder.CartFragment;
 import com.g05.itkmitl.multioder.R;
-import com.g05.itkmitl.multioder.admin.Order2Fragment;
 import com.g05.itkmitl.multioder.admin.OrderFragment;
 import com.g05.itkmitl.multioder.admin.OrderSuccessFragment;
-import com.g05.itkmitl.multioder.order_user.Order;
 
 import java.util.ArrayList;
 import java.util.List;
