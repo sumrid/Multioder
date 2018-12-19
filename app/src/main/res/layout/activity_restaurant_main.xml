@@ -16,12 +16,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/food_detail_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
-                app:theme="@style/ToolbarTheme" />
+
 
             <ImageView
                 android:id="@+id/resta_image"
@@ -30,20 +25,44 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:tint="#19000000"
-                android:src="@drawable/restaurant_img" />
+                tools:src="@drawable/restaurant_img" />
 
-            <TextView
-                android:id="@+id/resta_name"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|bottom"
+                android:gravity="center"
                 android:layout_marginStart="15dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                tools:text="ร้านลุงตู่" />
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/resta_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    tools:text="ร้านลุงตู่" />
+
+                <ImageView
+                    android:id="@+id/link_edit"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/edit_ico"/>
+
+            </LinearLayout>
+
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/resta_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:theme="@style/ToolbarTheme" />
 
         </FrameLayout>
+
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
@@ -111,19 +130,19 @@
             android:layout_marginEnd="103dp"
             android:layout_marginBottom="14dp"
             android:layout_weight="1"
-            android:text="จำนวนทั้งหมด 12"
+            tools:text="จำนวนทั้งหมด 12"
             android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/order_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/link_order_list"
             android:layout_alignEnd="@+id/link_order_list"
-            android:layout_marginTop="-1dp"
-            android:layout_marginEnd="3dp"
+            android:layout_alignBottom="@+id/link_order_list"
+            android:layout_marginEnd="132dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:text="12"
+            tools:text="12"
             android:textColor="@color/colorPrimary" />
     </RelativeLayout>
 

@@ -50,7 +50,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         firestore.collection("Users")
                 .document(auth.getCurrentUser().getUid())
                 .collection("orders_history")
-                .orderBy("date", Query.Direction.DESCENDING)
+                .orderBy("date", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {

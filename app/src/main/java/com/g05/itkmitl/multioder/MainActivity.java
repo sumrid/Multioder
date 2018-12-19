@@ -122,9 +122,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_view);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (f instanceof RestaurantFragment) {
+        } else if (f instanceof FoodListFragment) {
             if (doubleBackToExitPressedOnce) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, CheckLoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("EXIT", true);
                 startActivity(intent);
@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this, SearchActivity.class));
         }
         if (id == R.id.action_cart) {
+            setTitle("ตะกร้า");
             changeFragment(new CartFragment());
         }
 
@@ -208,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setTitle("ร้านอาหาร");
             changeFragment(new RestaurantMapsFragment());
         } else if (id == R.id.nav_cart) {
+            setTitle("ตะกร้า");
             changeFragment(new CartFragment());
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
@@ -215,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         } else if (id == R.id.nav_signout) {
             mAuth.signOut();
-            Intent intent = new Intent(MainActivity.this, SelectLoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == R.id.nav_orders_history) {

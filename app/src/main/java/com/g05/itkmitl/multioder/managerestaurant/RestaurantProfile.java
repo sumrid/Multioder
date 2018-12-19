@@ -1,6 +1,10 @@
-package com.g05.itkmitl.multioder;
+package com.g05.itkmitl.multioder.managerestaurant;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,15 +13,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.g05.itkmitl.multioder.R;
+import com.g05.itkmitl.multioder.User;
+import com.g05.itkmitl.multioder.restaurant.Restaurant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,68 +34,98 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
-public class ProfileActivity extends AppCompatActivity {
+public class RestaurantProfile extends AppCompatActivity {
+    private SharedPreferences shared;
 
-    private User curUser;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+    String nameStr,urlStr;
+    private FirebaseAuth mAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore mFirestore;
+    private ImageView restaImg;
+    private Uri profileImageUri;
+    private EditText pro_name;
+    private EditText pro_phone;
+    Restaurant cur;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_editprofile_restarant);
+
+        shared = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        String currentLogin = shared.getString("current_user",null);
+        mAuth = FirebaseAuth.getInstance();
 
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.profile_toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        curUser = (User) getIntent().getSerializableExtra("curUser");
+
+        pro_name = (EditText) findViewById(R.id.profile_name);
+        pro_phone = (EditText) findViewById(R.id.profile_phone);
 
 
-        final TextView pro_headername = (TextView) findViewById(R.id.profile_headername);
-        final EditText pro_name = (EditText) findViewById(R.id.profile_name);
-        final TextView pro_email = (TextView) findViewById(R.id.profile_email);
-        final EditText pro_phone = (EditText) findViewById(R.id.profile_phone);
-        final Button btn_save = (Button) findViewById(R.id.btn_profile_save);
+        restaImg = findViewById(R.id.resta_image);
 
 
-        pro_headername.setText(curUser.name);
-        pro_name.setText(curUser.name);
-        pro_email.setText(mAuth.getCurrentUser().getEmail().toString());
-        pro_phone.setText(curUser.phone);
 
-        final LinearLayout link_passChange = findViewById(R.id.link_changepass);
-        link_passChange.setOnClickListener(new View.OnClickListener() {
+        if(currentLogin==null){
+            getUserData();
+        } else  {
+            Gson gson = new Gson();
+            cur = gson.fromJson(currentLogin, Restaurant.class);
+            pro_name.setText(cur.getName());
+            pro_phone.setText(cur.getTelephone());
+            nameStr = cur.getName();
+            urlStr = cur.getUrl();
+            Picasso.get().load(cur.getUrl()).fit().centerCrop().into(restaImg);
+
+        }
+
+        final LinearLayout lnk_chagepass =  findViewById(R.id.chgpass_link);
+        lnk_chagepass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPassChangeDialog();
+
             }
         });
 
 
+        final Button btn_save = (Button) findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nameStr = pro_name.getText().toString();
-                String phoneStr = pro_phone.getText().toString();
 
-                if (nameStr.isEmpty() || phoneStr.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Please enter your information", Toast.LENGTH_LONG).show();
+                mFirestore = FirebaseFirestore.getInstance();
+                final String phoneStr = pro_phone.getText().toString();
+
+                if (phoneStr.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"กรอกข้อมูลให้ครบ", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getApplicationContext(),"Working...", Toast.LENGTH_LONG).show();
-                    User user = new User(nameStr, phoneStr, null);
-                    mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
-                            .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    Restaurant resta = new Restaurant(nameStr, urlStr, mAuth.getUid(), phoneStr);
+                    mFirestore.collection("restaurant").document(mAuth.getCurrentUser().getUid())
+                            .set(resta).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
+                                cur.setTelephone(phoneStr);
+                                Gson gson = new Gson();
+                                String json = gson.toJson(cur);
+                                shared.edit().putString("current_user", json).commit();
                                 Toast.makeText(getApplicationContext(),"Saved Changes", Toast.LENGTH_LONG).show();
                                 finish();
                             }else{
@@ -100,7 +138,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+
     }
+
+
 
     private void showPassChangeDialog(){
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
@@ -145,6 +186,9 @@ public class ProfileActivity extends AppCompatActivity {
                     String oldPass = oldPassText.getText().toString();
                     final String newPass = newPassText.getText().toString();
 
+
+                    mAuth = FirebaseAuth.getInstance();
+
                     // ChangePass Process
                     firebaseUser = mAuth.getCurrentUser();
                     AuthCredential credential = EmailAuthProvider
@@ -181,14 +225,27 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
+    private void getUserData() {
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        mFirestore.collection("restaurant").document(mAuth.getCurrentUser().getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    cur = new Restaurant(documentSnapshot.getString("name"),
+                            documentSnapshot.getString("url"), mAuth.getCurrentUser().getUid(),
+                            documentSnapshot.getString("telephone"));
+                    Gson gson = new Gson();
+                    String json = gson.toJson(cur);
+                    shared.edit().putString("current_user", json).commit();
+                    Picasso.get().load(cur.getUrl()).fit().centerCrop().into(restaImg);
+                }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+            }
+        });
+
     }
+
+
 }

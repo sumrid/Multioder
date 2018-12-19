@@ -164,52 +164,46 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/link_changepass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Address"
+                        android:text="เปลี่ยนรหัสผ่าน"
                         android:textColor="@color/headings"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/profile_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/transparent"
-                        android:fontFamily="sans-serif-light"
-                        android:textColor="#000000"
                         android:textSize="18sp" />
+
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="5dp"
                         android:background="@color/grey" />
 
-                    <Button
-                        android:id="@+id/btn_profile_save"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="#56d693"
-                        android:clickable="true"
-                        android:padding="10dp"
-                        android:text="บันทึกข้อมูล"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
 
                 </LinearLayout>
 
 
 
+                <Button
+                    android:id="@+id/btn_profile_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#56d693"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="บันทึกข้อมูล"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

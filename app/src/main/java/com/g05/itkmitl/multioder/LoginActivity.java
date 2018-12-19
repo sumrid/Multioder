@@ -39,14 +39,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         if (getIntent().getBooleanExtra("EXIT", false)) {
             finish();
         } else {
             loginState();
         }
-
-
-
 
         final EditText emailLogin = (EditText) findViewById(R.id.username);
         final EditText passwordLogin = (EditText) findViewById(R.id.password);

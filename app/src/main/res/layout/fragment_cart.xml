@@ -23,54 +23,80 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/sumtotal_layout"
         android:layout_below="@+id/cartsize_text"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="40dp"
         android:background="@color/white">
 
     </com.baoyz.swipemenulistview.SwipeMenuListView>
+
 
     <LinearLayout
         android:id="@+id/sumtotal_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_confirm"
-        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/shadow_mat"
-        android:paddingVertical="12dp"
-        android:weightSum="5">
+        android:orientation="vertical"
+        android:padding="15dp">
 
-        <TextView
+
+        <LinearLayout
+            android:id="@+id/link_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="ราคารวม"
-            android:textSize="18dp" />
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/cart_total"
+            <TextView
+                android:id="@+id/location_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="เลือกพื้นที่จัดส่ง"
+                android:textColor="#5b5b5b"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="10dp"
+            android:background="#7fd7d7d7" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="right"
-            android:textSize="20dp"
-            tools:text="9000" />
+            android:weightSum="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text="บาท"
-            android:textSize="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text="ราคารวม"
+                android:textColor="#5b5b5b"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/cart_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="150"
+                android:textColor="#5b5b5b"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:text="บาท"
+                android:textColor="#5b5b5b"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
-    <!--<TextView-->
-        <!--android:id="@+id/cart_total"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:text="Total" />-->
 
     <Button
         android:id="@+id/button_confirm"

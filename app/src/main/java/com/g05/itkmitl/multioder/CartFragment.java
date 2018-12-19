@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +56,7 @@ import java.util.List;
 public class CartFragment extends Fragment {
     private ListView listView;
     private CartAdapter cartAdapter;
-    private TextView totalTextView,cartSizeText;
+    private TextView totalTextView,cartSizeText,locationText;
     private Button comfirmButton;
 
     private double total;
@@ -65,6 +66,8 @@ public class CartFragment extends Fragment {
     private SwipeMenuListView swipeListView;
 
     public static LatLng location;
+
+
 
     public CartFragment() {
         // Required empty public constructor
@@ -82,7 +85,6 @@ public class CartFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        getActivity().setTitle("ตะกร้า");
 
         swipeListView = getView().findViewById(R.id.cart_listView);
 
@@ -92,6 +94,9 @@ public class CartFragment extends Fragment {
         cartSizeText = getActivity().findViewById(R.id.cartsize_text);
         listView = getActivity().findViewById(R.id.cart_listView);
         comfirmButton = getActivity().findViewById(R.id.button_confirm);
+
+        locationText = getView().findViewById(R.id.location_text);
+
         cartAdapter = new CartAdapter(getContext(), R.layout.fragment_cart_item, cartItems);
 
         setSwipeListView();
@@ -99,15 +104,25 @@ public class CartFragment extends Fragment {
         listView.setAdapter(cartAdapter);
         getFoods();
 
+        final LinearLayout btn_location = getView().findViewById(R.id.link_location);
+        btn_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "กรุณาเลือกตำแหน่ง", Toast.LENGTH_SHORT).show();
+                getActivity().startActivity(new Intent(getActivity(), MapsActivity.class));
+            }
+        });
+
         comfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!cartItems.isEmpty()) {
                     if(location == null) {
                         Toast.makeText(getContext(), "กรุณาเลือกตำแหน่ง", Toast.LENGTH_SHORT).show();
-                        getActivity().startActivity(new Intent(getActivity(), MapsActivity.class));
                     }
                     else createOrder();
+                } else {
+                    Toast.makeText(getContext(), "กรุณาเลือกอาหารก่อน", Toast.LENGTH_SHORT).show();
                 }
             }
         });
