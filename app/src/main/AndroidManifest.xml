@@ -32,6 +32,10 @@
             android:name=".admin.EditFoodListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".managerestaurant.RestaurantProfile"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

@@ -18,12 +18,11 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            app:theme="@style/ToolbarTheme"
+            />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@drawable/toolbar_shadow" />
+
     </android.support.design.widget.AppBarLayout>
 
 
@@ -82,48 +81,14 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/inp_name"
+                        android:id="@+id/profile_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:background="@color/transparent"
                         android:paddingHorizontal="20dp"
-
+                        android:enabled="false"
                         android:textSize="18sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/grey" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="รหัสผ่าน"
-                        android:textColor="#BBBABA"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/inp_pass"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/transparent"
-                        android:hint="••••••••••"
-                        android:inputType="textPassword"
-                        android:paddingHorizontal="20dp"
-                        android:textSize="20sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -147,7 +112,7 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/inp_phone"
+                        android:id="@+id/profile_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -164,26 +129,21 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/chgpass_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ข้อมูลเพิ่มเติม"
+                        android:text="เปลี่ยนรหัสผ่าน"
                         android:textColor="#BBBABA"
-                        android:textSize="18sp" />
+                        android:textSize="20sp" />
 
-                    <EditText
-                        android:id="@+id/inp_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/transparent"
-                        android:paddingHorizontal="20dp"
-                        android:textSize="18sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -192,6 +152,9 @@
                         android:background="@color/grey" />
 
                 </LinearLayout>
+
+
+                
 
 
                 <Button

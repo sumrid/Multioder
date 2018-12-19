@@ -68,10 +68,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final Order order = mOrders.get(i);
 
-        viewHolder.orderId.setText(order.getId());
+        viewHolder.orderId.setText("เลขใบสั่งซื้อ: "+order.getId().replaceAll("my_order_","").substring(0,6));
         viewHolder.orderTotal.setText(String.format("ยอดรวม %.0f บาท", order.getTotal()));
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
-        viewHolder.orderDate.setText(sdf.format(order.getDate()));
+        viewHolder.orderDate.setText("เวลา "+sdf.format(order.getDate()));
 
         viewHolder.setOnItemClickListener(new ClickListener() {
             @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -18,13 +19,18 @@ import com.g05.itkmitl.multioder.admin.adapter.FoodAdapter;
 import com.g05.itkmitl.multioder.admin.adapter.OrderAdapter;
 import com.g05.itkmitl.multioder.cart.CartItem;
 import com.g05.itkmitl.multioder.food.Food;
+import com.g05.itkmitl.multioder.restaurant.Restaurant;
 import com.g05.itkmitl.multioder.utils.DividerItem;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +41,11 @@ public class EditFoodListActivity extends AppCompatActivity {
 
     private List<Food> mFoods;
     private FoodAdapter adapter;
+
+
+    private Restaurant current;
+    private String currentLogin;
+    private SharedPreferences shared;
 
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
@@ -69,10 +80,50 @@ public class EditFoodListActivity extends AppCompatActivity {
             }
         });
 
+
+        shared = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        currentLogin = shared.getString("current_user", null);
+
+
+        if (currentLogin == null) {
+            getUserData();
+
+        } else {
+
+            Gson gson = new Gson();
+            current = gson.fromJson(currentLogin, Restaurant.class);
+
+        }
+
         // TODO :  get res id when login
-        SharedPreferences data = getSharedPreferences("staff", Context.MODE_PRIVATE);
-        data.edit().putString("res_id", "restaurant_04").commit();
-        loadDataSet("restaurant_04");
+        loadDataSet(current.getId());
+    }
+
+    private void getUserData() {
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        mFirestore.collection("restaurant").document(mAuth.getCurrentUser().getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+
+                    DocumentSnapshot documentSnapshot = task.getResult();
+
+
+                    Restaurant cur = new Restaurant(documentSnapshot.getString("name"),
+                            documentSnapshot.getString("url"), mAuth.getCurrentUser().getUid(),
+                            documentSnapshot.getString("telephone"));
+
+                    current = cur;
+                    Gson gson = new Gson();
+                    String json = gson.toJson(cur);
+                    shared.edit().putString("current_user", json).commit();
+
+                }
+            }
+        });
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.g05.itkmitl.multioder.admin;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -19,12 +20,18 @@ import android.widget.Toast;
 
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.food.Food;
+import com.g05.itkmitl.multioder.restaurant.Restaurant;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 public class AddFoodActivity extends AppCompatActivity {
@@ -38,6 +45,10 @@ public class AddFoodActivity extends AppCompatActivity {
     private EditText foodPrice;
     private Button foodAddButton;
     private ProgressBar progressBar;
+
+    private Restaurant current;
+    private String currentLogin;
+    private SharedPreferences shared;
 
     private Uri imageUri;
     private boolean haveImage = false;
@@ -92,11 +103,49 @@ public class AddFoodActivity extends AppCompatActivity {
             String id = "food_" + System.currentTimeMillis();
             mFood = new Food();
             mFood.setUid(id);
-            
-            SharedPreferences data = getSharedPreferences("staff", MODE_PRIVATE);
-            String resID = data.getString("res_id", "null");
-            mFood.setRestaurantID(resID);
+
+            shared = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+            currentLogin = shared.getString("current_user", null);
+
+            if (currentLogin == null) {
+                getUserData();
+
+            } else {
+
+                Gson gson = new Gson();
+                current = gson.fromJson(currentLogin, Restaurant.class);
+
+            }
+
+            mFood.setRestaurantID(current.getId());
         }
+    }
+
+    private void getUserData() {
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        mFirestore.collection("restaurant").document(mAuth.getCurrentUser().getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+
+                    DocumentSnapshot documentSnapshot = task.getResult();
+
+
+                    Restaurant cur = new Restaurant(documentSnapshot.getString("name"),
+                            documentSnapshot.getString("url"), mAuth.getCurrentUser().getUid(),
+                            documentSnapshot.getString("telephone"));
+
+                    current = cur;
+                    Gson gson = new Gson();
+                    String json = gson.toJson(cur);
+                    shared.edit().putString("current_user", json).commit();
+
+                }
+            }
+        });
+
     }
 
 

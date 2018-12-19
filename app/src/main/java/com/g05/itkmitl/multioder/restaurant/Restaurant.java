@@ -12,10 +12,10 @@ public class Restaurant implements Serializable {
     private String id;
     private LatLng location;
 
-    public Restaurant(String name, String url, String address, String telephone) {
+    public Restaurant(String name, String url, String id, String telephone) {
         this.name = name;
         this.url = url;
-        this.address = address;
+        this.id = id;
         this.telephone = telephone;
     }
 

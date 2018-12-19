@@ -23,39 +23,45 @@ public class CheckLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checklogin);
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        final SharedPreferences shared = getSharedPreferences("user_data", Context.MODE_PRIVATE);
-
-        //        !shared.getString("uid",null).equals(mAuth.getCurrentUser().getUid())
-        if (!haveCurrentUser()) {
-            shared.edit().clear().commit();
-            mAuth.signOut();
-            Intent intent = new Intent(CheckLoginActivity.this, SelectLoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
         } else {
-            firestore.collection("restaurant").document(mAuth.getCurrentUser().getUid()).get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    shared.edit().putBoolean("isRestaurant", true).commit();
-                                    startActivity(new Intent(CheckLoginActivity.this, RestaurantMainActivity.class));
+
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+            final SharedPreferences shared = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+
+            if (!haveCurrentUser()) {
+                shared.edit().clear().commit();
+                mAuth.signOut();
+                Intent intent = new Intent(CheckLoginActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            } else {
+                firestore.collection("restaurant").document(mAuth.getCurrentUser().getUid()).get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        shared.edit().putBoolean("isRestaurant", true).commit();
+                                        startActivity(new Intent(CheckLoginActivity.this, RestaurantMainActivity.class));
+                                    } else {
+                                        shared.edit().putBoolean("isRestaurant", false).commit();
+                                        startActivity(new Intent(CheckLoginActivity.this, MainActivity.class));
+                                    }
                                 } else {
-                                    shared.edit().putBoolean("isRestaurant", false).commit();
-                                    startActivity(new Intent(CheckLoginActivity.this, MainActivity.class));
+
                                 }
-                            } else {
 
                             }
+                        });
 
-                        }
-                    });
-
+            }
         }
+
+
 
     }
 
@@ -65,5 +71,6 @@ public class CheckLoginActivity extends AppCompatActivity {
         }
         return false;
     }
+
 
 }

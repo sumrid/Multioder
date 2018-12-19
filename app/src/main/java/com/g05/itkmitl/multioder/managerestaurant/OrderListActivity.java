@@ -29,11 +29,14 @@ public class OrderListActivity extends AppCompatActivity {
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
+
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setVisibility(View.VISIBLE);
         tabLayout.setupWithViewPager(viewPager);
 
     }
+
 
 
 
@@ -44,6 +47,7 @@ public class OrderListActivity extends AppCompatActivity {
         adapter.addFragment(new Order2Fragment(), "ทำเสร็จแล้ว");
         viewPager.setAdapter(adapter);
     }
+
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
