@@ -68,6 +68,8 @@ public class RestaurantMainActivity  extends AppCompatActivity {
             Restaurant cur = gson.fromJson(currentLogin, Restaurant.class);
             Picasso.get().load(cur.getUrl()).fit().centerCrop().into(resImage);
             mTitle.setText(cur.getName());
+
+            shared.edit().putString("resid", mAuth.getCurrentUser().getUid()).apply();
         }
 
 

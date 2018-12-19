@@ -21,6 +21,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -98,7 +99,9 @@ public class RestaurantMapsFragment extends Fragment implements OnMapReadyCallba
     private void markLocationToMap() {
         for(Restaurant item : mRestaurants) {
             LatLng location = item.getLocation().getGoogleLatLng();
-            map.addMarker(new MarkerOptions().position(location).title(item.getName()));
+
+            Marker marker = map.addMarker(new MarkerOptions().position(location).title(item.getName()));
+            marker.showInfoWindow();
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
         }
     }

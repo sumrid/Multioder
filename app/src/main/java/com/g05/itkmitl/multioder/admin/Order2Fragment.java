@@ -1,6 +1,5 @@
 package com.g05.itkmitl.multioder.admin;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderFragment extends Fragment {
+public class Order2Fragment extends Fragment {
     private RecyclerView mRecyclerView;
     private OrderAdapter adapter;
 
@@ -37,7 +36,7 @@ public class OrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_order, container, false);
+        return inflater.inflate(R.layout.fragment_order2, container, false);
     }
 
     @Override
@@ -47,7 +46,7 @@ public class OrderFragment extends Fragment {
         mCarts = new ArrayList<>();
         adapter = new OrderAdapter(getActivity(), mCarts);
 
-        mRecyclerView = getActivity().findViewById(R.id.order_list);
+        mRecyclerView = getActivity().findViewById(R.id.order_list2);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -60,14 +59,14 @@ public class OrderFragment extends Fragment {
 
         Log.d("OrderList", "id="+id);
         if(id != null) {
-            loadOrders(id);
+            loadAlreadyOrders(id);
         }
     }
 
-    private void loadOrders(String resId) {
+    private void loadAlreadyOrders(String resId) {
         firestore.collection("restaurant")
                 .document(resId)
-                .collection("orders")
+                .collection("orders_history")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {

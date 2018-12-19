@@ -10,8 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.g05.itkmitl.multioder.CartFragment;
 import com.g05.itkmitl.multioder.R;
+import com.g05.itkmitl.multioder.admin.Order2Fragment;
 import com.g05.itkmitl.multioder.admin.OrderFragment;
+import com.g05.itkmitl.multioder.order_user.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +39,9 @@ public class OrderListActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
+
         adapter.addFragment(new OrderFragment(), "ที่ต้องทำ");
-        adapter.addFragment(new OrderFragment(), "ทำเสร็จแล้ว");
+        adapter.addFragment(new Order2Fragment(), "ทำเสร็จแล้ว");
         viewPager.setAdapter(adapter);
     }
 
