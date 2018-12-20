@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.g05.itkmitl.multioder.MainActivity;
 import com.g05.itkmitl.multioder.R;
 import com.g05.itkmitl.multioder.utils.DividerItem;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -51,6 +52,7 @@ public class FoodListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        MainActivity.mTitle.setText("รายการอาหาร");
         mFoods = new ArrayList<>();
         mAdapter = new FoodAdapter(getActivity(),mFoods);
         mLayoutManager = new LinearLayoutManager(getActivity());

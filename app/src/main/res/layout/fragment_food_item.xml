@@ -96,7 +96,7 @@
 
     <Button
         android:id="@+id/btn_addcart"
-        android:layout_width="72dp"
+        android:layout_width="78dp"
         android:layout_height="31dp"
         android:layout_below="@+id/res_name"
         android:layout_alignParentEnd="true"
